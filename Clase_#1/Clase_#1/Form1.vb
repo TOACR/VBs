@@ -126,7 +126,7 @@ Public Class Form1
             Exit Sub
         End If
 
-        Dim cs As String = "Data Source=DESKTOP-HPG8TC6\SQLEXPRESS;Initial Catalog=II36DB03Q2025;Trusted_connection=Yes" ' <-- ajusta
+        Dim cs As String = "Data Source=DESKTOP-HPG8TC6\SQLEXPRESS;Initial Catalog=II36DB03Q2025;Trusted_connection=Yes"
 
         Using cn As New SqlConnection(cs)
             cn.Open()
