@@ -14,7 +14,7 @@ Public Class Conexion
     Public Sub conectar()
         Try
             conexion.Open()
-            MessageBox.Show("Conexion Exitosa")
+            'MessageBox.Show("Conexion Exitosa")
         Catch ex As Exception
             MessageBox.Show("Error:" + ex.ToString)
         Finally

@@ -3,7 +3,7 @@
 Public Class Form1
     Dim conexion As Conexion = New Conexion()
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MsgBox("Bienvenidos al curso de Progra II")
+        'MsgBox("Bienvenidos al curso de Progra II")
 
         '1-1056-0601 Nacional
         '123456789123 Dimex
@@ -94,11 +94,11 @@ Public Class Form1
                         'Crear el sql insert
                         strsql = "INSERT CIUDADANO (TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, DIRECCION)"
                         strsql += vbCrLf + "VALUES ('" & vtipoid & "','" & vnumeroid & "','" & vnombre & "','" & vapellido1 & "','" & vapellido2 & "','" & vfechanacimiento & "','" & vcorreo & "','" & vdireccion & "')"
-                        'strsqlbit = "INSERT BITACORA_CIUDADANO (ID_BITACORA, TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, FECHA_HORA, USUARIO, ACCION)"
-                        'strsqlbit += vbCrLf + "VALUES ('" & vidbitacora & "','" & vtipoid & "','" & vnumeroid & "','" & vfecha & "','" & vusuario & "','" & vaccion & "')"
+                        strsqlbit = "INSERT BITACORA_CIUDADANO (ID_BITACORA, TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, FECHA_HORA, USUARIO, ACCION)"
+                        strsqlbit += vbCrLf + "VALUES ('" & vidbitacora & "','" & vtipoid & "','" & vnumeroid & "','" & vfecha & "','" & vusuario & "','" & vaccion & "')"
                         MsgBox(strsql)
                         conexion.inserta_datos(strsql)
-                        'conexion.inserta_datos(strsqlbit)
+                        conexion.inserta_datos(strsqlbit)
                         If f = 0 Then
                             MessageBox.Show("Datos almacenados satisfactoriamente", "Datos guardados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Else
@@ -241,12 +241,14 @@ Public Class Form1
                             videntificacion = valorsinformato
                             vtipoid = ntipoid
                             'Crear el sql delete
-                            Dim strsql As String
+                            Dim strsql, strsqlbit As String
+                            strsqlbit = "DELETE FROM BITACORA_CIUDADANO WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & " AND NUMERO_IDENTIFICACION = '" & videntificacion & "'"
+                            conexion.inserta_datos(strsqlbit)
+                            MsgBox(strsqlbit)
                             strsql = "DELETE FROM CIUDADANO WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & " AND NUMERO_IDENTIFICACION = '" & videntificacion & "'"
-                            'strsqlbit = "DELETE FROM BITACORA_CIUDADANO WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & " AND NUMERO_IDENTIFICACION = '" & videntificacion & "'"
                             MsgBox(strsql)
                             conexion.inserta_datos(strsql)
-                            'conexion.inserta_datos(strsqlbit)
+
                             If f = 0 Then
                                 MessageBox.Show("Datos eliminados satisfactoriamente", "Datos eliminados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             Else
