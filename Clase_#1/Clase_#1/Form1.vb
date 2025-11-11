@@ -94,11 +94,11 @@ Public Class Form1
                         'Crear el sql insert
                         strsql = "INSERT CIUDADANO (TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO, CORREO_ELECTRONICO, DIRECCION)"
                         strsql += vbCrLf + "VALUES ('" & vtipoid & "','" & vnumeroid & "','" & vnombre & "','" & vapellido1 & "','" & vapellido2 & "','" & vfechanacimiento & "','" & vcorreo & "','" & vdireccion & "')"
-                        strsqlbit = "INSERT BITACORA_CIUDADANO (ID_BITACORA, TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, FECHA_HORA, USUARIO, ACCION)"
-                        strsqlbit += vbCrLf + "VALUES ('" & vidbitacora & "','" & vtipoid & "','" & vnumeroid & "','" & vfecha & "','" & vusuario & "','" & vaccion & "')"
+                        'strsqlbit = "INSERT BITACORA_CIUDADANO (ID_BITACORA, TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION, FECHA_HORA, USUARIO, ACCION)"
+                        'strsqlbit += vbCrLf + "VALUES ('" & vidbitacora & "','" & vtipoid & "','" & vnumeroid & "','" & vfecha & "','" & vusuario & "','" & vaccion & "')"
                         MsgBox(strsql)
                         conexion.inserta_datos(strsql)
-                        conexion.inserta_datos(strsqlbit)
+                        'conexion.inserta_datos(strsqlbit)
                         If f = 0 Then
                             MessageBox.Show("Datos almacenados satisfactoriamente", "Datos guardados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Else
@@ -119,12 +119,6 @@ Public Class Form1
             Return True
         End If
     End Function
-    Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
-        If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Application.Exit()   ' Cierra toda la aplicación
-        End If
-    End Sub
 
     Private Sub Btnconsultar_Click(sender As Object, e As EventArgs) Handles Btnconsultar.Click
         Try
@@ -220,6 +214,59 @@ Public Class Form1
     End Sub
 
     Private Sub Btneliminar_Click(sender As Object, e As EventArgs) Handles Btneliminar.Click
-
+        Try
+            If Cmb_tipoid.Text = "" Or Msk_id.MaskFull = False Then
+                MsgBox("Debe realizar la consulta primero")
+                Return
+            End If
+            Dim vtipoid, videntificacion, valorformateado As String
+            vtipoid = ""
+            videntificacion = ""
+            valorformateado = Msk_id.Text
+            Dim valorsinformato As String = valorformateado.Replace("-", "")
+            videntificacion = valorsinformato
+            vtipoid = ntipoid
+            If valorsinformato.Trim <> "" Then
+                Dim dt = conexion.valida_id(vtipoid, videntificacion)
+                If f = 1 Then
+                    MsgBox("Registro no existe en la base de datos, no puede consultar " & Cmb_tipoid.Text & " y número de identificación " & videntificacion & " no se encuentra registrado en la base de datos.")
+                    Msk_id.Focus()
+                    Return
+                Else
+                    k = 1
+                    If validar_campos() = True Then
+                        If MessageBox.Show("¿Desea eliminar el registro en la base de datos?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                            valorformateado = Msk_id.Text
+                            valorsinformato = valorformateado.Replace("-", "")
+                            videntificacion = valorsinformato
+                            vtipoid = ntipoid
+                            'Crear el sql delete
+                            Dim strsql As String
+                            strsql = "DELETE FROM CIUDADANO WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & " AND NUMERO_IDENTIFICACION = '" & videntificacion & "'"
+                            'strsqlbit = "DELETE FROM BITACORA_CIUDADANO WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & " AND NUMERO_IDENTIFICACION = '" & videntificacion & "'"
+                            MsgBox(strsql)
+                            conexion.inserta_datos(strsql)
+                            'conexion.inserta_datos(strsqlbit)
+                            If f = 0 Then
+                                MessageBox.Show("Datos eliminados satisfactoriamente", "Datos eliminados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            Else
+                                MessageBox.Show("Error al eliminar los datos", "Datos no eliminados", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            End If
+                        End If
+                    Else
+                        MsgBox("Datos Incompletos, favor completar")
+                        Return
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error :" + ex.ToString)
+        End Try
+    End Sub
+    Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
+        If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Application.Exit()   ' Cierra toda la aplicación
+        End If
     End Sub
 End Class
