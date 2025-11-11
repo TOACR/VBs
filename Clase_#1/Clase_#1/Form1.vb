@@ -119,67 +119,107 @@ Public Class Form1
             Return True
         End If
     End Function
-
-    Private Sub Btneliminar_Click(sender As Object, e As EventArgs) Handles Btneliminar.Click
-        If MessageBox.Show("¿Eliminar TODO en CIUDADANO y BITACORA_CIUDADANO y reiniciar consecutivos?",
-                       "Confirmar eliminación masiva", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then
-            Exit Sub
-        End If
-
-        Dim cs As String = "Data Source=DESKTOP-HPG8TC6\SQLEXPRESS;Initial Catalog=II36DB03Q2025;Trusted_connection=Yes"
-
-        Using cn As New SqlConnection(cs)
-            cn.Open()
-            Using tx = cn.BeginTransaction()
-                Try
-                    ' 1) Borrar primero BITACORA (hija) y luego CIUDADANO (padre)
-                    Using cmd1 As New SqlCommand("DELETE FROM dbo.BITACORA_CIUDADANO;", cn, tx)
-                        cmd1.ExecuteNonQuery()
-                    End Using
-
-                    Using cmd2 As New SqlCommand("DELETE FROM dbo.CIUDADANO;", cn, tx)
-                        cmd2.ExecuteNonQuery()
-                    End Using
-
-                    ' 2) RESEED condicional SOLO si la tabla tiene IDENTITY
-                    Dim sqlReseed As String =
-                    "IF EXISTS (SELECT 1 FROM sys.identity_columns WHERE object_id = OBJECT_ID('dbo.CIUDADANO'))
-                    BEGIN
-                        DBCC CHECKIDENT ('dbo.CIUDADANO', RESEED, 0);
-                    END;
-
-                    IF EXISTS (SELECT 1 FROM sys.identity_columns WHERE object_id = OBJECT_ID('dbo.BITACORA_CIUDADANO'))
-                    BEGIN
-                        DBCC CHECKIDENT ('dbo.BITACORA_CIUDADANO', RESEED, 0);
-                    END;
-
-                    IF OBJECT_ID('dbo.seq_bitacora', 'SO') IS NOT NULL
-                    BEGIN
-                        ALTER SEQUENCE dbo.seq_bitacora RESTART WITH 1;
-                    END;"
-
-                    Using cmdReseed As New SqlCommand(sqlReseed, cn, tx)
-                        cmdReseed.CommandType = CommandType.Text
-                        cmdReseed.ExecuteNonQuery()
-                    End Using
-
-                    tx.Commit()
-                    MessageBox.Show("Registros eliminados. Consecutivos reiniciados según corresponda.", "Éxito",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                Catch ex As Exception
-                    tx.Rollback()
-                    MessageBox.Show("Error al eliminar/reiniciar: " & ex.Message, "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Using
-        End Using
-    End Sub
-
     Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
         If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Application.Exit()   ' Cierra toda la aplicación
         End If
+    End Sub
+
+    Private Sub Btnconsultar_Click(sender As Object, e As EventArgs) Handles Btnconsultar.Click
+        Try
+            If Cmb_tipoid.Text = "" Or Msk_id.MaskFull = False Then
+                MsgBox("Debe seleccionar tipo de identificacion y digitar numero de identificacion para consultar")
+                Return
+            End If
+            Dim vtipoid, videntificacion, valorformateado As String
+            vtipoid = ""
+            videntificacion = ""
+            valorformateado = Msk_id.Text
+            Dim valorsinformato As String = valorformateado.Replace("-", "")
+            videntificacion = valorsinformato
+            vtipoid = ntipoid
+            If valorsinformato.Trim <> "" Then
+                Dim dt = conexion.valida_id(vtipoid, videntificacion)
+                If f = 1 Then
+                    MsgBox("Registro no existe en la base de datos, no puede consultar " & Cmb_tipoid.Text & " y número de identificación " & videntificacion & " no se encuentra registrado en la base de datos.")
+                    Msk_id.Focus()
+                    Return
+                Else
+                    k = 1
+                    Txtnombre.Text = dt.Rows(0)!nombre
+                    Txtprimer_apellido.Text = dt.Rows(0)!primer_apellido
+                    Txtsegundo_apellido.Text = dt.Rows(0)!segundo_apellido
+                    Dtp_fecha_nacimiento.Value = dt.Rows(0)!fecha_nacimiento
+                    Txtcorreo.Text = dt.Rows(0)!correo_electronico
+                    Txtdireccion.Text = dt.Rows(0)!direccion
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error :" + ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub Btnmodificar_Click(sender As Object, e As EventArgs) Handles Btnmodificar.Click
+        Try
+            If k = 0 Then
+                MsgBox("Debe presionar el boton consultar antes de modificar")
+                Return
+            Else
+                Dim vtipoid As Integer
+                vtipoid = 0
+                Dim vnumeroid, vnombre, vapellido1, vapellido2, vfechanacimiento, vcorreo, vdireccion,
+                    valorformateado, valorsinformato, vfecha, vusuario, vaccion, vidbitacora, strsql, strsqlbit As String
+                vnumeroid = ""
+                vnombre = ""
+                vapellido1 = ""
+                vapellido2 = ""
+                vfechanacimiento = ""
+                vcorreo = ""
+                vdireccion = ""
+                valorformateado = ""
+                valorsinformato = ""
+                vfecha = ""
+                vusuario = ""
+                vaccion = ""
+                vidbitacora = ""
+                strsql = ""
+                strsqlbit = ""
+                If validar_campos() = True Then
+                    If MessageBox.Show("¿Desea modificar el registro en la base de datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                        valorformateado = Msk_id.Text
+                        valorsinformato = valorformateado.Replace("-", "")
+                        vnumeroid = valorsinformato
+                        vtipoid = ntipoid
+                        vnombre = Txtnombre.Text
+                        vapellido1 = Txtprimer_apellido.Text
+                        vapellido2 = Txtsegundo_apellido.Text
+                        vfechanacimiento = Dtp_fecha_nacimiento.Value
+                        vcorreo = Txtcorreo.Text
+                        vdireccion = Txtdireccion.Text
+                        'Crear el sql update
+                        strsql = "UPDATE CIUDADANO SET NOMBRE = '" & vnombre & "', PRIMER_APELLIDO = '" & vapellido1 & "', 
+                                  SEGUNDO_APELLIDO = '" & vapellido2 & "', FECHA_NACIMIENTO = '" & vfechanacimiento & "', 
+                                  CORREO_ELECTRONICO = '" & vcorreo & "', DIRECCION = '" & vdireccion & "'WHERE TIPO_IDENTIFICACION = " & vtipoid.ToString() & "AND NUMERO_IDENTIFICACION = '" & vnumeroid & "'"
+                        MsgBox(strsql)
+                        conexion.inserta_datos(strsql)
+                        If f = 0 Then
+                            MessageBox.Show("Datos modificados satisfactoriamente", "Datos modificados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Else
+                            MessageBox.Show("Error al modificar los datos", "Datos no modificados", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End If
+                Else
+                    MsgBox("Datos Incompletos, favor completar")
+                    Return
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub Btneliminar_Click(sender As Object, e As EventArgs) Handles Btneliminar.Click
+
     End Sub
 End Class
