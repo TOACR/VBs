@@ -13,20 +13,23 @@ Public Class Form1
     End Sub
 
     ' Botón 1: Administrador
-    Private Sub BtnAdministrador_Click(sender As Object, e As EventArgs) Handles BtnAdministrador.Click
+    Private Sub BtnRegistro_Click(sender As Object, e As EventArgs) Handles BtnRegistro.Click
         Dim login As New FormLogin("ADMIN") ' rol forzado
+        Me.Hide()
         login.ShowDialog()
     End Sub
 
     ' Botón 2: Consumibles
     Private Sub BtnConsumibles_Click(sender As Object, e As EventArgs) Handles BtnConsumibles.Click
         Dim login As New FormLogin("CONSUMIBLES") ' rol forzado
+        Me.Hide()
         login.ShowDialog()
     End Sub
 
     ' Botón 3: Consultas (sin login)
     Private Sub BtnConsultas_Click(sender As Object, e As EventArgs) Handles BtnConsultas.Click
         Dim f As New Form4_Consultas()
+        Me.Hide()
         f.Show()
     End Sub
 

@@ -134,4 +134,9 @@ Public Class Form3_Consumibles
         p.Add(New SqlParameter("@f", funcId))
         DgvMovs.DataSource = Db.GetTable(q, p)
     End Sub
+
+    Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
+        Form1.Show()
+        Me.Close()
+    End Sub
 End Class

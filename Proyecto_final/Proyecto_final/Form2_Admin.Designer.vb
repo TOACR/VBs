@@ -24,7 +24,7 @@ Partial Class Form2_Admin
     Private Sub InitializeComponent()
         Me.TxtNombre = New System.Windows.Forms.TextBox()
         Me.ChkActivo = New System.Windows.Forms.CheckBox()
-        Me.BtnNuevo = New System.Windows.Forms.Button()
+        Me.BtnLimpiar = New System.Windows.Forms.Button()
         Me.BtnGuardar = New System.Windows.Forms.Button()
         Me.BtnEliminar = New System.Windows.Forms.Button()
         Me.BtnRefrescar = New System.Windows.Forms.Button()
@@ -57,25 +57,25 @@ Partial Class Form2_Admin
         'ChkActivo
         '
         Me.ChkActivo.AutoSize = True
-        Me.ChkActivo.Location = New System.Drawing.Point(10, 201)
+        Me.ChkActivo.Location = New System.Drawing.Point(249, 165)
         Me.ChkActivo.Name = "ChkActivo"
         Me.ChkActivo.Size = New System.Drawing.Size(64, 17)
         Me.ChkActivo.TabIndex = 6
         Me.ChkActivo.Text = "Habilitar"
         Me.ChkActivo.UseVisualStyleBackColor = True
         '
-        'BtnNuevo
+        'BtnLimpiar
         '
-        Me.BtnNuevo.Location = New System.Drawing.Point(135, 369)
-        Me.BtnNuevo.Name = "BtnNuevo"
-        Me.BtnNuevo.Size = New System.Drawing.Size(75, 23)
-        Me.BtnNuevo.TabIndex = 11
-        Me.BtnNuevo.Text = "NUEVO"
-        Me.BtnNuevo.UseVisualStyleBackColor = True
+        Me.BtnLimpiar.Location = New System.Drawing.Point(135, 369)
+        Me.BtnLimpiar.Name = "BtnLimpiar"
+        Me.BtnLimpiar.Size = New System.Drawing.Size(75, 23)
+        Me.BtnLimpiar.TabIndex = 11
+        Me.BtnLimpiar.Text = "LIMPIAR"
+        Me.BtnLimpiar.UseVisualStyleBackColor = True
         '
         'BtnGuardar
         '
-        Me.BtnGuardar.Location = New System.Drawing.Point(276, 369)
+        Me.BtnGuardar.Location = New System.Drawing.Point(288, 369)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(75, 23)
         Me.BtnGuardar.TabIndex = 7
@@ -84,7 +84,7 @@ Partial Class Form2_Admin
         '
         'BtnEliminar
         '
-        Me.BtnEliminar.Location = New System.Drawing.Point(434, 369)
+        Me.BtnEliminar.Location = New System.Drawing.Point(481, 369)
         Me.BtnEliminar.Name = "BtnEliminar"
         Me.BtnEliminar.Size = New System.Drawing.Size(75, 23)
         Me.BtnEliminar.TabIndex = 8
@@ -93,7 +93,7 @@ Partial Class Form2_Admin
         '
         'BtnRefrescar
         '
-        Me.BtnRefrescar.Location = New System.Drawing.Point(591, 369)
+        Me.BtnRefrescar.Location = New System.Drawing.Point(628, 369)
         Me.BtnRefrescar.Name = "BtnRefrescar"
         Me.BtnRefrescar.Size = New System.Drawing.Size(91, 23)
         Me.BtnRefrescar.TabIndex = 9
@@ -121,25 +121,25 @@ Partial Class Form2_Admin
         'DgvFuncionarios
         '
         Me.DgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvFuncionarios.Location = New System.Drawing.Point(307, 162)
+        Me.DgvFuncionarios.Location = New System.Drawing.Point(15, 207)
         Me.DgvFuncionarios.Name = "DgvFuncionarios"
-        Me.DgvFuncionarios.Size = New System.Drawing.Size(553, 104)
+        Me.DgvFuncionarios.Size = New System.Drawing.Size(820, 104)
         Me.DgvFuncionarios.TabIndex = 20
         Me.DgvFuncionarios.TabStop = False
         '
         'lblFuncionarioId
         '
-        Me.lblFuncionarioId.Location = New System.Drawing.Point(10, 256)
+        Me.lblFuncionarioId.Location = New System.Drawing.Point(356, 163)
         Me.lblFuncionarioId.Name = "lblFuncionarioId"
         Me.lblFuncionarioId.ReadOnly = True
-        Me.lblFuncionarioId.Size = New System.Drawing.Size(87, 20)
+        Me.lblFuncionarioId.Size = New System.Drawing.Size(48, 20)
         Me.lblFuncionarioId.TabIndex = 10
         Me.lblFuncionarioId.TabStop = False
         '
         'Lblfuncionario
         '
         Me.Lblfuncionario.AutoSize = True
-        Me.Lblfuncionario.Location = New System.Drawing.Point(7, 240)
+        Me.Lblfuncionario.Location = New System.Drawing.Point(353, 144)
         Me.Lblfuncionario.Name = "Lblfuncionario"
         Me.Lblfuncionario.Size = New System.Drawing.Size(90, 13)
         Me.Lblfuncionario.TabIndex = 11
@@ -147,9 +147,9 @@ Partial Class Form2_Admin
         '
         'Btnregresar
         '
-        Me.Btnregresar.Location = New System.Drawing.Point(356, 402)
+        Me.Btnregresar.Location = New System.Drawing.Point(385, 402)
         Me.Btnregresar.Name = "Btnregresar"
-        Me.Btnregresar.Size = New System.Drawing.Size(75, 23)
+        Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
         Me.Btnregresar.TabIndex = 10
         Me.Btnregresar.Text = "REGRESAR"
         Me.Btnregresar.UseVisualStyleBackColor = True
@@ -157,9 +157,9 @@ Partial Class Form2_Admin
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(154, 9)
+        Me.Label1.Location = New System.Drawing.Point(192, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(462, 37)
         Me.Label1.TabIndex = 13
@@ -264,7 +264,7 @@ Partial Class Form2_Admin
         Me.Controls.Add(Me.BtnRefrescar)
         Me.Controls.Add(Me.BtnEliminar)
         Me.Controls.Add(Me.BtnGuardar)
-        Me.Controls.Add(Me.BtnNuevo)
+        Me.Controls.Add(Me.BtnLimpiar)
         Me.Controls.Add(Me.ChkActivo)
         Me.Controls.Add(Me.TxtNombre)
         Me.Name = "Form2_Admin"
@@ -276,7 +276,7 @@ Partial Class Form2_Admin
     End Sub
     Friend WithEvents TxtNombre As TextBox
     Friend WithEvents ChkActivo As CheckBox
-    Friend WithEvents BtnNuevo As Button
+    Friend WithEvents BtnLimpiar As Button
     Friend WithEvents BtnGuardar As Button
     Friend WithEvents BtnEliminar As Button
     Friend WithEvents BtnRefrescar As Button

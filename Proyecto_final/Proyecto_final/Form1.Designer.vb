@@ -25,7 +25,7 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.BtnAdministrador = New System.Windows.Forms.Button()
+        Me.BtnRegistro = New System.Windows.Forms.Button()
         Me.BtnConsumibles = New System.Windows.Forms.Button()
         Me.BtnConsultas = New System.Windows.Forms.Button()
         Me.BtnSalir = New System.Windows.Forms.Button()
@@ -44,21 +44,21 @@ Partial Class Form1
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 38)
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 71)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(145, 100)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'BtnAdministrador
+        'BtnRegistro
         '
-        Me.BtnAdministrador.Location = New System.Drawing.Point(6, 167)
-        Me.BtnAdministrador.Name = "BtnAdministrador"
-        Me.BtnAdministrador.Size = New System.Drawing.Size(91, 29)
-        Me.BtnAdministrador.TabIndex = 1
-        Me.BtnAdministrador.Text = "REGISTRO"
-        Me.BtnAdministrador.UseVisualStyleBackColor = True
+        Me.BtnRegistro.Location = New System.Drawing.Point(6, 167)
+        Me.BtnRegistro.Name = "BtnRegistro"
+        Me.BtnRegistro.Size = New System.Drawing.Size(91, 29)
+        Me.BtnRegistro.TabIndex = 1
+        Me.BtnRegistro.Text = "REGISTRO"
+        Me.BtnRegistro.UseVisualStyleBackColor = True
         '
         'BtnConsumibles
         '
@@ -102,7 +102,7 @@ Partial Class Form1
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 27.75!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.Label1.Location = New System.Drawing.Point(259, 38)
+        Me.Label1.Location = New System.Drawing.Point(256, 71)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(299, 42)
         Me.Label1.TabIndex = 8
@@ -114,7 +114,7 @@ Partial Class Form1
         Me.Lable2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
                 Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lable2.ForeColor = System.Drawing.Color.Red
-        Me.Lable2.Location = New System.Drawing.Point(274, 80)
+        Me.Lable2.Location = New System.Drawing.Point(272, 113)
         Me.Lable2.Name = "Lable2"
         Me.Lable2.Size = New System.Drawing.Size(263, 25)
         Me.Lable2.TabIndex = 9
@@ -133,7 +133,7 @@ Partial Class Form1
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.GroupBox1.Controls.Add(Me.BtnAdministrador)
+        Me.GroupBox1.Controls.Add(Me.BtnRegistro)
         Me.GroupBox1.Controls.Add(Me.BtnConsumibles)
         Me.GroupBox1.Controls.Add(Me.BtnConsultas)
         Me.GroupBox1.Controls.Add(Me.BtnSalir)
@@ -146,7 +146,7 @@ Partial Class Form1
         'PictureBox2
         '
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(646, 38)
+        Me.PictureBox2.Location = New System.Drawing.Point(646, 71)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(142, 100)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -181,7 +181,7 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents BtnAdministrador As Button
+    Friend WithEvents BtnRegistro As Button
     Friend WithEvents BtnConsumibles As Button
     Friend WithEvents BtnConsultas As Button
     Friend WithEvents BtnSalir As Button

@@ -48,7 +48,7 @@ Public Class FormLogin
                 Dim stored As String = CStr(cmd.ExecuteScalar())
 
                 If stored Is Nothing OrElse stored Is DBNull.Value Then
-                    MessageBox.Show("Usuario o rol no existe.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Usuario no existe.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
 
@@ -75,7 +75,9 @@ Public Class FormLogin
     End Sub
 
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
+        Form1.Show()
         Me.Close()
+
     End Sub
 
 End Class
