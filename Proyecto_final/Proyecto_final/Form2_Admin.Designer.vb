@@ -1,0 +1,299 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class Form2_Admin
+    Inherits System.Windows.Forms.Form
+
+    'Form reemplaza a Dispose para limpiar la lista de componentes.
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Requerido por el Diseñador de Windows Forms
+    Private components As System.ComponentModel.IContainer
+
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        Me.TxtNombre = New System.Windows.Forms.TextBox()
+        Me.ChkActivo = New System.Windows.Forms.CheckBox()
+        Me.BtnNuevo = New System.Windows.Forms.Button()
+        Me.BtnGuardar = New System.Windows.Forms.Button()
+        Me.BtnEliminar = New System.Windows.Forms.Button()
+        Me.BtnRefrescar = New System.Windows.Forms.Button()
+        Me.Lblcedula = New System.Windows.Forms.Label()
+        Me.Lblnombre = New System.Windows.Forms.Label()
+        Me.DgvFuncionarios = New System.Windows.Forms.DataGridView()
+        Me.lblFuncionarioId = New System.Windows.Forms.TextBox()
+        Me.Lblfuncionario = New System.Windows.Forms.Label()
+        Me.Btnregresar = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Cmb_tipoid = New System.Windows.Forms.ComboBox()
+        Me.Lbltipoidentificacion = New System.Windows.Forms.Label()
+        Me.Lblprimer_apellido = New System.Windows.Forms.Label()
+        Me.Txtprimer_apellido = New System.Windows.Forms.TextBox()
+        Me.Lblsegundo_apellido = New System.Windows.Forms.Label()
+        Me.Txtsegundo_apellido = New System.Windows.Forms.TextBox()
+        Me.Dtp_fecha_nacimiento = New System.Windows.Forms.DateTimePicker()
+        Me.Lblfecha_nacimiento = New System.Windows.Forms.Label()
+        Me.Msk_id = New System.Windows.Forms.MaskedTextBox()
+        CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'TxtNombre
+        '
+        Me.TxtNombre.Location = New System.Drawing.Point(357, 87)
+        Me.TxtNombre.Name = "TxtNombre"
+        Me.TxtNombre.Size = New System.Drawing.Size(138, 20)
+        Me.TxtNombre.TabIndex = 2
+        '
+        'ChkActivo
+        '
+        Me.ChkActivo.AutoSize = True
+        Me.ChkActivo.Location = New System.Drawing.Point(10, 201)
+        Me.ChkActivo.Name = "ChkActivo"
+        Me.ChkActivo.Size = New System.Drawing.Size(64, 17)
+        Me.ChkActivo.TabIndex = 6
+        Me.ChkActivo.Text = "Habilitar"
+        Me.ChkActivo.UseVisualStyleBackColor = True
+        '
+        'BtnNuevo
+        '
+        Me.BtnNuevo.Location = New System.Drawing.Point(135, 369)
+        Me.BtnNuevo.Name = "BtnNuevo"
+        Me.BtnNuevo.Size = New System.Drawing.Size(75, 23)
+        Me.BtnNuevo.TabIndex = 11
+        Me.BtnNuevo.Text = "NUEVO"
+        Me.BtnNuevo.UseVisualStyleBackColor = True
+        '
+        'BtnGuardar
+        '
+        Me.BtnGuardar.Location = New System.Drawing.Point(276, 369)
+        Me.BtnGuardar.Name = "BtnGuardar"
+        Me.BtnGuardar.Size = New System.Drawing.Size(75, 23)
+        Me.BtnGuardar.TabIndex = 7
+        Me.BtnGuardar.Text = "GUARDAR"
+        Me.BtnGuardar.UseVisualStyleBackColor = True
+        '
+        'BtnEliminar
+        '
+        Me.BtnEliminar.Location = New System.Drawing.Point(434, 369)
+        Me.BtnEliminar.Name = "BtnEliminar"
+        Me.BtnEliminar.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEliminar.TabIndex = 8
+        Me.BtnEliminar.Text = "ELIMINAR"
+        Me.BtnEliminar.UseVisualStyleBackColor = True
+        '
+        'BtnRefrescar
+        '
+        Me.BtnRefrescar.Location = New System.Drawing.Point(591, 369)
+        Me.BtnRefrescar.Name = "BtnRefrescar"
+        Me.BtnRefrescar.Size = New System.Drawing.Size(91, 23)
+        Me.BtnRefrescar.TabIndex = 9
+        Me.BtnRefrescar.Text = "REFRESCAR"
+        Me.BtnRefrescar.UseVisualStyleBackColor = True
+        '
+        'Lblcedula
+        '
+        Me.Lblcedula.AutoSize = True
+        Me.Lblcedula.Location = New System.Drawing.Point(177, 70)
+        Me.Lblcedula.Name = "Lblcedula"
+        Me.Lblcedula.Size = New System.Drawing.Size(161, 13)
+        Me.Lblcedula.TabIndex = 7
+        Me.Lblcedula.Text = "NUMERO DE IDENTIFICACION"
+        '
+        'Lblnombre
+        '
+        Me.Lblnombre.AutoSize = True
+        Me.Lblnombre.Location = New System.Drawing.Point(354, 70)
+        Me.Lblnombre.Name = "Lblnombre"
+        Me.Lblnombre.Size = New System.Drawing.Size(54, 13)
+        Me.Lblnombre.TabIndex = 8
+        Me.Lblnombre.Text = "NOMBRE"
+        '
+        'DgvFuncionarios
+        '
+        Me.DgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvFuncionarios.Location = New System.Drawing.Point(307, 162)
+        Me.DgvFuncionarios.Name = "DgvFuncionarios"
+        Me.DgvFuncionarios.Size = New System.Drawing.Size(553, 104)
+        Me.DgvFuncionarios.TabIndex = 20
+        Me.DgvFuncionarios.TabStop = False
+        '
+        'lblFuncionarioId
+        '
+        Me.lblFuncionarioId.Location = New System.Drawing.Point(10, 256)
+        Me.lblFuncionarioId.Name = "lblFuncionarioId"
+        Me.lblFuncionarioId.ReadOnly = True
+        Me.lblFuncionarioId.Size = New System.Drawing.Size(87, 20)
+        Me.lblFuncionarioId.TabIndex = 10
+        Me.lblFuncionarioId.TabStop = False
+        '
+        'Lblfuncionario
+        '
+        Me.Lblfuncionario.AutoSize = True
+        Me.Lblfuncionario.Location = New System.Drawing.Point(7, 240)
+        Me.Lblfuncionario.Name = "Lblfuncionario"
+        Me.Lblfuncionario.Size = New System.Drawing.Size(90, 13)
+        Me.Lblfuncionario.TabIndex = 11
+        Me.Lblfuncionario.Text = "IDENTIFICADOR"
+        '
+        'Btnregresar
+        '
+        Me.Btnregresar.Location = New System.Drawing.Point(356, 402)
+        Me.Btnregresar.Name = "Btnregresar"
+        Me.Btnregresar.Size = New System.Drawing.Size(75, 23)
+        Me.Btnregresar.TabIndex = 10
+        Me.Btnregresar.Text = "REGRESAR"
+        Me.Btnregresar.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(154, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(462, 37)
+        Me.Label1.TabIndex = 13
+        Me.Label1.Text = "REGISTRO DE EMPLEADOS"
+        '
+        'Cmb_tipoid
+        '
+        Me.Cmb_tipoid.FormattingEnabled = True
+        Me.Cmb_tipoid.Items.AddRange(New Object() {"CEDULA NACIONAL", "DIMEX", "PASAPORTE"})
+        Me.Cmb_tipoid.Location = New System.Drawing.Point(15, 86)
+        Me.Cmb_tipoid.Name = "Cmb_tipoid"
+        Me.Cmb_tipoid.Size = New System.Drawing.Size(138, 21)
+        Me.Cmb_tipoid.TabIndex = 0
+        '
+        'Lbltipoidentificacion
+        '
+        Me.Lbltipoidentificacion.AutoSize = True
+        Me.Lbltipoidentificacion.Location = New System.Drawing.Point(15, 70)
+        Me.Lbltipoidentificacion.Name = "Lbltipoidentificacion"
+        Me.Lbltipoidentificacion.Size = New System.Drawing.Size(138, 13)
+        Me.Lbltipoidentificacion.TabIndex = 15
+        Me.Lbltipoidentificacion.Text = "TIPO DE IDENTIFICACION"
+        '
+        'Lblprimer_apellido
+        '
+        Me.Lblprimer_apellido.AutoSize = True
+        Me.Lblprimer_apellido.Location = New System.Drawing.Point(512, 70)
+        Me.Lblprimer_apellido.Name = "Lblprimer_apellido"
+        Me.Lblprimer_apellido.Size = New System.Drawing.Size(104, 13)
+        Me.Lblprimer_apellido.TabIndex = 18
+        Me.Lblprimer_apellido.Text = "PRIMER APELLIDO"
+        '
+        'Txtprimer_apellido
+        '
+        Me.Txtprimer_apellido.Location = New System.Drawing.Point(515, 86)
+        Me.Txtprimer_apellido.MaxLength = 30
+        Me.Txtprimer_apellido.Name = "Txtprimer_apellido"
+        Me.Txtprimer_apellido.Size = New System.Drawing.Size(151, 20)
+        Me.Txtprimer_apellido.TabIndex = 3
+        '
+        'Lblsegundo_apellido
+        '
+        Me.Lblsegundo_apellido.AutoSize = True
+        Me.Lblsegundo_apellido.Location = New System.Drawing.Point(699, 70)
+        Me.Lblsegundo_apellido.Name = "Lblsegundo_apellido"
+        Me.Lblsegundo_apellido.Size = New System.Drawing.Size(116, 13)
+        Me.Lblsegundo_apellido.TabIndex = 19
+        Me.Lblsegundo_apellido.Text = "SEGUNDO APELLIDO"
+        '
+        'Txtsegundo_apellido
+        '
+        Me.Txtsegundo_apellido.Location = New System.Drawing.Point(702, 87)
+        Me.Txtsegundo_apellido.MaxLength = 30
+        Me.Txtsegundo_apellido.Name = "Txtsegundo_apellido"
+        Me.Txtsegundo_apellido.Size = New System.Drawing.Size(133, 20)
+        Me.Txtsegundo_apellido.TabIndex = 4
+        '
+        'Dtp_fecha_nacimiento
+        '
+        Me.Dtp_fecha_nacimiento.Location = New System.Drawing.Point(10, 162)
+        Me.Dtp_fecha_nacimiento.Name = "Dtp_fecha_nacimiento"
+        Me.Dtp_fecha_nacimiento.Size = New System.Drawing.Size(200, 20)
+        Me.Dtp_fecha_nacimiento.TabIndex = 5
+        '
+        'Lblfecha_nacimiento
+        '
+        Me.Lblfecha_nacimiento.AutoSize = True
+        Me.Lblfecha_nacimiento.Location = New System.Drawing.Point(12, 144)
+        Me.Lblfecha_nacimiento.Name = "Lblfecha_nacimiento"
+        Me.Lblfecha_nacimiento.Size = New System.Drawing.Size(112, 13)
+        Me.Lblfecha_nacimiento.TabIndex = 21
+        Me.Lblfecha_nacimiento.Text = "FECHA NACIMIENTO"
+        '
+        'Msk_id
+        '
+        Me.Msk_id.Location = New System.Drawing.Point(180, 87)
+        Me.Msk_id.Name = "Msk_id"
+        Me.Msk_id.Size = New System.Drawing.Size(158, 20)
+        Me.Msk_id.TabIndex = 1
+        '
+        'Form2_Admin
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(872, 450)
+        Me.Controls.Add(Me.Msk_id)
+        Me.Controls.Add(Me.Dtp_fecha_nacimiento)
+        Me.Controls.Add(Me.Lblfecha_nacimiento)
+        Me.Controls.Add(Me.Lblprimer_apellido)
+        Me.Controls.Add(Me.Txtprimer_apellido)
+        Me.Controls.Add(Me.Lblsegundo_apellido)
+        Me.Controls.Add(Me.Txtsegundo_apellido)
+        Me.Controls.Add(Me.Lbltipoidentificacion)
+        Me.Controls.Add(Me.Cmb_tipoid)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.Btnregresar)
+        Me.Controls.Add(Me.Lblfuncionario)
+        Me.Controls.Add(Me.lblFuncionarioId)
+        Me.Controls.Add(Me.DgvFuncionarios)
+        Me.Controls.Add(Me.Lblnombre)
+        Me.Controls.Add(Me.Lblcedula)
+        Me.Controls.Add(Me.BtnRefrescar)
+        Me.Controls.Add(Me.BtnEliminar)
+        Me.Controls.Add(Me.BtnGuardar)
+        Me.Controls.Add(Me.BtnNuevo)
+        Me.Controls.Add(Me.ChkActivo)
+        Me.Controls.Add(Me.TxtNombre)
+        Me.Name = "Form2_Admin"
+        Me.Text = "Form2_Admin"
+        CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+    Friend WithEvents TxtNombre As TextBox
+    Friend WithEvents ChkActivo As CheckBox
+    Friend WithEvents BtnNuevo As Button
+    Friend WithEvents BtnGuardar As Button
+    Friend WithEvents BtnEliminar As Button
+    Friend WithEvents BtnRefrescar As Button
+    Friend WithEvents Lblcedula As Label
+    Friend WithEvents Lblnombre As Label
+    Friend WithEvents DgvFuncionarios As DataGridView
+    Friend WithEvents lblFuncionarioId As TextBox
+    Friend WithEvents Lblfuncionario As Label
+    Friend WithEvents Btnregresar As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Cmb_tipoid As ComboBox
+    Friend WithEvents Lbltipoidentificacion As Label
+    Friend WithEvents Lblprimer_apellido As Label
+    Friend WithEvents Txtprimer_apellido As TextBox
+    Friend WithEvents Lblsegundo_apellido As Label
+    Friend WithEvents Txtsegundo_apellido As TextBox
+    Friend WithEvents Dtp_fecha_nacimiento As DateTimePicker
+    Friend WithEvents Lblfecha_nacimiento As Label
+    Friend WithEvents Msk_id As MaskedTextBox
+End Class
