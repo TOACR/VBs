@@ -50,6 +50,7 @@ Partial Class Form3_Consumibles
         '
         'CboFuncionario
         '
+        Me.CboFuncionario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CboFuncionario.FormattingEnabled = True
         Me.CboFuncionario.Location = New System.Drawing.Point(51, 231)
         Me.CboFuncionario.Name = "CboFuncionario"
@@ -58,6 +59,7 @@ Partial Class Form3_Consumibles
         '
         'CboConsumible
         '
+        Me.CboConsumible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CboConsumible.FormattingEnabled = True
         Me.CboConsumible.Location = New System.Drawing.Point(48, 284)
         Me.CboConsumible.Name = "CboConsumible"
@@ -69,9 +71,9 @@ Partial Class Form3_Consumibles
         Me.Lblfuncionario.AutoSize = True
         Me.Lblfuncionario.Location = New System.Drawing.Point(48, 215)
         Me.Lblfuncionario.Name = "Lblfuncionario"
-        Me.Lblfuncionario.Size = New System.Drawing.Size(66, 13)
+        Me.Lblfuncionario.Size = New System.Drawing.Size(81, 13)
         Me.Lblfuncionario.TabIndex = 2
-        Me.Lblfuncionario.Text = "EMPLEADO"
+        Me.Lblfuncionario.Text = "FUNCIONARIO"
         '
         'Lblconsumible
         '
@@ -86,6 +88,7 @@ Partial Class Form3_Consumibles
         '
         Me.TxtPrecio.Location = New System.Drawing.Point(217, 284)
         Me.TxtPrecio.Name = "TxtPrecio"
+        Me.TxtPrecio.ReadOnly = True
         Me.TxtPrecio.Size = New System.Drawing.Size(120, 20)
         Me.TxtPrecio.TabIndex = 4
         '
@@ -93,6 +96,7 @@ Partial Class Form3_Consumibles
         '
         Me.NumCantidad.Location = New System.Drawing.Point(377, 284)
         Me.NumCantidad.Name = "NumCantidad"
+        Me.NumCantidad.ReadOnly = True
         Me.NumCantidad.Size = New System.Drawing.Size(73, 20)
         Me.NumCantidad.TabIndex = 5
         '

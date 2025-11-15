@@ -3,27 +3,33 @@
 Public Class Form3_Consumibles
     Private Sub Form3_Consumibles_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Consumibles"
+        EstiloProfesionalDataGrid(DgvMovs)
         CargarFuncionarios()
         CargarConsumibles()
+        DgvMovs.AllowUserToAddRows = False
         DtpDesde.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 1, 16))
         DtpHasta.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 15, Date.DaysInMonth(Now.Year, Now.Month)))
-        RefrescarMovs()
+        LimpiarControles(Me)
     End Sub
-
+    Private Sub TxtMontoAdelanto_KeyPress(sender As Object, e As EventArgs) Handles TxtMontoAdelanto.KeyPress
+        Set_solo_numeros(e)
+    End Sub
     Private Sub CargarFuncionarios()
         Dim dt = Db.GetTable("SELECT FuncionarioId, Nombre FROM Funcionario WHERE Activo=1 ORDER BY Nombre", Nothing)
         CboFuncionario.DisplayMember = "Nombre"
         CboFuncionario.ValueMember = "FuncionarioId"
         CboFuncionario.DataSource = dt
     End Sub
-
     Private Sub CargarConsumibles()
         Dim dt = Db.GetTable("SELECT ConsumibleId, Nombre, Precio FROM Consumible ORDER BY Nombre", Nothing)
         CboConsumible.DisplayMember = "Nombre"
         CboConsumible.ValueMember = "ConsumibleId"
         CboConsumible.DataSource = dt
     End Sub
-
+    Private Sub CboFuncionario_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboFuncionario.SelectedIndexChanged
+        If CboFuncionario.SelectedIndex < 0 Then Exit Sub
+        RefrescarMovs()
+    End Sub
     Private Sub CboConsumible_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboConsumible.SelectedIndexChanged
         If CboConsumible.SelectedIndex >= 0 Then
             Dim dt = CType(CboConsumible.DataSource, DataTable)
@@ -31,7 +37,6 @@ Public Class Form3_Consumibles
             TxtPrecio.Text = CDec(row("Precio")).ToString("N2")
         End If
     End Sub
-
     Private Sub BtnAgregarConsumo_Click(sender As Object, e As EventArgs) Handles BtnAgregarConsumo.Click
         If CboFuncionario.SelectedIndex < 0 OrElse CboConsumible.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario y consumible.")
@@ -63,7 +68,6 @@ Public Class Form3_Consumibles
         RefrescarMovs()
         NumCantidad.Value = 1
     End Sub
-
     Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
@@ -84,7 +88,6 @@ Public Class Form3_Consumibles
         RefrescarMovs()
         TxtMontoAdelanto.Clear()
     End Sub
-
     Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
@@ -114,10 +117,8 @@ Public Class Form3_Consumibles
                 MessageBox.Show("No hay movimientos para liquidar.")
             End If
         End Using
-
         RefrescarMovs()
     End Sub
-
     Private Sub RefrescarMovs()
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
         Dim p As New List(Of SqlParameter)
@@ -134,7 +135,6 @@ Public Class Form3_Consumibles
         p.Add(New SqlParameter("@f", funcId))
         DgvMovs.DataSource = Db.GetTable(q, p)
     End Sub
-
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Form1.Show()
         Me.Close()

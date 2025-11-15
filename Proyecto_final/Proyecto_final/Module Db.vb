@@ -15,23 +15,19 @@ Public Module Db
 
         Dim list As New List(Of SqlParameter)
         For Each p In params
-            Dim c As New SqlParameter()
-
             ' Copia de metadatos relevantes
-            c.ParameterName = p.ParameterName
-
-            ' Si no definiste SqlDbType en el original, evita copiarlo
             ' Solo copia si fue seteado (por seguridad lo copiamos; SQL Server lo tolera)
-            c.SqlDbType = p.SqlDbType
-            c.Size = p.Size
-            c.Precision = p.Precision
-            c.Scale = p.Scale
-
-            c.Direction = p.Direction
-            c.IsNullable = p.IsNullable
-
             ' Valor (manejo de Nothing -> DBNull)
-            c.Value = If(p.Value, DBNull.Value)
+            Dim c As New SqlParameter With {
+                .ParameterName = p.ParameterName,
+                .SqlDbType = p.SqlDbType,
+                .Size = p.Size,
+                .Precision = p.Precision,
+                .Scale = p.Scale,
+                .Direction = p.Direction,
+                .IsNullable = p.IsNullable,
+                .Value = If(p.Value, DBNull.Value)
+            }
 
             list.Add(c)
         Next
@@ -71,6 +67,43 @@ Public Module Db
     End Function
 
 End Module
+
+Public Module ModGlobales
+
+    Public Sub LimpiarControles(form As Form)
+        ' 🔹 Recorre todos los controles dentro del formulario recibido
+        For Each ctrl As Control In form.Controls
+            LimpiarControl(ctrl)
+        Next
+    End Sub
+
+    Private Sub LimpiarControl(ctrl As Control)
+        ' 🔹 Limpia los controles básicos según su tipo
+        Select Case True
+            Case TypeOf ctrl Is TextBox
+                CType(ctrl, TextBox).Clear()
+            Case TypeOf ctrl Is MaskedTextBox
+                CType(ctrl, MaskedTextBox).Clear()
+            Case TypeOf ctrl Is ComboBox
+                CType(ctrl, ComboBox).SelectedIndex = -1
+            Case TypeOf ctrl Is DataGridView
+                CType(ctrl, DataGridView).DataSource = Nothing
+            Case TypeOf ctrl Is CheckBox
+                CType(ctrl, CheckBox).Checked = True
+            Case TypeOf ctrl Is NumericUpDown
+                CType(ctrl, NumericUpDown).Value = 1
+        End Select
+
+        ' 🔹 Limpieza recursiva si hay paneles, groupbox, etc.
+        For Each child As Control In ctrl.Controls
+            LimpiarControl(child)
+        Next
+    End Sub
+
+End Module
+
+
+
 
 
 

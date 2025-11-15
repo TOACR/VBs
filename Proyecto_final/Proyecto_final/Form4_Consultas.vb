@@ -4,12 +4,15 @@ Public Class Form4_Consultas
     Private Sub Form4_Consultas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Consultas"
         Dim dt = Db.GetTable("SELECT FuncionarioId, Nombre FROM Funcionario WHERE Activo=1 ORDER BY Nombre", Nothing)
+        EstiloProfesionalDataGrid(DgvResultado)
         CboFuncionario.DisplayMember = "Nombre"
         CboFuncionario.ValueMember = "FuncionarioId"
         CboFuncionario.DataSource = dt
-
+        DgvResultado.AllowUserToAddRows = False
+        Me.AcceptButton = BtnBuscar
         DtpDesde.Value = New Date(Now.Year, Now.Month, 1)
         DtpHasta.Value = Date.Today
+        LimpiarControles(Me)
     End Sub
 
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click

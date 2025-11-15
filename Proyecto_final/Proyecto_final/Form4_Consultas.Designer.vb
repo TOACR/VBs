@@ -45,9 +45,9 @@ Partial Class Form4_Consultas
         Me.Lblfuncionario.AutoSize = True
         Me.Lblfuncionario.Location = New System.Drawing.Point(38, 39)
         Me.Lblfuncionario.Name = "Lblfuncionario"
-        Me.Lblfuncionario.Size = New System.Drawing.Size(66, 13)
+        Me.Lblfuncionario.Size = New System.Drawing.Size(81, 13)
         Me.Lblfuncionario.TabIndex = 0
-        Me.Lblfuncionario.Text = "EMPLEADO"
+        Me.Lblfuncionario.Text = "FUNCIONARIO"
         '
         'CboFuncionario
         '
@@ -91,7 +91,7 @@ Partial Class Form4_Consultas
         '
         'BtnBuscar
         '
-        Me.BtnBuscar.Location = New System.Drawing.Point(367, 122)
+        Me.BtnBuscar.Location = New System.Drawing.Point(352, 122)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(88, 39)
         Me.BtnBuscar.TabIndex = 6

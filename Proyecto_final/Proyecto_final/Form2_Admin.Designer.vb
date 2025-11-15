@@ -44,6 +44,9 @@ Partial Class Form2_Admin
         Me.Dtp_fecha_nacimiento = New System.Windows.Forms.DateTimePicker()
         Me.Lblfecha_nacimiento = New System.Windows.Forms.Label()
         Me.Msk_id = New System.Windows.Forms.MaskedTextBox()
+        Me.BtnVerInactivos = New System.Windows.Forms.Button()
+        Me.BtnActivar = New System.Windows.Forms.Button()
+        Me.LblEstadoLista = New System.Windows.Forms.TextBox()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -66,39 +69,47 @@ Partial Class Form2_Admin
         '
         'BtnLimpiar
         '
-        Me.BtnLimpiar.Location = New System.Drawing.Point(135, 369)
+        Me.BtnLimpiar.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.BtnLimpiar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnLimpiar.Location = New System.Drawing.Point(454, 453)
         Me.BtnLimpiar.Name = "BtnLimpiar"
-        Me.BtnLimpiar.Size = New System.Drawing.Size(75, 23)
-        Me.BtnLimpiar.TabIndex = 11
-        Me.BtnLimpiar.Text = "LIMPIAR"
-        Me.BtnLimpiar.UseVisualStyleBackColor = True
+        Me.BtnLimpiar.Size = New System.Drawing.Size(100, 53)
+        Me.BtnLimpiar.TabIndex = 9
+        Me.BtnLimpiar.Text = "LIMPIAR FORMULARIO"
+        Me.BtnLimpiar.UseVisualStyleBackColor = False
         '
         'BtnGuardar
         '
-        Me.BtnGuardar.Location = New System.Drawing.Point(288, 369)
+        Me.BtnGuardar.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.BtnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGuardar.Location = New System.Drawing.Point(143, 453)
         Me.BtnGuardar.Name = "BtnGuardar"
-        Me.BtnGuardar.Size = New System.Drawing.Size(75, 23)
+        Me.BtnGuardar.Size = New System.Drawing.Size(100, 53)
         Me.BtnGuardar.TabIndex = 7
-        Me.BtnGuardar.Text = "GUARDAR"
-        Me.BtnGuardar.UseVisualStyleBackColor = True
+        Me.BtnGuardar.Text = "GUARDAR FUNCIONARIO"
+        Me.BtnGuardar.UseVisualStyleBackColor = False
         '
         'BtnEliminar
         '
-        Me.BtnEliminar.Location = New System.Drawing.Point(481, 369)
+        Me.BtnEliminar.BackColor = System.Drawing.Color.LightSalmon
+        Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnEliminar.Location = New System.Drawing.Point(304, 453)
         Me.BtnEliminar.Name = "BtnEliminar"
-        Me.BtnEliminar.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEliminar.Size = New System.Drawing.Size(100, 53)
         Me.BtnEliminar.TabIndex = 8
-        Me.BtnEliminar.Text = "ELIMINAR"
-        Me.BtnEliminar.UseVisualStyleBackColor = True
+        Me.BtnEliminar.Text = "DESACTIVAR FUNCIONARIO"
+        Me.BtnEliminar.UseVisualStyleBackColor = False
         '
         'BtnRefrescar
         '
-        Me.BtnRefrescar.Location = New System.Drawing.Point(628, 369)
+        Me.BtnRefrescar.BackColor = System.Drawing.Color.Pink
+        Me.BtnRefrescar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRefrescar.Location = New System.Drawing.Point(605, 453)
         Me.BtnRefrescar.Name = "BtnRefrescar"
-        Me.BtnRefrescar.Size = New System.Drawing.Size(91, 23)
-        Me.BtnRefrescar.TabIndex = 9
-        Me.BtnRefrescar.Text = "REFRESCAR"
-        Me.BtnRefrescar.UseVisualStyleBackColor = True
+        Me.BtnRefrescar.Size = New System.Drawing.Size(100, 53)
+        Me.BtnRefrescar.TabIndex = 10
+        Me.BtnRefrescar.Text = "REFRESCAR TABLA"
+        Me.BtnRefrescar.UseVisualStyleBackColor = False
         '
         'Lblcedula
         '
@@ -106,7 +117,7 @@ Partial Class Form2_Admin
         Me.Lblcedula.Location = New System.Drawing.Point(177, 70)
         Me.Lblcedula.Name = "Lblcedula"
         Me.Lblcedula.Size = New System.Drawing.Size(161, 13)
-        Me.Lblcedula.TabIndex = 7
+        Me.Lblcedula.TabIndex = 21
         Me.Lblcedula.Text = "NUMERO DE IDENTIFICACION"
         '
         'Lblnombre
@@ -115,16 +126,16 @@ Partial Class Form2_Admin
         Me.Lblnombre.Location = New System.Drawing.Point(354, 70)
         Me.Lblnombre.Name = "Lblnombre"
         Me.Lblnombre.Size = New System.Drawing.Size(54, 13)
-        Me.Lblnombre.TabIndex = 8
+        Me.Lblnombre.TabIndex = 22
         Me.Lblnombre.Text = "NOMBRE"
         '
         'DgvFuncionarios
         '
         Me.DgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvFuncionarios.Location = New System.Drawing.Point(15, 207)
+        Me.DgvFuncionarios.Location = New System.Drawing.Point(15, 279)
         Me.DgvFuncionarios.Name = "DgvFuncionarios"
-        Me.DgvFuncionarios.Size = New System.Drawing.Size(820, 104)
-        Me.DgvFuncionarios.TabIndex = 20
+        Me.DgvFuncionarios.Size = New System.Drawing.Size(845, 168)
+        Me.DgvFuncionarios.TabIndex = 30
         Me.DgvFuncionarios.TabStop = False
         '
         'lblFuncionarioId
@@ -142,34 +153,37 @@ Partial Class Form2_Admin
         Me.Lblfuncionario.Location = New System.Drawing.Point(353, 144)
         Me.Lblfuncionario.Name = "Lblfuncionario"
         Me.Lblfuncionario.Size = New System.Drawing.Size(90, 13)
-        Me.Lblfuncionario.TabIndex = 11
+        Me.Lblfuncionario.TabIndex = 26
         Me.Lblfuncionario.Text = "IDENTIFICADOR"
         '
         'Btnregresar
         '
-        Me.Btnregresar.Location = New System.Drawing.Point(385, 402)
+        Me.Btnregresar.BackColor = System.Drawing.Color.Lime
+        Me.Btnregresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btnregresar.Location = New System.Drawing.Point(773, 497)
         Me.Btnregresar.Name = "Btnregresar"
         Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
-        Me.Btnregresar.TabIndex = 10
+        Me.Btnregresar.TabIndex = 11
         Me.Btnregresar.Text = "REGRESAR"
-        Me.Btnregresar.UseVisualStyleBackColor = True
+        Me.Btnregresar.UseVisualStyleBackColor = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(192, 9)
+        Me.Label1.Location = New System.Drawing.Point(173, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(462, 37)
-        Me.Label1.TabIndex = 13
-        Me.Label1.Text = "REGISTRO DE EMPLEADOS"
+        Me.Label1.Size = New System.Drawing.Size(512, 37)
+        Me.Label1.TabIndex = 63
+        Me.Label1.Text = "REGISTRO DE FUNCIONARIOS"
         '
         'Cmb_tipoid
         '
+        Me.Cmb_tipoid.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cmb_tipoid.FormattingEnabled = True
         Me.Cmb_tipoid.Items.AddRange(New Object() {"CEDULA NACIONAL", "DIMEX", "PASAPORTE"})
-        Me.Cmb_tipoid.Location = New System.Drawing.Point(15, 86)
+        Me.Cmb_tipoid.Location = New System.Drawing.Point(15, 87)
         Me.Cmb_tipoid.Name = "Cmb_tipoid"
         Me.Cmb_tipoid.Size = New System.Drawing.Size(138, 21)
         Me.Cmb_tipoid.TabIndex = 0
@@ -180,7 +194,7 @@ Partial Class Form2_Admin
         Me.Lbltipoidentificacion.Location = New System.Drawing.Point(15, 70)
         Me.Lbltipoidentificacion.Name = "Lbltipoidentificacion"
         Me.Lbltipoidentificacion.Size = New System.Drawing.Size(138, 13)
-        Me.Lbltipoidentificacion.TabIndex = 15
+        Me.Lbltipoidentificacion.TabIndex = 20
         Me.Lbltipoidentificacion.Text = "TIPO DE IDENTIFICACION"
         '
         'Lblprimer_apellido
@@ -189,15 +203,15 @@ Partial Class Form2_Admin
         Me.Lblprimer_apellido.Location = New System.Drawing.Point(512, 70)
         Me.Lblprimer_apellido.Name = "Lblprimer_apellido"
         Me.Lblprimer_apellido.Size = New System.Drawing.Size(104, 13)
-        Me.Lblprimer_apellido.TabIndex = 18
+        Me.Lblprimer_apellido.TabIndex = 23
         Me.Lblprimer_apellido.Text = "PRIMER APELLIDO"
         '
         'Txtprimer_apellido
         '
-        Me.Txtprimer_apellido.Location = New System.Drawing.Point(515, 86)
+        Me.Txtprimer_apellido.Location = New System.Drawing.Point(515, 87)
         Me.Txtprimer_apellido.MaxLength = 30
         Me.Txtprimer_apellido.Name = "Txtprimer_apellido"
-        Me.Txtprimer_apellido.Size = New System.Drawing.Size(151, 20)
+        Me.Txtprimer_apellido.Size = New System.Drawing.Size(167, 20)
         Me.Txtprimer_apellido.TabIndex = 3
         '
         'Lblsegundo_apellido
@@ -206,7 +220,7 @@ Partial Class Form2_Admin
         Me.Lblsegundo_apellido.Location = New System.Drawing.Point(699, 70)
         Me.Lblsegundo_apellido.Name = "Lblsegundo_apellido"
         Me.Lblsegundo_apellido.Size = New System.Drawing.Size(116, 13)
-        Me.Lblsegundo_apellido.TabIndex = 19
+        Me.Lblsegundo_apellido.TabIndex = 24
         Me.Lblsegundo_apellido.Text = "SEGUNDO APELLIDO"
         '
         'Txtsegundo_apellido
@@ -214,7 +228,7 @@ Partial Class Form2_Admin
         Me.Txtsegundo_apellido.Location = New System.Drawing.Point(702, 87)
         Me.Txtsegundo_apellido.MaxLength = 30
         Me.Txtsegundo_apellido.Name = "Txtsegundo_apellido"
-        Me.Txtsegundo_apellido.Size = New System.Drawing.Size(133, 20)
+        Me.Txtsegundo_apellido.Size = New System.Drawing.Size(158, 20)
         Me.Txtsegundo_apellido.TabIndex = 4
         '
         'Dtp_fecha_nacimiento
@@ -230,7 +244,7 @@ Partial Class Form2_Admin
         Me.Lblfecha_nacimiento.Location = New System.Drawing.Point(12, 144)
         Me.Lblfecha_nacimiento.Name = "Lblfecha_nacimiento"
         Me.Lblfecha_nacimiento.Size = New System.Drawing.Size(112, 13)
-        Me.Lblfecha_nacimiento.TabIndex = 21
+        Me.Lblfecha_nacimiento.TabIndex = 25
         Me.Lblfecha_nacimiento.Text = "FECHA NACIMIENTO"
         '
         'Msk_id
@@ -240,11 +254,40 @@ Partial Class Form2_Admin
         Me.Msk_id.Size = New System.Drawing.Size(158, 20)
         Me.Msk_id.TabIndex = 1
         '
+        'BtnVerInactivos
+        '
+        Me.BtnVerInactivos.Location = New System.Drawing.Point(740, 208)
+        Me.BtnVerInactivos.Name = "BtnVerInactivos"
+        Me.BtnVerInactivos.Size = New System.Drawing.Size(120, 29)
+        Me.BtnVerInactivos.TabIndex = 64
+        Me.BtnVerInactivos.Text = "VER INACTIVOS"
+        Me.BtnVerInactivos.UseVisualStyleBackColor = True
+        '
+        'BtnActivar
+        '
+        Me.BtnActivar.Location = New System.Drawing.Point(740, 243)
+        Me.BtnActivar.Name = "BtnActivar"
+        Me.BtnActivar.Size = New System.Drawing.Size(120, 30)
+        Me.BtnActivar.TabIndex = 65
+        Me.BtnActivar.Text = "ACTIVAR"
+        Me.BtnActivar.UseVisualStyleBackColor = True
+        '
+        'LblEstadoLista
+        '
+        Me.LblEstadoLista.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblEstadoLista.Location = New System.Drawing.Point(289, 243)
+        Me.LblEstadoLista.Name = "LblEstadoLista"
+        Me.LblEstadoLista.Size = New System.Drawing.Size(315, 22)
+        Me.LblEstadoLista.TabIndex = 66
+        '
         'Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 450)
+        Me.ClientSize = New System.Drawing.Size(872, 545)
+        Me.Controls.Add(Me.LblEstadoLista)
+        Me.Controls.Add(Me.BtnActivar)
+        Me.Controls.Add(Me.BtnVerInactivos)
         Me.Controls.Add(Me.Msk_id)
         Me.Controls.Add(Me.Dtp_fecha_nacimiento)
         Me.Controls.Add(Me.Lblfecha_nacimiento)
@@ -268,7 +311,7 @@ Partial Class Form2_Admin
         Me.Controls.Add(Me.ChkActivo)
         Me.Controls.Add(Me.TxtNombre)
         Me.Name = "Form2_Admin"
-        Me.Text = "Form2_Admin"
+        Me.Text = "10"
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -296,4 +339,7 @@ Partial Class Form2_Admin
     Friend WithEvents Dtp_fecha_nacimiento As DateTimePicker
     Friend WithEvents Lblfecha_nacimiento As Label
     Friend WithEvents Msk_id As MaskedTextBox
+    Friend WithEvents BtnVerInactivos As Button
+    Friend WithEvents BtnActivar As Button
+    Friend WithEvents LblEstadoLista As TextBox
 End Class

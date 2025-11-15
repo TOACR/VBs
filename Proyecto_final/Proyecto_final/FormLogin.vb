@@ -9,7 +9,8 @@ Public Class FormLogin
     End Sub
 
     Private Sub FormLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = "Login"
+        Me.Text = "Ingreso"
+        Me.AcceptButton = BtnEntrar
         If String.IsNullOrEmpty(_rolForzado) Then
             If CmbRol.Items.Count = 0 Then
                 CmbRol.Items.Add("ADMIN")
