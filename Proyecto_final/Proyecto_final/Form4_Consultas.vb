@@ -8,7 +8,6 @@ Public Class Form4_Consultas
         CboFuncionario.DisplayMember = "Nombre"
         CboFuncionario.ValueMember = "FuncionarioId"
         CboFuncionario.DataSource = dt
-        DgvResultado.AllowUserToAddRows = False
         Me.AcceptButton = BtnBuscar
         DtpDesde.Value = New Date(Now.Year, Now.Month, 1)
         DtpHasta.Value = Date.Today
@@ -63,5 +62,4 @@ Public Class Form4_Consultas
         Form1.Show()
         Me.Close()
     End Sub
-
 End Class

@@ -6,7 +6,6 @@ Public Class Form3_Consumibles
         EstiloProfesionalDataGrid(DgvMovs)
         CargarFuncionarios()
         CargarConsumibles()
-        DgvMovs.AllowUserToAddRows = False
         DtpDesde.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 1, 16))
         DtpHasta.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 15, Date.DaysInMonth(Now.Year, Now.Month)))
         LimpiarControles(Me)

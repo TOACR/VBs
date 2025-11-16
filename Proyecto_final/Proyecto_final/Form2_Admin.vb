@@ -4,7 +4,6 @@ Public Class Form2_Admin
     Private _viendoInactivos As Boolean = False
     Private Sub Form2_Admin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Registro"
-        DgvFuncionarios.AllowUserToAddRows = False ' 🔹 Elimina la fila en blanco al final
         _viendoInactivos = False
         LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
@@ -153,9 +152,11 @@ Public Class Form2_Admin
         Catch ex As Exception
             MessageBox.Show("Error al guardar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
+        LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub
 
-    Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
+    Private Sub BtnDesactivar_Click(sender As Object, e As EventArgs) Handles BtnDesactivar.Click
         If lblFuncionarioId.Text = "" Then
             MessageBox.Show("Debe seleccionar un funcionario primero.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -260,17 +261,20 @@ Public Class Form2_Admin
                         MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-    Private Sub BtnRefrescar_Click(sender As Object, e As EventArgs) Handles BtnRefrescar.Click
-        LimpiarControles(Me)
-        CargarFuncionarios()
+    Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
+        Form5_Eliminar.Show()
+        Me.Hide()
     End Sub
-    Private Sub BtnNuevo_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
+    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
         LimpiarControles(Me)
         CargarFuncionarios()
+        LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
+        LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub
     Private Sub Btnregresar_Click(sender As Object, e As EventArgs) Handles Btnregresar.Click
         If Me.Owner IsNot Nothing Then Me.Owner.Show()
         Form1.Show()
         Me.Close()
     End Sub
+
 End Class

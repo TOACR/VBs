@@ -78,7 +78,6 @@ Public Class FormLogin
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
         Form1.Show()
         Me.Close()
-
     End Sub
 
 End Class

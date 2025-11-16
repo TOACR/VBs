@@ -36,7 +36,10 @@ Module Funciones
         dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
 
         ' 🔹 Quitar fila vacía al final
+        dgv.ReadOnly = True
         dgv.AllowUserToAddRows = False
+        dgv.AllowUserToDeleteRows = False
+
 
         ' 🔹 Selección completa
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
