@@ -277,4 +277,9 @@ Public Class Form2_Admin
         Me.Close()
     End Sub
 
+    Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
+        Dim f As New Form6_Usuarios()
+        f.ShowDialog()
+    End Sub
+
 End Class

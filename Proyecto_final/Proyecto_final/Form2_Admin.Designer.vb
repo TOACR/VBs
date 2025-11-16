@@ -48,6 +48,7 @@ Partial Class Form2_Admin
         Me.BtnActivar = New System.Windows.Forms.Button()
         Me.LblEstadoLista = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.BtnUsuarios = New System.Windows.Forms.Button()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -107,7 +108,7 @@ Partial Class Form2_Admin
         Me.BtnEliminar.BackColor = System.Drawing.Color.Red
         Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnEliminar.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.BtnEliminar.Location = New System.Drawing.Point(10, 497)
+        Me.BtnEliminar.Location = New System.Drawing.Point(10, 461)
         Me.BtnEliminar.Name = "BtnEliminar"
         Me.BtnEliminar.Size = New System.Drawing.Size(114, 37)
         Me.BtnEliminar.TabIndex = 10
@@ -305,11 +306,24 @@ Partial Class Form2_Admin
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos del funcionario"
         '
+        'BtnUsuarios
+        '
+        Me.BtnUsuarios.BackColor = System.Drawing.Color.Plum
+        Me.BtnUsuarios.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUsuarios.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.BtnUsuarios.Location = New System.Drawing.Point(10, 504)
+        Me.BtnUsuarios.Name = "BtnUsuarios"
+        Me.BtnUsuarios.Size = New System.Drawing.Size(114, 36)
+        Me.BtnUsuarios.TabIndex = 68
+        Me.BtnUsuarios.Text = "CREAR USUARIOS"
+        Me.BtnUsuarios.UseVisualStyleBackColor = False
+        '
         'Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(872, 545)
+        Me.Controls.Add(Me.BtnUsuarios)
         Me.Controls.Add(Me.LblEstadoLista)
         Me.Controls.Add(Me.BtnActivar)
         Me.Controls.Add(Me.BtnVerInactivos)
@@ -365,4 +379,5 @@ Partial Class Form2_Admin
     Friend WithEvents BtnActivar As Button
     Friend WithEvents LblEstadoLista As TextBox
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents BtnUsuarios As Button
 End Class
