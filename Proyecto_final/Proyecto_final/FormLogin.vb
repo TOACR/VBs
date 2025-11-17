@@ -2,7 +2,7 @@
 Imports System.Configuration
 
 Public Class FormLogin
-    Private ReadOnly _rolForzado As String ' Nothing si usas CmbRol
+    Private ReadOnly _rolForzado As String
     Public Sub New(Optional rolForzado As String = Nothing)
         InitializeComponent()
         _rolForzado = rolForzado
