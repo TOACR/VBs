@@ -2,7 +2,7 @@
 
 Module Funciones
     ' Variables globales
-    Public f, k, ntipoid As Integer
+    Public f, k, ntipoid, ntipoestado As Integer
 
     'Crear método para validar solo mayusculas
     Public Sub set_solo_letras(ByRef ee As System.Windows.Forms.KeyPressEventArgs)

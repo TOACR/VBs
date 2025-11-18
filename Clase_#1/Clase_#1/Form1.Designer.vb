@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Txt_fecha = New System.Windows.Forms.TextBox()
@@ -41,6 +41,8 @@ Partial Class Form1
         Me.Lblcorreo_electronico = New System.Windows.Forms.Label()
         Me.Lbldireccion = New System.Windows.Forms.Label()
         Me.Grb_captura = New System.Windows.Forms.GroupBox()
+        Me.CmbEstadoCivil = New System.Windows.Forms.ComboBox()
+        Me.LblEstado = New System.Windows.Forms.Label()
         Me.Txtsegundo_apellido = New System.Windows.Forms.TextBox()
         Me.BtnInsertar = New System.Windows.Forms.Button()
         Me.Btnconsultar = New System.Windows.Forms.Button()
@@ -48,8 +50,26 @@ Partial Class Form1
         Me.Btneliminar = New System.Windows.Forms.Button()
         Me.Btnsalir = New System.Windows.Forms.Button()
         Me.Grbacciones = New System.Windows.Forms.GroupBox()
+        Me.BtnLimpiar = New System.Windows.Forms.Button()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NOMBREDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PRIMERAPELLIDODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FECHANACIMIENTODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CORREOELECTRONICODataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DIRECCIONDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IDSECUENCIADataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CODIGOCIVILDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CIUDADANOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.II36DB03Q2025DataSet2 = New Clase__1.II36DB03Q2025DataSet2()
+        Me.CIUDADANOTableAdapter = New Clase__1.II36DB03Q2025DataSet2TableAdapters.CIUDADANOTableAdapter()
         Me.Grb_captura.SuspendLayout()
         Me.Grbacciones.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.CIUDADANOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.II36DB03Q2025DataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Txt_fecha
@@ -196,6 +216,8 @@ Partial Class Form1
         'Grb_captura
         '
         Me.Grb_captura.BackColor = System.Drawing.Color.CadetBlue
+        Me.Grb_captura.Controls.Add(Me.CmbEstadoCivil)
+        Me.Grb_captura.Controls.Add(Me.LblEstado)
         Me.Grb_captura.Controls.Add(Me.Lbldireccion)
         Me.Grb_captura.Controls.Add(Me.Lblcorreo_electronico)
         Me.Grb_captura.Controls.Add(Me.Lblsegundo_apellido)
@@ -210,6 +232,23 @@ Partial Class Form1
         Me.Grb_captura.TabIndex = 100
         Me.Grb_captura.TabStop = False
         Me.Grb_captura.Text = "Datos Estudiante"
+        '
+        'CmbEstadoCivil
+        '
+        Me.CmbEstadoCivil.FormattingEnabled = True
+        Me.CmbEstadoCivil.Location = New System.Drawing.Point(97, 261)
+        Me.CmbEstadoCivil.Name = "CmbEstadoCivil"
+        Me.CmbEstadoCivil.Size = New System.Drawing.Size(121, 21)
+        Me.CmbEstadoCivil.TabIndex = 19
+        '
+        'LblEstado
+        '
+        Me.LblEstado.AutoSize = True
+        Me.LblEstado.Location = New System.Drawing.Point(11, 261)
+        Me.LblEstado.Name = "LblEstado"
+        Me.LblEstado.Size = New System.Drawing.Size(80, 13)
+        Me.LblEstado.TabIndex = 18
+        Me.LblEstado.Text = "ESTADO CIVIL"
         '
         'Txtsegundo_apellido
         '
@@ -257,7 +296,7 @@ Partial Class Form1
         '
         'Btnsalir
         '
-        Me.Btnsalir.Location = New System.Drawing.Point(628, 20)
+        Me.Btnsalir.Location = New System.Drawing.Point(773, 20)
         Me.Btnsalir.Name = "Btnsalir"
         Me.Btnsalir.Size = New System.Drawing.Size(102, 42)
         Me.Btnsalir.TabIndex = 12
@@ -267,24 +306,122 @@ Partial Class Form1
         'Grbacciones
         '
         Me.Grbacciones.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.Grbacciones.Controls.Add(Me.BtnLimpiar)
         Me.Grbacciones.Controls.Add(Me.Btnconsultar)
         Me.Grbacciones.Controls.Add(Me.Btnsalir)
         Me.Grbacciones.Controls.Add(Me.BtnInsertar)
         Me.Grbacciones.Controls.Add(Me.Btnmodificar)
         Me.Grbacciones.Controls.Add(Me.Btneliminar)
-        Me.Grbacciones.Location = New System.Drawing.Point(342, 400)
+        Me.Grbacciones.Location = New System.Drawing.Point(268, 564)
         Me.Grbacciones.Name = "Grbacciones"
-        Me.Grbacciones.Size = New System.Drawing.Size(747, 79)
+        Me.Grbacciones.Size = New System.Drawing.Size(902, 79)
         Me.Grbacciones.TabIndex = 24
         Me.Grbacciones.TabStop = False
         Me.Grbacciones.Text = "Acciones"
+        '
+        'BtnLimpiar
+        '
+        Me.BtnLimpiar.Location = New System.Drawing.Point(625, 20)
+        Me.BtnLimpiar.Name = "BtnLimpiar"
+        Me.BtnLimpiar.Size = New System.Drawing.Size(102, 42)
+        Me.BtnLimpiar.TabIndex = 13
+        Me.BtnLimpiar.Text = "&Limpiar"
+        Me.BtnLimpiar.UseVisualStyleBackColor = True
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToOrderColumns = True
+        Me.DataGridView1.AutoGenerateColumns = False
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn, Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn, Me.NOMBREDataGridViewTextBoxColumn, Me.PRIMERAPELLIDODataGridViewTextBoxColumn, Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn, Me.FECHANACIMIENTODataGridViewTextBoxColumn, Me.CORREOELECTRONICODataGridViewTextBoxColumn, Me.DIRECCIONDataGridViewTextBoxColumn, Me.IDSECUENCIADataGridViewTextBoxColumn, Me.CODIGOCIVILDataGridViewTextBoxColumn})
+        Me.DataGridView1.DataSource = Me.CIUDADANOBindingSource
+        Me.DataGridView1.Location = New System.Drawing.Point(196, 408)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(1044, 150)
+        Me.DataGridView1.TabIndex = 101
+        '
+        'TIPOIDENTIFICACIONDataGridViewTextBoxColumn
+        '
+        Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn.DataPropertyName = "TIPO_IDENTIFICACION"
+        Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn.HeaderText = "TIPO_IDENTIFICACION"
+        Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn.Name = "TIPOIDENTIFICACIONDataGridViewTextBoxColumn"
+        '
+        'NUMEROIDENTIFICACIONDataGridViewTextBoxColumn
+        '
+        Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn.DataPropertyName = "NUMERO_IDENTIFICACION"
+        Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn.HeaderText = "NUMERO_IDENTIFICACION"
+        Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn.Name = "NUMEROIDENTIFICACIONDataGridViewTextBoxColumn"
+        '
+        'NOMBREDataGridViewTextBoxColumn
+        '
+        Me.NOMBREDataGridViewTextBoxColumn.DataPropertyName = "NOMBRE"
+        Me.NOMBREDataGridViewTextBoxColumn.HeaderText = "NOMBRE"
+        Me.NOMBREDataGridViewTextBoxColumn.Name = "NOMBREDataGridViewTextBoxColumn"
+        '
+        'PRIMERAPELLIDODataGridViewTextBoxColumn
+        '
+        Me.PRIMERAPELLIDODataGridViewTextBoxColumn.DataPropertyName = "PRIMER_APELLIDO"
+        Me.PRIMERAPELLIDODataGridViewTextBoxColumn.HeaderText = "PRIMER_APELLIDO"
+        Me.PRIMERAPELLIDODataGridViewTextBoxColumn.Name = "PRIMERAPELLIDODataGridViewTextBoxColumn"
+        '
+        'SEGUNDOAPELLIDODataGridViewTextBoxColumn
+        '
+        Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn.DataPropertyName = "SEGUNDO_APELLIDO"
+        Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn.HeaderText = "SEGUNDO_APELLIDO"
+        Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn.Name = "SEGUNDOAPELLIDODataGridViewTextBoxColumn"
+        '
+        'FECHANACIMIENTODataGridViewTextBoxColumn
+        '
+        Me.FECHANACIMIENTODataGridViewTextBoxColumn.DataPropertyName = "FECHA_NACIMIENTO"
+        Me.FECHANACIMIENTODataGridViewTextBoxColumn.HeaderText = "FECHA_NACIMIENTO"
+        Me.FECHANACIMIENTODataGridViewTextBoxColumn.Name = "FECHANACIMIENTODataGridViewTextBoxColumn"
+        '
+        'CORREOELECTRONICODataGridViewTextBoxColumn
+        '
+        Me.CORREOELECTRONICODataGridViewTextBoxColumn.DataPropertyName = "CORREO_ELECTRONICO"
+        Me.CORREOELECTRONICODataGridViewTextBoxColumn.HeaderText = "CORREO_ELECTRONICO"
+        Me.CORREOELECTRONICODataGridViewTextBoxColumn.Name = "CORREOELECTRONICODataGridViewTextBoxColumn"
+        '
+        'DIRECCIONDataGridViewTextBoxColumn
+        '
+        Me.DIRECCIONDataGridViewTextBoxColumn.DataPropertyName = "DIRECCION"
+        Me.DIRECCIONDataGridViewTextBoxColumn.HeaderText = "DIRECCION"
+        Me.DIRECCIONDataGridViewTextBoxColumn.Name = "DIRECCIONDataGridViewTextBoxColumn"
+        '
+        'IDSECUENCIADataGridViewTextBoxColumn
+        '
+        Me.IDSECUENCIADataGridViewTextBoxColumn.DataPropertyName = "ID_SECUENCIA"
+        Me.IDSECUENCIADataGridViewTextBoxColumn.HeaderText = "ID_SECUENCIA"
+        Me.IDSECUENCIADataGridViewTextBoxColumn.Name = "IDSECUENCIADataGridViewTextBoxColumn"
+        Me.IDSECUENCIADataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'CODIGOCIVILDataGridViewTextBoxColumn
+        '
+        Me.CODIGOCIVILDataGridViewTextBoxColumn.DataPropertyName = "CODIGO_CIVIL"
+        Me.CODIGOCIVILDataGridViewTextBoxColumn.HeaderText = "CODIGO_CIVIL"
+        Me.CODIGOCIVILDataGridViewTextBoxColumn.Name = "CODIGOCIVILDataGridViewTextBoxColumn"
+        '
+        'CIUDADANOBindingSource
+        '
+        Me.CIUDADANOBindingSource.DataMember = "CIUDADANO"
+        Me.CIUDADANOBindingSource.DataSource = Me.II36DB03Q2025DataSet2
+        '
+        'II36DB03Q2025DataSet2
+        '
+        Me.II36DB03Q2025DataSet2.DataSetName = "II36DB03Q2025DataSet2"
+        Me.II36DB03Q2025DataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'CIUDADANOTableAdapter
+        '
+        Me.CIUDADANOTableAdapter.ClearBeforeFill = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.ClientSize = New System.Drawing.Size(1439, 518)
+        Me.ClientSize = New System.Drawing.Size(1439, 659)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Txtsegundo_apellido)
         Me.Controls.Add(Me.Txtdireccion)
         Me.Controls.Add(Me.Dtp_fecha_nacimiento)
@@ -301,6 +438,9 @@ Partial Class Form1
         Me.Grb_captura.ResumeLayout(False)
         Me.Grb_captura.PerformLayout()
         Me.Grbacciones.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.CIUDADANOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.II36DB03Q2025DataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -331,4 +471,21 @@ Partial Class Form1
     Friend WithEvents Btnsalir As Button
     Friend WithEvents Grbacciones As GroupBox
     Friend WithEvents Txtsegundo_apellido As TextBox
+    Friend WithEvents BtnLimpiar As Button
+    Friend WithEvents CmbEstadoCivil As ComboBox
+    Friend WithEvents LblEstado As Label
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents II36DB03Q2025DataSet2 As II36DB03Q2025DataSet2
+    Friend WithEvents CIUDADANOBindingSource As BindingSource
+    Friend WithEvents CIUDADANOTableAdapter As II36DB03Q2025DataSet2TableAdapters.CIUDADANOTableAdapter
+    Friend WithEvents TIPOIDENTIFICACIONDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents NUMEROIDENTIFICACIONDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents NOMBREDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PRIMERAPELLIDODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SEGUNDOAPELLIDODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FECHANACIMIENTODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents CORREOELECTRONICODataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents DIRECCIONDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents IDSECUENCIADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents CODIGOCIVILDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 End Class

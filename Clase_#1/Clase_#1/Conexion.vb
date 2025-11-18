@@ -33,6 +33,25 @@ Public Class Conexion
         da.Fill(dt)
         Return dt
     End Function
+
+    Public Function ObtenerEstadosCiviles() As DataTable
+        Dim dt As New DataTable()
+        consultar("SELECT DESCRIPCION FROM ESTADO_CIVIL", "ESTADO_CIVIL")
+        da.Fill(dt)
+        Return dt
+    End Function
+
+    Public Function Busca_padron(ByVal vnumeroid As String) As DataTable
+        Dim dt = New DataTable()
+        consultar("SELECT * FROM PADRON WHERE IDENTIFICACION = '" & vnumeroid & "'", "PADRON")
+        If ds.Tables("PADRON").Rows.Count > 0 Then
+            f = 0
+        Else
+            f = 1
+        End If
+        da.Fill(dt)
+        Return dt
+    End Function
     Public Sub consultar(ByVal sql As String, ByVal tabla As String)
         ds.Tables.Clear()
         da = New SqlDataAdapter(sql, conexion)
