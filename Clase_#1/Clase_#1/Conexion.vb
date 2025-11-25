@@ -52,20 +52,25 @@ Public Class Conexion
         da.Fill(dt)
         Return dt
     End Function
-    Public Function Filtra_padron(nombre As String, priAp As String) As DataTable
+    Public Function Filtra_padron(numeroident As String, nombre As String, priAp As String, segAp As String) As DataTable
 
         Dim dt As New DataTable
 
         Dim sql As String =
-        "SELECT TOP 200 * 
+        "SELECT * 
          FROM PADRON
-         WHERE (@nombre = '' OR NOMBRE LIKE '%' + @nombre + '%')
+         WHERE 
+           (@numeroident = '' OR IDENTIFICACION LIKE '%' + @numeroident + '%')    
+           AND (@nombre = '' OR NOMBRE LIKE '%' + @nombre + '%')
            AND (@priAp = '' OR APELLIDO1 LIKE '%' + @priAp + '%')
-         ORDER BY NOMBRE, APELLIDO1"
+           AND (@segAp = '' OR APELLIDO2  LIKE '%' + @segAp + '%')    
+           ORDER BY     IDENTIFICACION, NOMBRE, APELLIDO1, APELLIDO2"
 
-        Using cmd As New SqlCommand(sql, conexion)   ' <-- usá tu conexión existente
+        Using cmd As New SqlCommand(sql, conexion)
+            cmd.Parameters.AddWithValue("@numeroident", numeroident)
             cmd.Parameters.AddWithValue("@nombre", nombre)
             cmd.Parameters.AddWithValue("@priAp", priAp)
+            cmd.Parameters.AddWithValue("@segAp", segAp)
 
             Using da As New SqlDataAdapter(cmd)
                 da.Fill(dt)
@@ -74,8 +79,6 @@ Public Class Conexion
 
         Return dt
     End Function
-
-
 
     Public Sub consultar(ByVal sql As String, ByVal tabla As String)
         ds.Tables.Clear()

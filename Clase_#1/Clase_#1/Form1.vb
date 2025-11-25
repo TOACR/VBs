@@ -5,7 +5,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: esta línea de código carga datos en la tabla 'II36DB03Q2025DataSet2.CIUDADANO' Puede moverla o quitarla según sea necesario.
         Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
-        'Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet3.PADRON)
 
 
         'MsgBox("Bienvenidos al curso de Progra II")
@@ -126,7 +125,10 @@ Public Class Form1
                         conexion.inserta_datos(strsql)
                         conexion.inserta_datos(strsqlbit)
                         If f = 0 Then
+                            Dgvpersona.DataSource = Nothing
+                            Dgvpersona.Rows.Clear()
                             Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+                            Dgvpersona.DataSource = Me.II36DB03Q2025DataSet2.CIUDADANO
                             MessageBox.Show("Datos almacenados satisfactoriamente", "Datos guardados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Else
                             MessageBox.Show("Error al insertar los datos", "Datos no guardados", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -176,7 +178,10 @@ Public Class Form1
                     Txtnombre.Enabled = True
                     Txtprimer_apellido.Enabled = True
                     Txtsegundo_apellido.Enabled = True
+                    Dgvpersona.DataSource = Nothing
+                    Dgvpersona.Rows.Clear()
                     Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+                    Dgvpersona.DataSource = Me.II36DB03Q2025DataSet2.CIUDADANO
 
                 End If
 
@@ -230,7 +235,10 @@ Public Class Form1
                         MsgBox(strsql)
                         conexion.inserta_datos(strsql)
                         If f = 0 Then
+                            Dgvpersona.DataSource = Nothing
+                            Dgvpersona.Rows.Clear()
                             Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+                            Dgvpersona.DataSource = Me.II36DB03Q2025DataSet2.CIUDADANO
                             MessageBox.Show("Datos modificados satisfactoriamente", "Datos modificados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Else
                             MessageBox.Show("Error al modificar los datos", "Datos no modificados", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -281,7 +289,10 @@ Public Class Form1
                             MsgBox(strsql)
                             conexion.inserta_datos(strsql)
                             If f = 0 Then
+                                Dgvpersona.DataSource = Nothing
+                                Dgvpersona.Rows.Clear()
                                 Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+                                Dgvpersona.DataSource = Me.II36DB03Q2025DataSet2.CIUDADANO
                                 MessageBox.Show("Datos eliminados satisfactoriamente", "Datos eliminados", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             Else
                                 MessageBox.Show("Error al eliminar los datos", "Datos no eliminados", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -332,6 +343,10 @@ Public Class Form1
         End If
     End Sub
     Private Sub Limpiar()
+        Dgvpersona.DataSource = Nothing
+        Dgvpersona.Rows.Clear()
+        Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+        Dgvpersona.DataSource = Me.II36DB03Q2025DataSet2.CIUDADANO
         Msk_id.Clear()
         Txtnombre.Clear()
         Txtprimer_apellido.Clear()
@@ -340,7 +355,14 @@ Public Class Form1
         Txtcorreo.Clear()
         Txtdireccion.Clear()
         Cmb_tipoid.SelectedIndex = -1
+        CmbEstadoCivil.SelectedIndex = -1
+        TxtNumeroindentCons.Clear()
+        TxtNombCons.Clear()
+        TxtPriApellCons.Clear()
+        TxtSegApellCons.Clear()
+
     End Sub
+
     Private Sub CargarEstados()
         Dim dt As DataTable = conexion.ObtenerEstadosCiviles()
         CmbEstadoCivil.DataSource = dt
@@ -348,17 +370,6 @@ Public Class Form1
         CmbEstadoCivil.ValueMember = "DESCRIPCION"
         CmbEstadoCivil.SelectedIndex = -1
     End Sub
-    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
-        Limpiar()
-        Btnconsultar.Enabled = True
-    End Sub
-    Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
-        If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
-                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Application.Exit()
-        End If
-    End Sub
-
     Private Sub BtnConsultas_Click(sender As Object, e As EventArgs) Handles BtnConsultas.Click
 
         If String.IsNullOrWhiteSpace(TxtNombCons.Text) AndAlso String.IsNullOrWhiteSpace(TxtPriApellCons.Text) Then
@@ -367,13 +378,21 @@ Public Class Form1
             Exit Sub
         End If
 
+        Dim vNumeroident As String = TxtNumeroindentCons.Text.Trim()
         Dim vNombre As String = TxtNombCons.Text.Trim()
         Dim vPriAp As String = TxtPriApellCons.Text.Trim()
+        Dim vSegAp As String = TxtSegApellCons.Text.Trim()
 
-        Dim dt As DataTable = conexion.Filtra_padron(vNombre, vPriAp)
+        Dim dt As DataTable = conexion.Filtra_padron(vNumeroident, vNombre, vPriAp, vSegAp)
 
+        If dt.Columns.Contains("IDENTIFICACION") Then
+            dt.Columns("IDENTIFICACION").ColumnName = "NUMERO_IDENTIFICACION"
+        End If
         If dt.Columns.Contains("APELLIDO1") Then
             dt.Columns("APELLIDO1").ColumnName = "PRIMER_APELLIDO"
+        End If
+        If dt.Columns.Contains("APELLIDO2") Then
+            dt.Columns("APELLIDO2").ColumnName = "SEGUNDO_APELLIDO"
         End If
 
         Dgvpersona.DataSource = dt
@@ -391,6 +410,16 @@ Public Class Form1
         Me.Dtp_fecha_nacimiento.Text = Dgvpersona.Item(5, i).Value()
         Me.Txtcorreo.Text = Dgvpersona.Item(6, i).Value()
         Me.Txtdireccion.Text = Dgvpersona.Item(7, i).Value()
+    End Sub
+    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
+        Limpiar()
+        Btnconsultar.Enabled = True
+    End Sub
+    Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
+        If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Application.Exit()
+        End If
     End Sub
 
 End Class
