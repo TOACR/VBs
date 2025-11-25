@@ -18,62 +18,53 @@ Module Funciones
         End If
 
     End Sub
+    Public Sub EstiloProfesionalDataGrid(dgv As DataGridView)
 
+        ' 🔹 Borde y líneas
+        dgv.BorderStyle = BorderStyle.FixedSingle
+        dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+        dgv.GridColor = Color.LightGray
+
+        ' 🔹 Ajustar tamaño automático
+        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+
+        ' 🔹 Quitar fila vacía al final
+        dgv.ReadOnly = True
+        dgv.AllowUserToAddRows = False
+        dgv.AllowUserToDeleteRows = False
+
+
+        ' 🔹 Selección completa
+        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgv.MultiSelect = False
+
+        ' 🔹 Encabezados profesionales
+        With dgv.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.FromArgb(30, 60, 90)     ' Azul corporativo oscuro
+            .ForeColor = Color.White
+            .Font = New Font("Segoe UI", 8, FontStyle.Bold)
+            .Alignment = DataGridViewContentAlignment.MiddleCenter
+        End With
+
+        dgv.EnableHeadersVisualStyles = False
+
+        ' 🔹 Filas estilo corporativo
+        With dgv.DefaultCellStyle
+            .Font = New Font("Segoe UI", 8, FontStyle.Regular)
+            .BackColor = Color.White
+            .ForeColor = Color.Black
+            .SelectionBackColor = Color.FromArgb(224, 238, 255)  ' Azul muy suave
+            .SelectionForeColor = Color.Black
+            .Alignment = DataGridViewContentAlignment.MiddleCenter
+        End With
+
+        ' Alternar color de filas
+        dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245)
+
+        ' 🔹 Borde exterior elegante
+        dgv.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.Single
+        dgv.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.Single
+
+    End Sub
 End Module
-
-
-'Private Sub Btneliminar_Click(sender As Object, e As EventArgs) Handles Btneliminar.Click
-'    If MessageBox.Show("¿Eliminar TODO en CIUDADANO y BITACORA_CIUDADANO y reiniciar consecutivos?",
-'                       "Confirmar eliminación masiva", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then
-'        Exit Sub
-'    End If
-
-'    Dim cs As String = "Data Source=DESKTOP-HPG8TC6\SQLEXPRESS;Initial Catalog=II36DB03Q2025;Trusted_connection=Yes"
-
-'    Using cn As New SqlConnection(cs)
-'        cn.Open()
-'        Using tx = cn.BeginTransaction()
-'            Try
-'                ' 1) Borrar primero BITACORA (hija) y luego CIUDADANO (padre)
-'                Using cmd1 As New SqlCommand("DELETE FROM dbo.BITACORA_CIUDADANO;", cn, tx)
-'                    cmd1.ExecuteNonQuery()
-'                End Using
-
-'                Using cmd2 As New SqlCommand("DELETE FROM dbo.CIUDADANO;", cn, tx)
-'                    cmd2.ExecuteNonQuery()
-'                End Using
-
-'                ' 2) RESEED condicional SOLO si la tabla tiene IDENTITY
-'                Dim sqlReseed As String =
-'                    "IF EXISTS (SELECT 1 FROM sys.identity_columns WHERE object_id = OBJECT_ID('dbo.CIUDADANO'))
-'                    BEGIN
-'                        DBCC CHECKIDENT ('dbo.CIUDADANO', RESEED, 0);
-'                    END;
-
-'                    IF EXISTS (SELECT 1 FROM sys.identity_columns WHERE object_id = OBJECT_ID('dbo.BITACORA_CIUDADANO'))
-'                    BEGIN
-'                        DBCC CHECKIDENT ('dbo.BITACORA_CIUDADANO', RESEED, 0);
-'                    END;
-
-'                    IF OBJECT_ID('dbo.seq_bitacora', 'SO') IS NOT NULL
-'                    BEGIN
-'                        ALTER SEQUENCE dbo.seq_bitacora RESTART WITH 1;
-'                    END;"
-
-'                Using cmdReseed As New SqlCommand(sqlReseed, cn, tx)
-'                    cmdReseed.CommandType = CommandType.Text
-'                    cmdReseed.ExecuteNonQuery()
-'                End Using
-
-'                tx.Commit()
-'                MessageBox.Show("Registros eliminados. Consecutivos reiniciados según corresponda.", "Éxito",
-'                                MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-'            Catch ex As Exception
-'                tx.Rollback()
-'                MessageBox.Show("Error al eliminar/reiniciar: " & ex.Message, "Error",
-'                                MessageBoxButtons.OK, MessageBoxIcon.Error)
-'            End Try
-'        End Using
-'    End Using
-'End Sub

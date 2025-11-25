@@ -50,7 +50,6 @@ Partial Class Form2_Admin
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BtnUsuarios = New System.Windows.Forms.Button()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TxtNombre
@@ -111,7 +110,7 @@ Partial Class Form2_Admin
         Me.BtnEliminar.Location = New System.Drawing.Point(10, 461)
         Me.BtnEliminar.Name = "BtnEliminar"
         Me.BtnEliminar.Size = New System.Drawing.Size(114, 37)
-        Me.BtnEliminar.TabIndex = 10
+        Me.BtnEliminar.TabIndex = 11
         Me.BtnEliminar.Text = "ELIMINAR FUNCIONARIO"
         Me.BtnEliminar.UseVisualStyleBackColor = False
         '
@@ -128,7 +127,8 @@ Partial Class Form2_Admin
         'Lblnombre
         '
         Me.Lblnombre.AutoSize = True
-        Me.Lblnombre.Location = New System.Drawing.Point(344, 21)
+        Me.Lblnombre.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Lblnombre.Location = New System.Drawing.Point(363, 70)
         Me.Lblnombre.Name = "Lblnombre"
         Me.Lblnombre.Size = New System.Drawing.Size(54, 13)
         Me.Lblnombre.TabIndex = 22
@@ -137,9 +137,9 @@ Partial Class Form2_Admin
         'DgvFuncionarios
         '
         Me.DgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvFuncionarios.Location = New System.Drawing.Point(15, 279)
+        Me.DgvFuncionarios.Location = New System.Drawing.Point(12, 287)
         Me.DgvFuncionarios.Name = "DgvFuncionarios"
-        Me.DgvFuncionarios.Size = New System.Drawing.Size(845, 168)
+        Me.DgvFuncionarios.Size = New System.Drawing.Size(856, 160)
         Me.DgvFuncionarios.TabIndex = 30
         Me.DgvFuncionarios.TabStop = False
         '
@@ -169,7 +169,7 @@ Partial Class Form2_Admin
         Me.Btnregresar.Location = New System.Drawing.Point(773, 497)
         Me.Btnregresar.Name = "Btnregresar"
         Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
-        Me.Btnregresar.TabIndex = 11
+        Me.Btnregresar.TabIndex = 10
         Me.Btnregresar.Text = "REGRESAR"
         Me.Btnregresar.UseVisualStyleBackColor = False
         '
@@ -207,7 +207,8 @@ Partial Class Form2_Admin
         'Lblprimer_apellido
         '
         Me.Lblprimer_apellido.AutoSize = True
-        Me.Lblprimer_apellido.Location = New System.Drawing.Point(503, 21)
+        Me.Lblprimer_apellido.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Lblprimer_apellido.Location = New System.Drawing.Point(514, 70)
         Me.Lblprimer_apellido.Name = "Lblprimer_apellido"
         Me.Lblprimer_apellido.Size = New System.Drawing.Size(104, 13)
         Me.Lblprimer_apellido.TabIndex = 23
@@ -215,7 +216,7 @@ Partial Class Form2_Admin
         '
         'Txtprimer_apellido
         '
-        Me.Txtprimer_apellido.Location = New System.Drawing.Point(505, 38)
+        Me.Txtprimer_apellido.Location = New System.Drawing.Point(516, 88)
         Me.Txtprimer_apellido.MaxLength = 30
         Me.Txtprimer_apellido.Name = "Txtprimer_apellido"
         Me.Txtprimer_apellido.Size = New System.Drawing.Size(167, 20)
@@ -233,7 +234,7 @@ Partial Class Form2_Admin
         '
         'Txtsegundo_apellido
         '
-        Me.Txtsegundo_apellido.Location = New System.Drawing.Point(686, 38)
+        Me.Txtsegundo_apellido.Location = New System.Drawing.Point(702, 88)
         Me.Txtsegundo_apellido.MaxLength = 30
         Me.Txtsegundo_apellido.Name = "Txtsegundo_apellido"
         Me.Txtsegundo_apellido.Size = New System.Drawing.Size(158, 20)
@@ -241,7 +242,7 @@ Partial Class Form2_Admin
         '
         'Dtp_fecha_nacimiento
         '
-        Me.Dtp_fecha_nacimiento.Location = New System.Drawing.Point(8, 106)
+        Me.Dtp_fecha_nacimiento.Location = New System.Drawing.Point(15, 160)
         Me.Dtp_fecha_nacimiento.Name = "Dtp_fecha_nacimiento"
         Me.Dtp_fecha_nacimiento.Size = New System.Drawing.Size(200, 20)
         Me.Dtp_fecha_nacimiento.TabIndex = 5
@@ -249,7 +250,8 @@ Partial Class Form2_Admin
         'Lblfecha_nacimiento
         '
         Me.Lblfecha_nacimiento.AutoSize = True
-        Me.Lblfecha_nacimiento.Location = New System.Drawing.Point(6, 88)
+        Me.Lblfecha_nacimiento.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Lblfecha_nacimiento.Location = New System.Drawing.Point(15, 144)
         Me.Lblfecha_nacimiento.Name = "Lblfecha_nacimiento"
         Me.Lblfecha_nacimiento.Size = New System.Drawing.Size(112, 13)
         Me.Lblfecha_nacimiento.TabIndex = 25
@@ -293,16 +295,10 @@ Partial Class Form2_Admin
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.GroupBox1.Controls.Add(Me.Dtp_fecha_nacimiento)
-        Me.GroupBox1.Controls.Add(Me.Lblfecha_nacimiento)
-        Me.GroupBox1.Controls.Add(Me.Txtsegundo_apellido)
-        Me.GroupBox1.Controls.Add(Me.Txtprimer_apellido)
-        Me.GroupBox1.Controls.Add(Me.Lblprimer_apellido)
-        Me.GroupBox1.Controls.Add(Me.Lblnombre)
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 49)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 49)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(850, 153)
-        Me.GroupBox1.TabIndex = 67
+        Me.GroupBox1.Size = New System.Drawing.Size(867, 153)
+        Me.GroupBox1.TabIndex = 11
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos del funcionario"
         '
@@ -314,7 +310,7 @@ Partial Class Form2_Admin
         Me.BtnUsuarios.Location = New System.Drawing.Point(10, 504)
         Me.BtnUsuarios.Name = "BtnUsuarios"
         Me.BtnUsuarios.Size = New System.Drawing.Size(114, 36)
-        Me.BtnUsuarios.TabIndex = 68
+        Me.BtnUsuarios.TabIndex = 12
         Me.BtnUsuarios.Text = "CREAR USUARIOS"
         Me.BtnUsuarios.UseVisualStyleBackColor = False
         '
@@ -322,12 +318,19 @@ Partial Class Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 545)
+        Me.ClientSize = New System.Drawing.Size(872, 548)
+        Me.Controls.Add(Me.DgvFuncionarios)
+        Me.Controls.Add(Me.Dtp_fecha_nacimiento)
         Me.Controls.Add(Me.BtnUsuarios)
+        Me.Controls.Add(Me.Lblfecha_nacimiento)
         Me.Controls.Add(Me.LblEstadoLista)
+        Me.Controls.Add(Me.Txtsegundo_apellido)
         Me.Controls.Add(Me.BtnActivar)
+        Me.Controls.Add(Me.Txtprimer_apellido)
         Me.Controls.Add(Me.BtnVerInactivos)
+        Me.Controls.Add(Me.Lblprimer_apellido)
         Me.Controls.Add(Me.Msk_id)
+        Me.Controls.Add(Me.Lblnombre)
         Me.Controls.Add(Me.Lblsegundo_apellido)
         Me.Controls.Add(Me.Lbltipoidentificacion)
         Me.Controls.Add(Me.Cmb_tipoid)
@@ -335,7 +338,6 @@ Partial Class Form2_Admin
         Me.Controls.Add(Me.Btnregresar)
         Me.Controls.Add(Me.Lblfuncionario)
         Me.Controls.Add(Me.lblFuncionarioId)
-        Me.Controls.Add(Me.DgvFuncionarios)
         Me.Controls.Add(Me.Lblcedula)
         Me.Controls.Add(Me.BtnEliminar)
         Me.Controls.Add(Me.BtnDesactivar)
@@ -347,8 +349,6 @@ Partial Class Form2_Admin
         Me.Name = "Form2_Admin"
         Me.Text = "10"
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -5,6 +5,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: esta línea de código carga datos en la tabla 'II36DB03Q2025DataSet2.CIUDADANO' Puede moverla o quitarla según sea necesario.
         Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet2.CIUDADANO)
+        'Me.CIUDADANOTableAdapter.Fill(Me.II36DB03Q2025DataSet3.PADRON)
 
 
         'MsgBox("Bienvenidos al curso de Progra II")
@@ -17,6 +18,8 @@ Public Class Form1
         Timer1.Start()
         conexion.conectar()
         CargarEstados()
+        EstiloProfesionalDataGrid(Dgvpersona)
+
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Txt_fecha.Text = Now
@@ -352,8 +355,42 @@ Public Class Form1
     Private Sub Btnsalir_Click(sender As Object, e As EventArgs) Handles Btnsalir.Click
         If MessageBox.Show("¿Desea salir del programa?", "Confirmar salida",
                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Application.Exit()   ' Cierra toda la aplicación
+            Application.Exit()
         End If
+    End Sub
+
+    Private Sub BtnConsultas_Click(sender As Object, e As EventArgs) Handles BtnConsultas.Click
+
+        If String.IsNullOrWhiteSpace(TxtNombCons.Text) AndAlso String.IsNullOrWhiteSpace(TxtPriApellCons.Text) Then
+            MessageBox.Show("Debe indicar el nombre o primer apellido.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Dim vNombre As String = TxtNombCons.Text.Trim()
+        Dim vPriAp As String = TxtPriApellCons.Text.Trim()
+
+        Dim dt As DataTable = conexion.Filtra_padron(vNombre, vPriAp)
+
+        If dt.Columns.Contains("APELLIDO1") Then
+            dt.Columns("APELLIDO1").ColumnName = "PRIMER_APELLIDO"
+        End If
+
+        Dgvpersona.DataSource = dt
+
+    End Sub
+
+    Private Sub Dgvpersona_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgvpersona.CellContentClick
+        Dim i As Integer
+        i = Dgvpersona.CurrentRow.Index
+        Me.Cmb_tipoid.Text = Dgvpersona.Item(0, i).Value()
+        Me.Msk_id.Text = Dgvpersona.Item(1, i).Value()
+        Me.Txtnombre.Text = Dgvpersona.Item(2, i).Value()
+        Me.Txtprimer_apellido.Text = Dgvpersona.Item(3, i).Value()
+        Me.Txtsegundo_apellido.Text = Dgvpersona.Item(4, i).Value()
+        Me.Dtp_fecha_nacimiento.Text = Dgvpersona.Item(5, i).Value()
+        Me.Txtcorreo.Text = Dgvpersona.Item(6, i).Value()
+        Me.Txtdireccion.Text = Dgvpersona.Item(7, i).Value()
     End Sub
 
 End Class

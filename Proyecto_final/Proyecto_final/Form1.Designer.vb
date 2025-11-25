@@ -64,7 +64,7 @@ Partial Class Form1
         '
         Me.BtnConsumibles.Location = New System.Drawing.Point(188, 43)
         Me.BtnConsumibles.Name = "BtnConsumibles"
-        Me.BtnConsumibles.Size = New System.Drawing.Size(123, 57)
+        Me.BtnConsumibles.Size = New System.Drawing.Size(109, 57)
         Me.BtnConsumibles.TabIndex = 2
         Me.BtnConsumibles.Text = "CARGAR CONSUMIBLES"
         Me.BtnConsumibles.UseVisualStyleBackColor = True

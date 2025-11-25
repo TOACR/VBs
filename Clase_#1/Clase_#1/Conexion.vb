@@ -52,6 +52,31 @@ Public Class Conexion
         da.Fill(dt)
         Return dt
     End Function
+    Public Function Filtra_padron(nombre As String, priAp As String) As DataTable
+
+        Dim dt As New DataTable
+
+        Dim sql As String =
+        "SELECT TOP 200 * 
+         FROM PADRON
+         WHERE (@nombre = '' OR NOMBRE LIKE '%' + @nombre + '%')
+           AND (@priAp = '' OR APELLIDO1 LIKE '%' + @priAp + '%')
+         ORDER BY NOMBRE, APELLIDO1"
+
+        Using cmd As New SqlCommand(sql, conexion)   ' <-- usá tu conexión existente
+            cmd.Parameters.AddWithValue("@nombre", nombre)
+            cmd.Parameters.AddWithValue("@priAp", priAp)
+
+            Using da As New SqlDataAdapter(cmd)
+                da.Fill(dt)
+            End Using
+        End Using
+
+        Return dt
+    End Function
+
+
+
     Public Sub consultar(ByVal sql As String, ByVal tabla As String)
         ds.Tables.Clear()
         da = New SqlDataAdapter(sql, conexion)
@@ -73,4 +98,6 @@ Public Class Conexion
             conexion.Close()
         End Try
     End Function
+
+
 End Class

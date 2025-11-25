@@ -51,7 +51,7 @@ Partial Class Form1
         Me.Btnsalir = New System.Windows.Forms.Button()
         Me.Grbacciones = New System.Windows.Forms.GroupBox()
         Me.BtnLimpiar = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Dgvpersona = New System.Windows.Forms.DataGridView()
         Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NOMBREDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -65,9 +65,14 @@ Partial Class Form1
         Me.CIUDADANOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.II36DB03Q2025DataSet2 = New Clase__1.II36DB03Q2025DataSet2()
         Me.CIUDADANOTableAdapter = New Clase__1.II36DB03Q2025DataSet2TableAdapters.CIUDADANOTableAdapter()
+        Me.TxtNombCons = New System.Windows.Forms.TextBox()
+        Me.TxtPriApellCons = New System.Windows.Forms.TextBox()
+        Me.BtnConsultas = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Grb_captura.SuspendLayout()
         Me.Grbacciones.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Dgvpersona, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CIUDADANOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.II36DB03Q2025DataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -312,7 +317,7 @@ Partial Class Form1
         Me.Grbacciones.Controls.Add(Me.BtnInsertar)
         Me.Grbacciones.Controls.Add(Me.Btnmodificar)
         Me.Grbacciones.Controls.Add(Me.Btneliminar)
-        Me.Grbacciones.Location = New System.Drawing.Point(268, 564)
+        Me.Grbacciones.Location = New System.Drawing.Point(269, 650)
         Me.Grbacciones.Name = "Grbacciones"
         Me.Grbacciones.Size = New System.Drawing.Size(902, 79)
         Me.Grbacciones.TabIndex = 24
@@ -328,17 +333,17 @@ Partial Class Form1
         Me.BtnLimpiar.Text = "&Limpiar"
         Me.BtnLimpiar.UseVisualStyleBackColor = True
         '
-        'DataGridView1
+        'Dgvpersona
         '
-        Me.DataGridView1.AllowUserToOrderColumns = True
-        Me.DataGridView1.AutoGenerateColumns = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn, Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn, Me.NOMBREDataGridViewTextBoxColumn, Me.PRIMERAPELLIDODataGridViewTextBoxColumn, Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn, Me.FECHANACIMIENTODataGridViewTextBoxColumn, Me.CORREOELECTRONICODataGridViewTextBoxColumn, Me.DIRECCIONDataGridViewTextBoxColumn, Me.IDSECUENCIADataGridViewTextBoxColumn, Me.CODIGOCIVILDataGridViewTextBoxColumn})
-        Me.DataGridView1.DataSource = Me.CIUDADANOBindingSource
-        Me.DataGridView1.Location = New System.Drawing.Point(196, 408)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1044, 150)
-        Me.DataGridView1.TabIndex = 101
+        Me.Dgvpersona.AllowUserToOrderColumns = True
+        Me.Dgvpersona.AutoGenerateColumns = False
+        Me.Dgvpersona.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgvpersona.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TIPOIDENTIFICACIONDataGridViewTextBoxColumn, Me.NUMEROIDENTIFICACIONDataGridViewTextBoxColumn, Me.NOMBREDataGridViewTextBoxColumn, Me.PRIMERAPELLIDODataGridViewTextBoxColumn, Me.SEGUNDOAPELLIDODataGridViewTextBoxColumn, Me.FECHANACIMIENTODataGridViewTextBoxColumn, Me.CORREOELECTRONICODataGridViewTextBoxColumn, Me.DIRECCIONDataGridViewTextBoxColumn, Me.IDSECUENCIADataGridViewTextBoxColumn, Me.CODIGOCIVILDataGridViewTextBoxColumn})
+        Me.Dgvpersona.DataSource = Me.CIUDADANOBindingSource
+        Me.Dgvpersona.Location = New System.Drawing.Point(196, 494)
+        Me.Dgvpersona.Name = "Dgvpersona"
+        Me.Dgvpersona.Size = New System.Drawing.Size(1044, 150)
+        Me.Dgvpersona.TabIndex = 101
         '
         'TIPOIDENTIFICACIONDataGridViewTextBoxColumn
         '
@@ -415,13 +420,59 @@ Partial Class Form1
         '
         Me.CIUDADANOTableAdapter.ClearBeforeFill = True
         '
+        'TxtNombCons
+        '
+        Me.TxtNombCons.Location = New System.Drawing.Point(482, 456)
+        Me.TxtNombCons.Name = "TxtNombCons"
+        Me.TxtNombCons.Size = New System.Drawing.Size(127, 20)
+        Me.TxtNombCons.TabIndex = 102
+        '
+        'TxtPriApellCons
+        '
+        Me.TxtPriApellCons.Location = New System.Drawing.Point(680, 456)
+        Me.TxtPriApellCons.Name = "TxtPriApellCons"
+        Me.TxtPriApellCons.Size = New System.Drawing.Size(137, 20)
+        Me.TxtPriApellCons.TabIndex = 103
+        '
+        'BtnConsultas
+        '
+        Me.BtnConsultas.Location = New System.Drawing.Point(884, 435)
+        Me.BtnConsultas.Name = "BtnConsultas"
+        Me.BtnConsultas.Size = New System.Drawing.Size(112, 41)
+        Me.BtnConsultas.TabIndex = 104
+        Me.BtnConsultas.Text = "&Consultas"
+        Me.BtnConsultas.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(479, 435)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(54, 13)
+        Me.Label1.TabIndex = 20
+        Me.Label1.Text = "NOMBRE"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(677, 435)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(104, 13)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "PRIMER APELLIDO"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.ClientSize = New System.Drawing.Size(1439, 659)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.ClientSize = New System.Drawing.Size(1439, 741)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.BtnConsultas)
+        Me.Controls.Add(Me.TxtPriApellCons)
+        Me.Controls.Add(Me.TxtNombCons)
+        Me.Controls.Add(Me.Dgvpersona)
         Me.Controls.Add(Me.Txtsegundo_apellido)
         Me.Controls.Add(Me.Txtdireccion)
         Me.Controls.Add(Me.Dtp_fecha_nacimiento)
@@ -438,7 +489,7 @@ Partial Class Form1
         Me.Grb_captura.ResumeLayout(False)
         Me.Grb_captura.PerformLayout()
         Me.Grbacciones.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Dgvpersona, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CIUDADANOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.II36DB03Q2025DataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -474,7 +525,7 @@ Partial Class Form1
     Friend WithEvents BtnLimpiar As Button
     Friend WithEvents CmbEstadoCivil As ComboBox
     Friend WithEvents LblEstado As Label
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Dgvpersona As DataGridView
     Friend WithEvents II36DB03Q2025DataSet2 As II36DB03Q2025DataSet2
     Friend WithEvents CIUDADANOBindingSource As BindingSource
     Friend WithEvents CIUDADANOTableAdapter As II36DB03Q2025DataSet2TableAdapters.CIUDADANOTableAdapter
@@ -488,4 +539,9 @@ Partial Class Form1
     Friend WithEvents DIRECCIONDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents IDSECUENCIADataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents CODIGOCIVILDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents TxtNombCons As TextBox
+    Friend WithEvents TxtPriApellCons As TextBox
+    Friend WithEvents BtnConsultas As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class
