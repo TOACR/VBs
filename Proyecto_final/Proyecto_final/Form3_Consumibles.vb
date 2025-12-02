@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Form3_Consumibles
-    Private Sub Form3_Consumibles_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub Form3_Consumibles_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Consumibles"
         EstiloProfesionalDataGrid(DgvMovs)
         CargarFuncionarios()
@@ -88,6 +88,15 @@ Public Class Form3_Consumibles
         TxtMontoAdelanto.Clear()
     End Sub
     Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
             Exit Sub
@@ -118,7 +127,7 @@ Public Class Form3_Consumibles
         End Using
         RefrescarMovs()
     End Sub
-    Private Sub RefrescarMovs()
+    Public Sub RefrescarMovs()
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
         Dim p As New List(Of SqlParameter)
         Dim q As String = "

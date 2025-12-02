@@ -125,7 +125,7 @@ Partial Class Form3_Consumibles
         '
         Me.BtnAgregarConsumo.BackColor = System.Drawing.Color.Lime
         Me.BtnAgregarConsumo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnAgregarConsumo.Location = New System.Drawing.Point(492, 71)
+        Me.BtnAgregarConsumo.Location = New System.Drawing.Point(492, 76)
         Me.BtnAgregarConsumo.Name = "BtnAgregarConsumo"
         Me.BtnAgregarConsumo.Size = New System.Drawing.Size(102, 42)
         Me.BtnAgregarConsumo.TabIndex = 8
@@ -162,7 +162,7 @@ Partial Class Form3_Consumibles
         'LblLiquidacion
         '
         Me.LblLiquidacion.AutoSize = True
-        Me.LblLiquidacion.Location = New System.Drawing.Point(698, 303)
+        Me.LblLiquidacion.Location = New System.Drawing.Point(698, 299)
         Me.LblLiquidacion.Name = "LblLiquidacion"
         Me.LblLiquidacion.Size = New System.Drawing.Size(76, 13)
         Me.LblLiquidacion.TabIndex = 12
@@ -212,11 +212,12 @@ Partial Class Form3_Consumibles
         '
         Me.BtnLiquidar.BackColor = System.Drawing.Color.DarkOrange
         Me.BtnLiquidar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnLiquidar.Location = New System.Drawing.Point(701, 321)
+        Me.BtnLiquidar.ForeColor = System.Drawing.Color.White
+        Me.BtnLiquidar.Location = New System.Drawing.Point(677, 315)
         Me.BtnLiquidar.Name = "BtnLiquidar"
-        Me.BtnLiquidar.Size = New System.Drawing.Size(87, 42)
+        Me.BtnLiquidar.Size = New System.Drawing.Size(111, 40)
         Me.BtnLiquidar.TabIndex = 18
-        Me.BtnLiquidar.Text = "LIQUIDAR"
+        Me.BtnLiquidar.Text = "LIQUIDAR CONSUMIBLES"
         Me.BtnLiquidar.UseVisualStyleBackColor = False
         '
         'BtnRegresar

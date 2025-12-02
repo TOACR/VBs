@@ -53,33 +53,36 @@ Partial Class Form1
         '
         'BtnRegistro
         '
+        Me.BtnRegistro.BackColor = System.Drawing.Color.SkyBlue
         Me.BtnRegistro.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnRegistro.Location = New System.Drawing.Point(128, 42)
         Me.BtnRegistro.Name = "BtnRegistro"
         Me.BtnRegistro.Size = New System.Drawing.Size(120, 57)
         Me.BtnRegistro.TabIndex = 1
         Me.BtnRegistro.Text = "ADMINISTRAR"
-        Me.BtnRegistro.UseVisualStyleBackColor = True
+        Me.BtnRegistro.UseVisualStyleBackColor = False
         '
         'BtnConsumibles
         '
+        Me.BtnConsumibles.BackColor = System.Drawing.Color.Bisque
         Me.BtnConsumibles.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnConsumibles.Location = New System.Drawing.Point(331, 42)
         Me.BtnConsumibles.Name = "BtnConsumibles"
         Me.BtnConsumibles.Size = New System.Drawing.Size(109, 57)
         Me.BtnConsumibles.TabIndex = 2
         Me.BtnConsumibles.Text = "CARGAR CONSUMIBLES"
-        Me.BtnConsumibles.UseVisualStyleBackColor = True
+        Me.BtnConsumibles.UseVisualStyleBackColor = False
         '
         'BtnConsultas
         '
+        Me.BtnConsultas.BackColor = System.Drawing.Color.Violet
         Me.BtnConsultas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnConsultas.Location = New System.Drawing.Point(524, 39)
         Me.BtnConsultas.Name = "BtnConsultas"
         Me.BtnConsultas.Size = New System.Drawing.Size(100, 60)
         Me.BtnConsultas.TabIndex = 3
         Me.BtnConsultas.Text = "CONSULTAS"
-        Me.BtnConsultas.UseVisualStyleBackColor = True
+        Me.BtnConsultas.UseVisualStyleBackColor = False
         '
         'BtnSalir
         '

@@ -334,4 +334,21 @@ Public Class Form2_Admin
         Dim f As New Form6_Usuarios()
         f.ShowDialog()
     End Sub
+
+    Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+
+        ' Si llegó aquí, el ADMIN se autenticó correctamente
+        Dim f As New Form7_GestionConsumibles()
+        f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
+    End Sub
+
 End Class

@@ -27,7 +27,6 @@ Partial Class Form2_Admin
         Me.BtnLimpiar = New System.Windows.Forms.Button()
         Me.BtnGuardar = New System.Windows.Forms.Button()
         Me.BtnDesactivar = New System.Windows.Forms.Button()
-        Me.BtnEliminar = New System.Windows.Forms.Button()
         Me.Lblcedula = New System.Windows.Forms.Label()
         Me.Lblnombre = New System.Windows.Forms.Label()
         Me.DgvFuncionarios = New System.Windows.Forms.DataGridView()
@@ -48,8 +47,13 @@ Partial Class Form2_Admin
         Me.BtnActivar = New System.Windows.Forms.Button()
         Me.LblEstadoLista = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.BtnEliminar = New System.Windows.Forms.Button()
         Me.BtnUsuarios = New System.Windows.Forms.Button()
+        Me.BtnGestionar = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TxtNombre
@@ -73,7 +77,7 @@ Partial Class Form2_Admin
         '
         Me.BtnLimpiar.BackColor = System.Drawing.Color.Turquoise
         Me.BtnLimpiar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnLimpiar.Location = New System.Drawing.Point(516, 497)
+        Me.BtnLimpiar.Location = New System.Drawing.Point(556, 454)
         Me.BtnLimpiar.Name = "BtnLimpiar"
         Me.BtnLimpiar.Size = New System.Drawing.Size(100, 53)
         Me.BtnLimpiar.TabIndex = 9
@@ -84,7 +88,7 @@ Partial Class Form2_Admin
         '
         Me.BtnGuardar.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.BtnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGuardar.Location = New System.Drawing.Point(238, 496)
+        Me.BtnGuardar.Location = New System.Drawing.Point(238, 454)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(100, 53)
         Me.BtnGuardar.TabIndex = 7
@@ -95,24 +99,12 @@ Partial Class Form2_Admin
         '
         Me.BtnDesactivar.BackColor = System.Drawing.Color.LightSalmon
         Me.BtnDesactivar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnDesactivar.Location = New System.Drawing.Point(378, 496)
+        Me.BtnDesactivar.Location = New System.Drawing.Point(395, 454)
         Me.BtnDesactivar.Name = "BtnDesactivar"
         Me.BtnDesactivar.Size = New System.Drawing.Size(100, 53)
         Me.BtnDesactivar.TabIndex = 8
         Me.BtnDesactivar.Text = "DESACTIVAR FUNCIONARIO"
         Me.BtnDesactivar.UseVisualStyleBackColor = False
-        '
-        'BtnEliminar
-        '
-        Me.BtnEliminar.BackColor = System.Drawing.Color.Red
-        Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnEliminar.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.BtnEliminar.Location = New System.Drawing.Point(10, 461)
-        Me.BtnEliminar.Name = "BtnEliminar"
-        Me.BtnEliminar.Size = New System.Drawing.Size(114, 37)
-        Me.BtnEliminar.TabIndex = 11
-        Me.BtnEliminar.Text = "ELIMINAR FUNCIONARIO"
-        Me.BtnEliminar.UseVisualStyleBackColor = False
         '
         'Lblcedula
         '
@@ -137,7 +129,7 @@ Partial Class Form2_Admin
         'DgvFuncionarios
         '
         Me.DgvFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvFuncionarios.Location = New System.Drawing.Point(12, 287)
+        Me.DgvFuncionarios.Location = New System.Drawing.Point(12, 279)
         Me.DgvFuncionarios.Name = "DgvFuncionarios"
         Me.DgvFuncionarios.Size = New System.Drawing.Size(856, 160)
         Me.DgvFuncionarios.TabIndex = 30
@@ -166,7 +158,7 @@ Partial Class Form2_Admin
         '
         Me.Btnregresar.BackColor = System.Drawing.Color.Lime
         Me.Btnregresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btnregresar.Location = New System.Drawing.Point(781, 514)
+        Me.Btnregresar.Location = New System.Drawing.Point(781, 603)
         Me.Btnregresar.Name = "Btnregresar"
         Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
         Me.Btnregresar.TabIndex = 10
@@ -178,7 +170,7 @@ Partial Class Form2_Admin
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(173, 9)
+        Me.Label1.Location = New System.Drawing.Point(185, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(498, 37)
         Me.Label1.TabIndex = 63
@@ -303,28 +295,76 @@ Partial Class Form2_Admin
         Me.GroupBox1.Size = New System.Drawing.Size(867, 153)
         Me.GroupBox1.TabIndex = 11
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Datos del funcionario"
+        Me.GroupBox1.Text = "REGISTRO DE FUNCIONARIOS"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 20.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(323, 531)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(255, 32)
+        Me.Label2.TabIndex = 69
+        Me.Label2.Text = "ADMINISTRACIÓN"
+        '
+        'BtnEliminar
+        '
+        Me.BtnEliminar.BackColor = System.Drawing.Color.Red
+        Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnEliminar.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.BtnEliminar.Location = New System.Drawing.Point(23, 19)
+        Me.BtnEliminar.Name = "BtnEliminar"
+        Me.BtnEliminar.Size = New System.Drawing.Size(114, 37)
+        Me.BtnEliminar.TabIndex = 11
+        Me.BtnEliminar.Text = "ELIMINAR FUNCIONARIO"
+        Me.BtnEliminar.UseVisualStyleBackColor = False
         '
         'BtnUsuarios
         '
         Me.BtnUsuarios.BackColor = System.Drawing.Color.Plum
         Me.BtnUsuarios.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUsuarios.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.BtnUsuarios.Location = New System.Drawing.Point(10, 504)
+        Me.BtnUsuarios.Location = New System.Drawing.Point(359, 19)
         Me.BtnUsuarios.Name = "BtnUsuarios"
-        Me.BtnUsuarios.Size = New System.Drawing.Size(114, 36)
+        Me.BtnUsuarios.Size = New System.Drawing.Size(114, 37)
         Me.BtnUsuarios.TabIndex = 12
         Me.BtnUsuarios.Text = "CREAR USUARIOS"
         Me.BtnUsuarios.UseVisualStyleBackColor = False
+        '
+        'BtnGestionar
+        '
+        Me.BtnGestionar.BackColor = System.Drawing.Color.SlateBlue
+        Me.BtnGestionar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGestionar.ForeColor = System.Drawing.Color.White
+        Me.BtnGestionar.Location = New System.Drawing.Point(194, 19)
+        Me.BtnGestionar.Name = "BtnGestionar"
+        Me.BtnGestionar.Size = New System.Drawing.Size(114, 37)
+        Me.BtnGestionar.TabIndex = 67
+        Me.BtnGestionar.Text = "GESTION DE CONSUMIBLES"
+        Me.BtnGestionar.UseVisualStyleBackColor = False
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.BackColor = System.Drawing.Color.Thistle
+        Me.GroupBox2.Controls.Add(Me.BtnGestionar)
+        Me.GroupBox2.Controls.Add(Me.BtnUsuarios)
+        Me.GroupBox2.Controls.Add(Me.BtnEliminar)
+        Me.GroupBox2.Location = New System.Drawing.Point(192, 566)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(500, 66)
+        Me.GroupBox2.TabIndex = 70
+        Me.GroupBox2.TabStop = False
         '
         'Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 560)
+        Me.ClientSize = New System.Drawing.Size(872, 651)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.DgvFuncionarios)
         Me.Controls.Add(Me.Dtp_fecha_nacimiento)
-        Me.Controls.Add(Me.BtnUsuarios)
         Me.Controls.Add(Me.Lblfecha_nacimiento)
         Me.Controls.Add(Me.LblEstadoLista)
         Me.Controls.Add(Me.Txtsegundo_apellido)
@@ -342,7 +382,6 @@ Partial Class Form2_Admin
         Me.Controls.Add(Me.Lblfuncionario)
         Me.Controls.Add(Me.lblFuncionarioId)
         Me.Controls.Add(Me.Lblcedula)
-        Me.Controls.Add(Me.BtnEliminar)
         Me.Controls.Add(Me.BtnDesactivar)
         Me.Controls.Add(Me.BtnGuardar)
         Me.Controls.Add(Me.BtnLimpiar)
@@ -352,6 +391,7 @@ Partial Class Form2_Admin
         Me.Name = "Form2_Admin"
         Me.Text = "10"
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -361,7 +401,6 @@ Partial Class Form2_Admin
     Friend WithEvents BtnLimpiar As Button
     Friend WithEvents BtnGuardar As Button
     Friend WithEvents BtnDesactivar As Button
-    Friend WithEvents BtnEliminar As Button
     Friend WithEvents Lblcedula As Label
     Friend WithEvents Lblnombre As Label
     Friend WithEvents DgvFuncionarios As DataGridView
@@ -382,5 +421,9 @@ Partial Class Form2_Admin
     Friend WithEvents BtnActivar As Button
     Friend WithEvents LblEstadoLista As TextBox
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents BtnEliminar As Button
     Friend WithEvents BtnUsuarios As Button
+    Friend WithEvents BtnGestionar As Button
+    Friend WithEvents GroupBox2 As GroupBox
 End Class
