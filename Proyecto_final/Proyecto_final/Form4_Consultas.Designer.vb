@@ -37,13 +37,16 @@ Partial Class Form4_Consultas
         Me.BtnRegresar = New System.Windows.Forms.Button()
         Me.LblTotalConsumos = New System.Windows.Forms.TextBox()
         Me.Lbltotal_consumos = New System.Windows.Forms.Label()
+        Me.LblAgregar = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         CType(Me.DgvResultado, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Lblfuncionario
         '
         Me.Lblfuncionario.AutoSize = True
-        Me.Lblfuncionario.Location = New System.Drawing.Point(38, 39)
+        Me.Lblfuncionario.Location = New System.Drawing.Point(10, 13)
         Me.Lblfuncionario.Name = "Lblfuncionario"
         Me.Lblfuncionario.Size = New System.Drawing.Size(81, 13)
         Me.Lblfuncionario.TabIndex = 0
@@ -52,21 +55,21 @@ Partial Class Form4_Consultas
         'CboFuncionario
         '
         Me.CboFuncionario.FormattingEnabled = True
-        Me.CboFuncionario.Location = New System.Drawing.Point(41, 70)
+        Me.CboFuncionario.Location = New System.Drawing.Point(13, 29)
         Me.CboFuncionario.Name = "CboFuncionario"
         Me.CboFuncionario.Size = New System.Drawing.Size(152, 21)
         Me.CboFuncionario.TabIndex = 1
         '
         'DtpDesde
         '
-        Me.DtpDesde.Location = New System.Drawing.Point(284, 71)
+        Me.DtpDesde.Location = New System.Drawing.Point(256, 30)
         Me.DtpDesde.Name = "DtpDesde"
         Me.DtpDesde.Size = New System.Drawing.Size(200, 20)
         Me.DtpDesde.TabIndex = 2
         '
         'DtpHasta
         '
-        Me.DtpHasta.Location = New System.Drawing.Point(551, 70)
+        Me.DtpHasta.Location = New System.Drawing.Point(523, 30)
         Me.DtpHasta.Name = "DtpHasta"
         Me.DtpHasta.Size = New System.Drawing.Size(200, 20)
         Me.DtpHasta.TabIndex = 3
@@ -74,7 +77,7 @@ Partial Class Form4_Consultas
         'Lbldesde
         '
         Me.Lbldesde.AutoSize = True
-        Me.Lbldesde.Location = New System.Drawing.Point(281, 39)
+        Me.Lbldesde.Location = New System.Drawing.Point(253, 13)
         Me.Lbldesde.Name = "Lbldesde"
         Me.Lbldesde.Size = New System.Drawing.Size(44, 13)
         Me.Lbldesde.TabIndex = 4
@@ -83,7 +86,7 @@ Partial Class Form4_Consultas
         'Lblhasta
         '
         Me.Lblhasta.AutoSize = True
-        Me.Lblhasta.Location = New System.Drawing.Point(548, 39)
+        Me.Lblhasta.Location = New System.Drawing.Point(520, 13)
         Me.Lblhasta.Name = "Lblhasta"
         Me.Lblhasta.Size = New System.Drawing.Size(43, 13)
         Me.Lblhasta.TabIndex = 5
@@ -91,31 +94,33 @@ Partial Class Form4_Consultas
         '
         'BtnBuscar
         '
-        Me.BtnBuscar.Location = New System.Drawing.Point(352, 122)
+        Me.BtnBuscar.BackColor = System.Drawing.Color.Turquoise
+        Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnBuscar.Location = New System.Drawing.Point(332, 65)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(88, 39)
         Me.BtnBuscar.TabIndex = 6
         Me.BtnBuscar.Text = "BUSCAR"
-        Me.BtnBuscar.UseVisualStyleBackColor = True
+        Me.BtnBuscar.UseVisualStyleBackColor = False
         '
         'DgvResultado
         '
         Me.DgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvResultado.Location = New System.Drawing.Point(69, 167)
+        Me.DgvResultado.Location = New System.Drawing.Point(69, 198)
         Me.DgvResultado.Name = "DgvResultado"
-        Me.DgvResultado.Size = New System.Drawing.Size(661, 150)
+        Me.DgvResultado.Size = New System.Drawing.Size(661, 132)
         Me.DgvResultado.TabIndex = 7
         '
         'LblTotalConsumibles
         '
-        Me.LblTotalConsumibles.Location = New System.Drawing.Point(77, 356)
+        Me.LblTotalConsumibles.Location = New System.Drawing.Point(77, 361)
         Me.LblTotalConsumibles.Name = "LblTotalConsumibles"
         Me.LblTotalConsumibles.Size = New System.Drawing.Size(164, 20)
         Me.LblTotalConsumibles.TabIndex = 8
         '
         'LblTotalAdelantos
         '
-        Me.LblTotalAdelantos.Location = New System.Drawing.Point(77, 409)
+        Me.LblTotalAdelantos.Location = New System.Drawing.Point(77, 418)
         Me.LblTotalAdelantos.Name = "LblTotalAdelantos"
         Me.LblTotalAdelantos.Size = New System.Drawing.Size(164, 20)
         Me.LblTotalAdelantos.TabIndex = 9
@@ -123,7 +128,7 @@ Partial Class Form4_Consultas
         'Lblcosumibles
         '
         Me.Lblcosumibles.AutoSize = True
-        Me.Lblcosumibles.Location = New System.Drawing.Point(74, 338)
+        Me.Lblcosumibles.Location = New System.Drawing.Point(74, 345)
         Me.Lblcosumibles.Name = "Lblcosumibles"
         Me.Lblcosumibles.Size = New System.Drawing.Size(84, 13)
         Me.Lblcosumibles.TabIndex = 10
@@ -132,7 +137,7 @@ Partial Class Form4_Consultas
         'Lblvales
         '
         Me.Lblvales.AutoSize = True
-        Me.Lblvales.Location = New System.Drawing.Point(74, 393)
+        Me.Lblvales.Location = New System.Drawing.Point(74, 399)
         Me.Lblvales.Name = "Lblvales"
         Me.Lblvales.Size = New System.Drawing.Size(41, 13)
         Me.Lblvales.TabIndex = 11
@@ -140,12 +145,14 @@ Partial Class Form4_Consultas
         '
         'BtnRegresar
         '
-        Me.BtnRegresar.Location = New System.Drawing.Point(665, 376)
+        Me.BtnRegresar.BackColor = System.Drawing.Color.Lime
+        Me.BtnRegresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRegresar.Location = New System.Drawing.Point(677, 390)
         Me.BtnRegresar.Name = "BtnRegresar"
-        Me.BtnRegresar.Size = New System.Drawing.Size(103, 47)
+        Me.BtnRegresar.Size = New System.Drawing.Size(91, 33)
         Me.BtnRegresar.TabIndex = 12
         Me.BtnRegresar.Text = "REGRESAR"
-        Me.BtnRegresar.UseVisualStyleBackColor = True
+        Me.BtnRegresar.UseVisualStyleBackColor = False
         '
         'LblTotalConsumos
         '
@@ -165,11 +172,40 @@ Partial Class Form4_Consultas
         Me.Lbltotal_consumos.TabIndex = 14
         Me.Lbltotal_consumos.Text = "TOTAL DE CONSUMOS"
         '
+        'LblAgregar
+        '
+        Me.LblAgregar.AutoSize = True
+        Me.LblAgregar.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblAgregar.ForeColor = System.Drawing.Color.Black
+        Me.LblAgregar.Location = New System.Drawing.Point(277, 18)
+        Me.LblAgregar.Name = "LblAgregar"
+        Me.LblAgregar.Size = New System.Drawing.Size(218, 37)
+        Me.LblAgregar.TabIndex = 22
+        Me.LblAgregar.Text = "CONSULTAS"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.GroupBox1.Controls.Add(Me.BtnBuscar)
+        Me.GroupBox1.Controls.Add(Me.Lblhasta)
+        Me.GroupBox1.Controls.Add(Me.Lbldesde)
+        Me.GroupBox1.Controls.Add(Me.DtpHasta)
+        Me.GroupBox1.Controls.Add(Me.DtpDesde)
+        Me.GroupBox1.Controls.Add(Me.CboFuncionario)
+        Me.GroupBox1.Controls.Add(Me.Lblfuncionario)
+        Me.GroupBox1.Location = New System.Drawing.Point(28, 68)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(739, 117)
+        Me.GroupBox1.TabIndex = 23
+        Me.GroupBox1.TabStop = False
+        '
         'Form4_Consultas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.LblAgregar)
         Me.Controls.Add(Me.Lbltotal_consumos)
         Me.Controls.Add(Me.LblTotalConsumos)
         Me.Controls.Add(Me.BtnRegresar)
@@ -178,16 +214,11 @@ Partial Class Form4_Consultas
         Me.Controls.Add(Me.LblTotalAdelantos)
         Me.Controls.Add(Me.LblTotalConsumibles)
         Me.Controls.Add(Me.DgvResultado)
-        Me.Controls.Add(Me.BtnBuscar)
-        Me.Controls.Add(Me.Lblhasta)
-        Me.Controls.Add(Me.Lbldesde)
-        Me.Controls.Add(Me.DtpHasta)
-        Me.Controls.Add(Me.DtpDesde)
-        Me.Controls.Add(Me.CboFuncionario)
-        Me.Controls.Add(Me.Lblfuncionario)
         Me.Name = "Form4_Consultas"
         Me.Text = "Form4_Consultas"
         CType(Me.DgvResultado, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -208,4 +239,6 @@ Partial Class Form4_Consultas
     Friend WithEvents BtnRegresar As Button
     Friend WithEvents LblTotalConsumos As TextBox
     Friend WithEvents Lbltotal_consumos As Label
+    Friend WithEvents LblAgregar As Label
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

@@ -71,9 +71,9 @@ Partial Class Form2_Admin
         '
         'BtnLimpiar
         '
-        Me.BtnLimpiar.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.BtnLimpiar.BackColor = System.Drawing.Color.Turquoise
         Me.BtnLimpiar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnLimpiar.Location = New System.Drawing.Point(516, 453)
+        Me.BtnLimpiar.Location = New System.Drawing.Point(516, 497)
         Me.BtnLimpiar.Name = "BtnLimpiar"
         Me.BtnLimpiar.Size = New System.Drawing.Size(100, 53)
         Me.BtnLimpiar.TabIndex = 9
@@ -84,7 +84,7 @@ Partial Class Form2_Admin
         '
         Me.BtnGuardar.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.BtnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGuardar.Location = New System.Drawing.Point(238, 453)
+        Me.BtnGuardar.Location = New System.Drawing.Point(238, 496)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(100, 53)
         Me.BtnGuardar.TabIndex = 7
@@ -95,7 +95,7 @@ Partial Class Form2_Admin
         '
         Me.BtnDesactivar.BackColor = System.Drawing.Color.LightSalmon
         Me.BtnDesactivar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnDesactivar.Location = New System.Drawing.Point(383, 453)
+        Me.BtnDesactivar.Location = New System.Drawing.Point(378, 496)
         Me.BtnDesactivar.Name = "BtnDesactivar"
         Me.BtnDesactivar.Size = New System.Drawing.Size(100, 53)
         Me.BtnDesactivar.TabIndex = 8
@@ -166,7 +166,7 @@ Partial Class Form2_Admin
         '
         Me.Btnregresar.BackColor = System.Drawing.Color.Lime
         Me.Btnregresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btnregresar.Location = New System.Drawing.Point(773, 497)
+        Me.Btnregresar.Location = New System.Drawing.Point(781, 514)
         Me.Btnregresar.Name = "Btnregresar"
         Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
         Me.Btnregresar.TabIndex = 10
@@ -176,11 +176,11 @@ Partial Class Form2_Admin
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
         Me.Label1.Location = New System.Drawing.Point(173, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(512, 37)
+        Me.Label1.Size = New System.Drawing.Size(498, 37)
         Me.Label1.TabIndex = 63
         Me.Label1.Text = "REGISTRO DE FUNCIONARIOS"
         '
@@ -198,6 +198,7 @@ Partial Class Form2_Admin
         '
         Me.Lbltipoidentificacion.AutoSize = True
         Me.Lbltipoidentificacion.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Lbltipoidentificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lbltipoidentificacion.Location = New System.Drawing.Point(15, 70)
         Me.Lbltipoidentificacion.Name = "Lbltipoidentificacion"
         Me.Lbltipoidentificacion.Size = New System.Drawing.Size(138, 13)
@@ -266,7 +267,8 @@ Partial Class Form2_Admin
         '
         'BtnVerInactivos
         '
-        Me.BtnVerInactivos.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.BtnVerInactivos.BackColor = System.Drawing.Color.MistyRose
+        Me.BtnVerInactivos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnVerInactivos.Location = New System.Drawing.Point(740, 208)
         Me.BtnVerInactivos.Name = "BtnVerInactivos"
         Me.BtnVerInactivos.Size = New System.Drawing.Size(120, 29)
@@ -277,6 +279,7 @@ Partial Class Form2_Admin
         'BtnActivar
         '
         Me.BtnActivar.BackColor = System.Drawing.Color.Transparent
+        Me.BtnActivar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnActivar.Location = New System.Drawing.Point(740, 243)
         Me.BtnActivar.Name = "BtnActivar"
         Me.BtnActivar.Size = New System.Drawing.Size(120, 30)
@@ -318,7 +321,7 @@ Partial Class Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 548)
+        Me.ClientSize = New System.Drawing.Size(872, 560)
         Me.Controls.Add(Me.DgvFuncionarios)
         Me.Controls.Add(Me.Dtp_fecha_nacimiento)
         Me.Controls.Add(Me.BtnUsuarios)

@@ -44,7 +44,7 @@ Partial Class Form1
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 71)
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 49)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(145, 100)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -53,16 +53,18 @@ Partial Class Form1
         '
         'BtnRegistro
         '
-        Me.BtnRegistro.Location = New System.Drawing.Point(6, 167)
+        Me.BtnRegistro.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRegistro.Location = New System.Drawing.Point(128, 42)
         Me.BtnRegistro.Name = "BtnRegistro"
-        Me.BtnRegistro.Size = New System.Drawing.Size(91, 29)
+        Me.BtnRegistro.Size = New System.Drawing.Size(120, 57)
         Me.BtnRegistro.TabIndex = 1
-        Me.BtnRegistro.Text = "REGISTRO"
+        Me.BtnRegistro.Text = "ADMINISTRAR"
         Me.BtnRegistro.UseVisualStyleBackColor = True
         '
         'BtnConsumibles
         '
-        Me.BtnConsumibles.Location = New System.Drawing.Point(188, 43)
+        Me.BtnConsumibles.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnConsumibles.Location = New System.Drawing.Point(331, 42)
         Me.BtnConsumibles.Name = "BtnConsumibles"
         Me.BtnConsumibles.Size = New System.Drawing.Size(109, 57)
         Me.BtnConsumibles.TabIndex = 2
@@ -71,7 +73,8 @@ Partial Class Form1
         '
         'BtnConsultas
         '
-        Me.BtnConsultas.Location = New System.Drawing.Point(491, 40)
+        Me.BtnConsultas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnConsultas.Location = New System.Drawing.Point(524, 39)
         Me.BtnConsultas.Name = "BtnConsultas"
         Me.BtnConsultas.Size = New System.Drawing.Size(100, 60)
         Me.BtnConsultas.TabIndex = 3
@@ -80,16 +83,18 @@ Partial Class Form1
         '
         'BtnSalir
         '
-        Me.BtnSalir.Location = New System.Drawing.Point(345, 157)
+        Me.BtnSalir.BackColor = System.Drawing.Color.Lime
+        Me.BtnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSalir.Location = New System.Drawing.Point(667, 84)
         Me.BtnSalir.Name = "BtnSalir"
         Me.BtnSalir.Size = New System.Drawing.Size(85, 39)
         Me.BtnSalir.TabIndex = 4
         Me.BtnSalir.Text = "SALIR"
-        Me.BtnSalir.UseVisualStyleBackColor = True
+        Me.BtnSalir.UseVisualStyleBackColor = False
         '
         'Txt_fecha
         '
-        Me.Txt_fecha.Location = New System.Drawing.Point(564, 12)
+        Me.Txt_fecha.Location = New System.Drawing.Point(546, 12)
         Me.Txt_fecha.Name = "Txt_fecha"
         Me.Txt_fecha.ReadOnly = True
         Me.Txt_fecha.Size = New System.Drawing.Size(224, 20)
@@ -99,24 +104,22 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 27.75!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
-                Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 27.75!, CType((System.Drawing.FontStyle.Italic Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.Label1.Location = New System.Drawing.Point(256, 71)
+        Me.Label1.Location = New System.Drawing.Point(246, 58)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(299, 42)
+        Me.Label1.Size = New System.Drawing.Size(293, 43)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "LUBRI DELUXE"
         '
         'Lable2
         '
         Me.Lable2.AutoSize = True
-        Me.Lable2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
-                Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lable2.ForeColor = System.Drawing.Color.Red
-        Me.Lable2.Location = New System.Drawing.Point(272, 113)
+        Me.Lable2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 26.25!, CType((System.Drawing.FontStyle.Italic Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lable2.ForeColor = System.Drawing.Color.LightCoral
+        Me.Lable2.Location = New System.Drawing.Point(193, 109)
         Me.Lable2.Name = "Lable2"
-        Me.Lable2.Size = New System.Drawing.Size(263, 25)
+        Me.Lable2.Size = New System.Drawing.Size(404, 40)
         Me.Lable2.TabIndex = 9
         Me.Lable2.Text = "FULL WASH SPA O Y S"
         '
@@ -124,7 +127,7 @@ Partial Class Form1
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(249, 208)
+        Me.Label3.Location = New System.Drawing.Point(249, 173)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(329, 25)
         Me.Label3.TabIndex = 10
@@ -132,21 +135,21 @@ Partial Class Form1
         '
         'GroupBox1
         '
-        Me.GroupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.GroupBox1.Controls.Add(Me.BtnRegistro)
         Me.GroupBox1.Controls.Add(Me.BtnConsumibles)
         Me.GroupBox1.Controls.Add(Me.BtnConsultas)
         Me.GroupBox1.Controls.Add(Me.BtnSalir)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 236)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 201)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(776, 202)
+        Me.GroupBox1.Size = New System.Drawing.Size(758, 136)
         Me.GroupBox1.TabIndex = 11
         Me.GroupBox1.TabStop = False
         '
         'PictureBox2
         '
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(646, 71)
+        Me.PictureBox2.Location = New System.Drawing.Point(628, 49)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(142, 100)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -162,7 +165,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(786, 354)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Lable2)

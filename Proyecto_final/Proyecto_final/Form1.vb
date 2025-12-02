@@ -35,6 +35,9 @@ Public Class Form1
 
     ' Botón 4: Salir
     Private Sub BtnSalir_Click(sender As Object, e As EventArgs) Handles BtnSalir.Click
+        If MessageBox.Show("¿Está seguro que desea salir del sistema?", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+            Exit Sub
+        End If
         Application.Exit()
     End Sub
 End Class

@@ -9,6 +9,7 @@ Public Class Form3_Consumibles
         DtpDesde.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 1, 16))
         DtpHasta.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 15, Date.DaysInMonth(Now.Year, Now.Month)))
         LimpiarControles(Me)
+        NumCantidad.Value = 0
     End Sub
     Private Sub TxtMontoAdelanto_KeyPress(sender As Object, e As EventArgs) Handles TxtMontoAdelanto.KeyPress
         Set_solo_numeros(e)
@@ -19,7 +20,7 @@ Public Class Form3_Consumibles
         CboFuncionario.ValueMember = "FuncionarioId"
         CboFuncionario.DataSource = dt
     End Sub
-    Private Sub CargarConsumibles()
+    Public Sub CargarConsumibles()
         Dim dt = Db.GetTable("SELECT ConsumibleId, Nombre, Precio FROM Consumible ORDER BY Nombre", Nothing)
         CboConsumible.DisplayMember = "Nombre"
         CboConsumible.ValueMember = "ConsumibleId"
@@ -65,7 +66,6 @@ Public Class Form3_Consumibles
             })
 
         RefrescarMovs()
-        NumCantidad.Value = 1
     End Sub
     Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
         If CboFuncionario.SelectedIndex < 0 Then
@@ -122,12 +122,12 @@ Public Class Form3_Consumibles
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
         Dim p As New List(Of SqlParameter)
         Dim q As String = "
-            SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal, c.Asentado
+            SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal, c.Liquidado
             FROM Consumo c
             INNER JOIN Consumible co ON co.ConsumibleId=c.ConsumibleId
             WHERE (@f=-1 OR c.FuncionarioId=@f)
             UNION ALL
-            SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal, a.Asentado
+            SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal, a.Liquidado
             FROM Adelanto a
             WHERE (@f=-1 OR a.FuncionarioId=@f)
             ORDER BY Fecha DESC"
@@ -138,4 +138,20 @@ Public Class Form3_Consumibles
         Form1.Show()
         Me.Close()
     End Sub
+    Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+
+        ' Si llegó aquí, el ADMIN se autenticó correctamente
+        Dim f As New Form7_GestionConsumibles()
+        f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
+    End Sub
+
 End Class

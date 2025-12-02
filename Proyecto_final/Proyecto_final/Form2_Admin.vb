@@ -2,6 +2,7 @@
 
 Public Class Form2_Admin
     Private _viendoInactivos As Boolean = False
+    Dim conexion As Conexion = New Conexion()
     Private Sub Form2_Admin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Registro"
         _viendoInactivos = False
@@ -9,6 +10,7 @@ Public Class Form2_Admin
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
         EstiloProfesionalDataGrid(DgvFuncionarios)
         CargarFuncionarios(True)
+
     End Sub
     Private Sub Cmb_tipoid_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmb_tipoid.SelectedIndexChanged
         Msk_id.Text = ""
@@ -49,6 +51,39 @@ Public Class Form2_Admin
         Dim dt = Db.GetTable(q, Nothing)
         DgvFuncionarios.DataSource = dt
 
+    End Sub
+    Private Sub Msk_id_LostFocus(sender As Object, e As EventArgs) Handles Msk_id.LostFocus
+        If Cmb_tipoid.Text = "" Or Msk_id.MaskFull = False Then
+            MsgBox("Debe seleccionar tipo de identificacion y digitar numero de identificacion para consultar")
+            Return
+        End If
+        If ntipoid = 1 Then
+            Try
+                Dim videntificacion, valorformateado As String
+                videntificacion = ""
+                valorformateado = Msk_id.Text
+                Dim valorsinformato As String = valorformateado.Replace("-", "")
+                videntificacion = valorsinformato
+                If valorsinformato.Trim <> "" Then
+                    Dim dt = conexion.Busca_padron(videntificacion)
+                    If f = 1 Then
+                        MsgBox("Registro no existe en el padron, no puede consultar " & Cmb_tipoid.Text & " y número de identificación " & videntificacion & " no se encuentra registrado en el padron.")
+                        Msk_id.Focus()
+                        Return
+                    Else
+                        TxtNombre.Text = Trim(dt.Rows(0)!nombre)
+                        Txtprimer_apellido.Text = Trim(dt.Rows(0)!apellido1)
+                        Txtsegundo_apellido.Text = Trim(dt.Rows(0)!apellido2)
+                        'Cajas de texto deshabilitadas para que no se modifiquen los datos traidos del padron
+                        TxtNombre.Enabled = False
+                        Txtprimer_apellido.Enabled = False
+                        Txtsegundo_apellido.Enabled = False
+                    End If
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Error :" + ex.ToString)
+            End Try
+        End If
     End Sub
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         Try
@@ -262,8 +297,17 @@ Public Class Form2_Admin
         End Try
     End Sub
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
-        Form5_Eliminar.Show()
-        Me.Hide()
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+        Dim f As New Form5_Eliminar()
+        f.ShowDialog()
     End Sub
     Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
         LimpiarControles(Me)
@@ -278,8 +322,16 @@ Public Class Form2_Admin
     End Sub
 
     Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
         Dim f As New Form6_Usuarios()
         f.ShowDialog()
     End Sub
-
 End Class

@@ -38,11 +38,11 @@ Partial Class FormLogin
         'Lblingreso
         '
         Me.Lblingreso.AutoSize = True
-        Me.Lblingreso.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lblingreso.ForeColor = System.Drawing.Color.OliveDrab
-        Me.Lblingreso.Location = New System.Drawing.Point(49, 27)
+        Me.Lblingreso.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lblingreso.ForeColor = System.Drawing.Color.Black
+        Me.Lblingreso.Location = New System.Drawing.Point(59, 35)
         Me.Lblingreso.Name = "Lblingreso"
-        Me.Lblingreso.Size = New System.Drawing.Size(255, 25)
+        Me.Lblingreso.Size = New System.Drawing.Size(242, 24)
         Me.Lblingreso.TabIndex = 6
         Me.Lblingreso.Text = "INGRESO AL SISTEMA"
         '
@@ -75,7 +75,7 @@ Partial Class FormLogin
         '
         'TxtPassword
         '
-        Me.TxtPassword.Location = New System.Drawing.Point(210, 39)
+        Me.TxtPassword.Location = New System.Drawing.Point(221, 39)
         Me.TxtPassword.Name = "TxtPassword"
         Me.TxtPassword.Size = New System.Drawing.Size(100, 20)
         Me.TxtPassword.TabIndex = 1
@@ -83,9 +83,9 @@ Partial Class FormLogin
         '
         'BtnEntrar
         '
-        Me.BtnEntrar.BackColor = System.Drawing.Color.LawnGreen
+        Me.BtnEntrar.BackColor = System.Drawing.Color.Lime
         Me.BtnEntrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnEntrar.Location = New System.Drawing.Point(44, 94)
+        Me.BtnEntrar.Location = New System.Drawing.Point(32, 94)
         Me.BtnEntrar.Name = "BtnEntrar"
         Me.BtnEntrar.Size = New System.Drawing.Size(88, 37)
         Me.BtnEntrar.TabIndex = 2
@@ -96,7 +96,7 @@ Partial Class FormLogin
         '
         Me.BtnCancelar.BackColor = System.Drawing.Color.LightCoral
         Me.BtnCancelar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCancelar.Location = New System.Drawing.Point(210, 94)
+        Me.BtnCancelar.Location = New System.Drawing.Point(240, 94)
         Me.BtnCancelar.Name = "BtnCancelar"
         Me.BtnCancelar.Size = New System.Drawing.Size(81, 37)
         Me.BtnCancelar.TabIndex = 3
@@ -117,7 +117,7 @@ Partial Class FormLogin
         '
         Me.Lblcontraseña.AutoSize = True
         Me.Lblcontraseña.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lblcontraseña.Location = New System.Drawing.Point(210, 23)
+        Me.Lblcontraseña.Location = New System.Drawing.Point(218, 23)
         Me.Lblcontraseña.Name = "Lblcontraseña"
         Me.Lblcontraseña.Size = New System.Drawing.Size(95, 13)
         Me.Lblcontraseña.TabIndex = 5
@@ -125,7 +125,7 @@ Partial Class FormLogin
         '
         'GroupBox1
         '
-        Me.GroupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.GroupBox1.Controls.Add(Me.Lblcontraseña)
         Me.GroupBox1.Controls.Add(Me.Lblusuario)
         Me.GroupBox1.Controls.Add(Me.BtnCancelar)

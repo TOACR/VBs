@@ -36,19 +36,22 @@ Partial Class Form6_Usuarios
         Me.LblConfirmar = New System.Windows.Forms.Label()
         Me.LblUsuarioId = New System.Windows.Forms.TextBox()
         Me.LblRol = New System.Windows.Forms.Label()
+        Me.LblAgregar = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         CType(Me.DgvUsuarios, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TxtUserName
         '
-        Me.TxtUserName.Location = New System.Drawing.Point(57, 57)
+        Me.TxtUserName.Location = New System.Drawing.Point(17, 47)
         Me.TxtUserName.Name = "TxtUserName"
         Me.TxtUserName.Size = New System.Drawing.Size(100, 20)
         Me.TxtUserName.TabIndex = 0
         '
         'TxtPassword
         '
-        Me.TxtPassword.Location = New System.Drawing.Point(233, 57)
+        Me.TxtPassword.Location = New System.Drawing.Point(206, 47)
         Me.TxtPassword.Name = "TxtPassword"
         Me.TxtPassword.Size = New System.Drawing.Size(100, 20)
         Me.TxtPassword.TabIndex = 1
@@ -56,7 +59,7 @@ Partial Class Form6_Usuarios
         '
         'TxtConfirmar
         '
-        Me.TxtConfirmar.Location = New System.Drawing.Point(392, 57)
+        Me.TxtConfirmar.Location = New System.Drawing.Point(396, 46)
         Me.TxtConfirmar.Name = "TxtConfirmar"
         Me.TxtConfirmar.Size = New System.Drawing.Size(112, 20)
         Me.TxtConfirmar.TabIndex = 2
@@ -65,7 +68,7 @@ Partial Class Form6_Usuarios
         'CmbRol
         '
         Me.CmbRol.FormattingEnabled = True
-        Me.CmbRol.Location = New System.Drawing.Point(57, 122)
+        Me.CmbRol.Location = New System.Drawing.Point(584, 46)
         Me.CmbRol.Name = "CmbRol"
         Me.CmbRol.Size = New System.Drawing.Size(121, 21)
         Me.CmbRol.TabIndex = 3
@@ -73,51 +76,59 @@ Partial Class Form6_Usuarios
         'DgvUsuarios
         '
         Me.DgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvUsuarios.Location = New System.Drawing.Point(57, 180)
+        Me.DgvUsuarios.Location = New System.Drawing.Point(57, 200)
         Me.DgvUsuarios.Name = "DgvUsuarios"
-        Me.DgvUsuarios.Size = New System.Drawing.Size(688, 106)
+        Me.DgvUsuarios.Size = New System.Drawing.Size(688, 116)
         Me.DgvUsuarios.TabIndex = 5
         '
         'BtnNuevo
         '
-        Me.BtnNuevo.Location = New System.Drawing.Point(57, 341)
+        Me.BtnNuevo.BackColor = System.Drawing.Color.Turquoise
+        Me.BtnNuevo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnNuevo.Location = New System.Drawing.Point(162, 322)
         Me.BtnNuevo.Name = "BtnNuevo"
         Me.BtnNuevo.Size = New System.Drawing.Size(100, 41)
         Me.BtnNuevo.TabIndex = 6
         Me.BtnNuevo.Text = "LIMPIAR FORMULARIO"
-        Me.BtnNuevo.UseVisualStyleBackColor = True
+        Me.BtnNuevo.UseVisualStyleBackColor = False
         '
         'BtnGuardar
         '
-        Me.BtnGuardar.Location = New System.Drawing.Point(240, 341)
+        Me.BtnGuardar.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.BtnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGuardar.Location = New System.Drawing.Point(356, 326)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(93, 41)
         Me.BtnGuardar.TabIndex = 7
         Me.BtnGuardar.Text = "GUARDAR"
-        Me.BtnGuardar.UseVisualStyleBackColor = True
+        Me.BtnGuardar.UseVisualStyleBackColor = False
         '
         'BtnEliminar
         '
-        Me.BtnEliminar.Location = New System.Drawing.Point(408, 343)
+        Me.BtnEliminar.BackColor = System.Drawing.Color.LightCoral
+        Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnEliminar.Location = New System.Drawing.Point(541, 326)
         Me.BtnEliminar.Name = "BtnEliminar"
         Me.BtnEliminar.Size = New System.Drawing.Size(96, 37)
         Me.BtnEliminar.TabIndex = 8
         Me.BtnEliminar.Text = "ELIMINAR"
-        Me.BtnEliminar.UseVisualStyleBackColor = True
+        Me.BtnEliminar.UseVisualStyleBackColor = False
         '
         'BtnCerrar
         '
-        Me.BtnCerrar.Location = New System.Drawing.Point(584, 343)
+        Me.BtnCerrar.BackColor = System.Drawing.Color.Lime
+        Me.BtnCerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCerrar.Location = New System.Drawing.Point(703, 365)
         Me.BtnCerrar.Name = "BtnCerrar"
-        Me.BtnCerrar.Size = New System.Drawing.Size(105, 38)
+        Me.BtnCerrar.Size = New System.Drawing.Size(85, 34)
         Me.BtnCerrar.TabIndex = 9
         Me.BtnCerrar.Text = "CERRAR"
-        Me.BtnCerrar.UseVisualStyleBackColor = True
+        Me.BtnCerrar.UseVisualStyleBackColor = False
         '
         'LblUsuario
         '
         Me.LblUsuario.AutoSize = True
-        Me.LblUsuario.Location = New System.Drawing.Point(57, 38)
+        Me.LblUsuario.Location = New System.Drawing.Point(17, 31)
         Me.LblUsuario.Name = "LblUsuario"
         Me.LblUsuario.Size = New System.Drawing.Size(56, 13)
         Me.LblUsuario.TabIndex = 10
@@ -126,7 +137,7 @@ Partial Class Form6_Usuarios
         'LblPassword
         '
         Me.LblPassword.AutoSize = True
-        Me.LblPassword.Location = New System.Drawing.Point(233, 37)
+        Me.LblPassword.Location = New System.Drawing.Point(203, 31)
         Me.LblPassword.Name = "LblPassword"
         Me.LblPassword.Size = New System.Drawing.Size(81, 13)
         Me.LblPassword.TabIndex = 11
@@ -135,7 +146,7 @@ Partial Class Form6_Usuarios
         'LblConfirmar
         '
         Me.LblConfirmar.AutoSize = True
-        Me.LblConfirmar.Location = New System.Drawing.Point(392, 38)
+        Me.LblConfirmar.Location = New System.Drawing.Point(393, 30)
         Me.LblConfirmar.Name = "LblConfirmar"
         Me.LblConfirmar.Size = New System.Drawing.Size(71, 13)
         Me.LblConfirmar.TabIndex = 12
@@ -143,7 +154,7 @@ Partial Class Form6_Usuarios
         '
         'LblUsuarioId
         '
-        Me.LblUsuarioId.Location = New System.Drawing.Point(552, 57)
+        Me.LblUsuarioId.Location = New System.Drawing.Point(336, 83)
         Me.LblUsuarioId.Name = "LblUsuarioId"
         Me.LblUsuarioId.Size = New System.Drawing.Size(37, 20)
         Me.LblUsuarioId.TabIndex = 13
@@ -152,34 +163,59 @@ Partial Class Form6_Usuarios
         'LblRol
         '
         Me.LblRol.AutoSize = True
-        Me.LblRol.Location = New System.Drawing.Point(57, 106)
+        Me.LblRol.Location = New System.Drawing.Point(581, 30)
         Me.LblRol.Name = "LblRol"
         Me.LblRol.Size = New System.Drawing.Size(29, 13)
         Me.LblRol.TabIndex = 14
         Me.LblRol.Text = "ROL"
         '
+        'LblAgregar
+        '
+        Me.LblAgregar.AutoSize = True
+        Me.LblAgregar.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblAgregar.ForeColor = System.Drawing.Color.Black
+        Me.LblAgregar.Location = New System.Drawing.Point(187, 19)
+        Me.LblAgregar.Name = "LblAgregar"
+        Me.LblAgregar.Size = New System.Drawing.Size(423, 37)
+        Me.LblAgregar.TabIndex = 23
+        Me.LblAgregar.Text = "CREACIÓN DE USUARIOS"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.GroupBox1.Controls.Add(Me.LblRol)
+        Me.GroupBox1.Controls.Add(Me.LblUsuarioId)
+        Me.GroupBox1.Controls.Add(Me.LblConfirmar)
+        Me.GroupBox1.Controls.Add(Me.LblPassword)
+        Me.GroupBox1.Controls.Add(Me.LblUsuario)
+        Me.GroupBox1.Controls.Add(Me.CmbRol)
+        Me.GroupBox1.Controls.Add(Me.TxtConfirmar)
+        Me.GroupBox1.Controls.Add(Me.TxtPassword)
+        Me.GroupBox1.Controls.Add(Me.TxtUserName)
+        Me.GroupBox1.Location = New System.Drawing.Point(40, 72)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(724, 115)
+        Me.GroupBox1.TabIndex = 24
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Datos del usuario"
+        '
         'Form6_Usuarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.LblRol)
-        Me.Controls.Add(Me.LblUsuarioId)
-        Me.Controls.Add(Me.LblConfirmar)
-        Me.Controls.Add(Me.LblPassword)
-        Me.Controls.Add(Me.LblUsuario)
+        Me.ClientSize = New System.Drawing.Size(800, 411)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.LblAgregar)
         Me.Controls.Add(Me.BtnCerrar)
         Me.Controls.Add(Me.BtnEliminar)
         Me.Controls.Add(Me.BtnGuardar)
         Me.Controls.Add(Me.BtnNuevo)
         Me.Controls.Add(Me.DgvUsuarios)
-        Me.Controls.Add(Me.CmbRol)
-        Me.Controls.Add(Me.TxtConfirmar)
-        Me.Controls.Add(Me.TxtPassword)
-        Me.Controls.Add(Me.TxtUserName)
         Me.Name = "Form6_Usuarios"
         Me.Text = "Form6_Usuarios"
         CType(Me.DgvUsuarios, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -199,4 +235,6 @@ Partial Class Form6_Usuarios
     Friend WithEvents LblConfirmar As Label
     Friend WithEvents LblUsuarioId As TextBox
     Friend WithEvents LblRol As Label
+    Friend WithEvents LblAgregar As Label
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

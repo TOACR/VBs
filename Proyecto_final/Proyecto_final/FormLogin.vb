@@ -3,9 +3,15 @@ Imports System.Configuration
 
 Public Class FormLogin
     Private ReadOnly _rolForzado As String
-    Public Sub New(Optional rolForzado As String = Nothing)
+    Private ReadOnly _soloValidar As Boolean
+
+    Public Property LoginOK As Boolean = False
+
+    Public Sub New(Optional rolForzado As String = Nothing,
+                   Optional soloValidar As Boolean = False)
         InitializeComponent()
         _rolForzado = rolForzado
+        _soloValidar = soloValidar
     End Sub
 
     Private Sub FormLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -25,6 +31,7 @@ Public Class FormLogin
             CmbRol.Enabled = False
         End If
     End Sub
+
     Private Sub BtnEntrar_Click(sender As Object, e As EventArgs) Handles BtnEntrar.Click
         Dim usuario = TxtUsuario.Text.Trim()
         Dim clave = TxtPassword.Text
@@ -46,12 +53,14 @@ Public Class FormLogin
                 cmd.Parameters.AddWithValue("@u", usuario)
                 cmd.Parameters.AddWithValue("@r", rol)
 
-                Dim stored As String = CStr(cmd.ExecuteScalar())
+                Dim obj = cmd.ExecuteScalar()
 
-                If stored Is Nothing OrElse stored Is DBNull.Value Then
+                If obj Is Nothing OrElse obj Is DBNull.Value Then
                     MessageBox.Show("Usuario no existe.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
+
+                Dim stored As String = CStr(obj)
 
                 Dim ok As Boolean = Security.VerifyPassword(clave, stored)
                 If Not ok Then
@@ -60,7 +69,16 @@ Public Class FormLogin
                 End If
             End Using
 
-            ' Éxito: abrir el form según rol
+            ' ====== AQUÍ separamos comportamientos ======
+            If _soloValidar Then
+                ' Solo validar credenciales (por ejemplo, para Gestionar Consumibles)
+                LoginOK = True
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+                Return
+            End If
+
+            ' Éxito: abrir el form según rol (modo normal)
             If rol.Equals("ADMIN", StringComparison.OrdinalIgnoreCase) Then
                 Dim f As New Form2_Admin()
                 f.Show()
@@ -76,8 +94,16 @@ Public Class FormLogin
     End Sub
 
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
-        Form1.Show()
-        Me.Close()
+        If _soloValidar Then
+            ' Si solo estamos validando, simplemente cerramos
+            Me.DialogResult = DialogResult.Cancel
+            Me.Close()
+        Else
+            ' Comportamiento original
+            Form1.Show()
+            Me.Close()
+        End If
     End Sub
 
 End Class
+
