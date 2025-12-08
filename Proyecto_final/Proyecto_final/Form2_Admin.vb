@@ -38,52 +38,86 @@ Public Class Form2_Admin
         Set_solo_letras(e)
     End Sub
     Private Sub CargarFuncionarios(Optional activos As Boolean = True)
-
         Dim q As String
-
         If activos Then
             q = "SELECT * FROM Funcionario WHERE Activo = 1 ORDER BY Nombre"
         Else
             q = "SELECT * FROM Funcionario WHERE Activo = 0 ORDER BY Nombre"
         End If
         BtnActivar.Enabled = _viendoInactivos
-
         Dim dt = Db.GetTable(q, Nothing)
         DgvFuncionarios.DataSource = dt
-
     End Sub
-    Private Sub Msk_id_LostFocus(sender As Object, e As EventArgs) Handles Msk_id.LostFocus
-        If Cmb_tipoid.Text = "" Or Msk_id.MaskFull = False Then
-            MsgBox("Debe seleccionar tipo de identificacion y digitar numero de identificacion para consultar")
-            Return
+    Private Sub Msk_id_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles Msk_id.PreviewKeyDown
+        If e.KeyCode = Keys.Tab AndAlso ntipoid = 1 Then
+            ' Solo cuando es CÉDULA NACIONAL tratamos TAB como tecla de entrada
+            e.IsInputKey = True
         End If
-        If ntipoid = 1 Then
-            Try
-                Dim videntificacion, valorformateado As String
-                videntificacion = ""
-                valorformateado = Msk_id.Text
-                Dim valorsinformato As String = valorformateado.Replace("-", "")
-                videntificacion = valorsinformato
-                If valorsinformato.Trim <> "" Then
-                    Dim dt = conexion.Busca_padron(videntificacion)
-                    If f = 1 Then
-                        MsgBox("Registro no existe en el padron, no puede consultar " & Cmb_tipoid.Text & " y número de identificación " & videntificacion & " no se encuentra registrado en el padron.")
-                        Msk_id.Focus()
-                        Return
-                    Else
-                        TxtNombre.Text = Trim(dt.Rows(0)!nombre)
-                        Txtprimer_apellido.Text = Trim(dt.Rows(0)!apellido1)
-                        Txtsegundo_apellido.Text = Trim(dt.Rows(0)!apellido2)
-                        'Cajas de texto deshabilitadas para que no se modifiquen los datos traidos del padron
-                        TxtNombre.Enabled = False
-                        Txtprimer_apellido.Enabled = False
-                        Txtsegundo_apellido.Enabled = False
-                    End If
+    End Sub
+    Private Sub Msk_id_KeyDown(sender As Object, e As KeyEventArgs) Handles Msk_id.KeyDown
+        ' ENTER
+        If e.KeyCode = Keys.Enter Then
+            If ntipoid = 1 Then
+                e.SuppressKeyPress = True
+                e.Handled = True
+                ValidarIdentificacionCedula()
+            End If
+            ' Si ntipoid <> 1, ENTER se comporta normal
+        End If
+        ' TAB
+        If e.KeyCode = Keys.Tab Then
+            If ntipoid = 1 Then
+                ' Solo para CÉDULA: que TAB valide y NO avance
+                e.SuppressKeyPress = True
+                e.Handled = True
+                ValidarIdentificacionCedula()
+            End If
+            ' Si ntipoid <> 1, no tocamos nada -> TAB mueve el foco normalmente
+        End If
+    End Sub
+    Private Sub ValidarIdentificacionCedula()
+        ' Solo aplica para CÉDULA NACIONAL
+        If ntipoid <> 1 Then
+            Exit Sub
+        End If
+
+        ' Validar que escogieron tipo y llenaron la máscara
+        If Cmb_tipoid.Text = "" Or Not Msk_id.MaskFull Then
+            MsgBox("Debe digitar el número de identificación para consultar en el Padrón",
+               MsgBoxStyle.Exclamation,
+               "Validación")
+            Msk_id.Focus()
+            Exit Sub
+        End If
+        Try
+            Dim valorformateado As String = Msk_id.Text
+            Dim valorsinformato As String = valorformateado.Replace("-", "")
+            If valorsinformato.Trim() <> "" Then
+                Dim dt = conexion.Busca_padron(valorsinformato)
+
+                If f = 1 Then
+                    MsgBox("El número de identificación " & valorsinformato & " no se encuentra registrado en el padrón.",
+                       MsgBoxStyle.Critical,
+                       "Validación")
+                    Msk_id.Focus()
+                    Exit Sub
+                Else
+                    TxtNombre.Text = Trim(dt.Rows(0)!nombre)
+                    Txtprimer_apellido.Text = Trim(dt.Rows(0)!apellido1)
+                    Txtsegundo_apellido.Text = Trim(dt.Rows(0)!apellido2)
+
+                    ' Deshabilitar para que no se modifiquen los datos del padrón
+                    TxtNombre.Enabled = False
+                    Txtprimer_apellido.Enabled = False
+                    Txtsegundo_apellido.Enabled = False
                 End If
-            Catch ex As Exception
-                MessageBox.Show("Error :" + ex.ToString)
-            End Try
-        End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error :" & ex.ToString(),
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error)
+        End Try
     End Sub
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         Try
@@ -190,7 +224,6 @@ Public Class Form2_Admin
         LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub
-
     Private Sub BtnDesactivar_Click(sender As Object, e As EventArgs) Handles BtnDesactivar.Click
         If lblFuncionarioId.Text = "" Then
             MessageBox.Show("Debe seleccionar un funcionario primero.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -244,9 +277,7 @@ Public Class Form2_Admin
         ChkActivo.Checked = If(IsDBNull(r.Cells("Activo").Value), False, CBool(r.Cells("Activo").Value))
     End Sub
     Private Sub BtnVerInactivos_Click(sender As Object, e As EventArgs) Handles BtnVerInactivos.Click
-
         _viendoInactivos = Not _viendoInactivos   ' 🔄 Alternar estado
-
         If _viendoInactivos Then
             ' 🔹 Cargar INACTIVOS
             CargarFuncionarios(False)
@@ -254,7 +285,6 @@ Public Class Form2_Admin
 
             LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS INACTIVOS"
             LblEstadoLista.ForeColor = Color.Red   ' 🔴 Color para inactivos
-
         Else
             ' 🔹 Cargar ACTIVOS
             CargarFuncionarios(True)
@@ -263,7 +293,6 @@ Public Class Form2_Admin
             LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
             LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
         End If
-
     End Sub
     Private Sub BtnActivar_Click(sender As Object, e As EventArgs) Handles BtnActivar.Click
         If DgvFuncionarios.CurrentRow Is Nothing Then
@@ -271,9 +300,7 @@ Public Class Form2_Admin
                         MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
-
         Dim id As Integer = CInt(DgvFuncionarios.CurrentRow.Cells("FuncionarioId").Value)
-
         Try
             Db.ExecNonQuery("
             UPDATE Funcionario
@@ -320,7 +347,6 @@ Public Class Form2_Admin
         Form1.Show()
         Me.Close()
     End Sub
-
     Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -334,7 +360,6 @@ Public Class Form2_Admin
         Dim f As New Form6_Usuarios()
         f.ShowDialog()
     End Sub
-
     Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -350,5 +375,4 @@ Public Class Form2_Admin
         Dim f As New Form7_GestionConsumibles()
         f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
     End Sub
-
 End Class

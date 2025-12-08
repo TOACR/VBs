@@ -51,7 +51,7 @@ Public Class Form3_Consumibles
         End If
         Dim cant = CInt(NumCantidad.Value)
         If cant <= 0 Then
-            MessageBox.Show("Cantidad debe ser > 0.")
+            MessageBox.Show("Cantidad debe ser mayor a 0.")
             Exit Sub
         End If
 
@@ -130,18 +130,67 @@ Public Class Form3_Consumibles
     Public Sub RefrescarMovs()
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
         Dim p As New List(Of SqlParameter)
+
         Dim q As String = "
-            SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal, c.Liquidado
-            FROM Consumo c
-            INNER JOIN Consumible co ON co.ConsumibleId=c.ConsumibleId
-            WHERE (@f=-1 OR c.FuncionarioId=@f)
-            UNION ALL
-            SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal, a.Liquidado
-            FROM Adelanto a
-            WHERE (@f=-1 OR a.FuncionarioId=@f)
-            ORDER BY Fecha DESC"
+        SELECT 
+            'Consumo' AS Tipo,
+            c.Fecha,
+            co.Nombre AS Detalle,
+            c.Cantidad,
+            c.PrecioUnitario,
+            c.MontoTotal,
+            CASE 
+                WHEN c.Liquidado = 1 THEN 'Liquidado'
+                ELSE 'Pendiente'
+            END AS Estado
+        FROM Consumo c
+        INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
+        WHERE (@f = -1 OR c.FuncionarioId = @f)
+
+        UNION ALL
+
+        SELECT 
+            'Adelanto' AS Tipo,
+            a.Fecha,
+            'Adelanto' AS Detalle,
+            NULL AS Cantidad,
+            NULL AS PrecioUnitario,
+            a.Monto AS MontoTotal,
+            CASE 
+                WHEN a.Liquidado = 1 THEN 'Liquidado'
+                ELSE 'Pendiente'
+            END AS Estado
+        FROM Adelanto a
+        WHERE (@f = -1 OR a.FuncionarioId = @f)
+
+        ORDER BY Fecha DESC"
+
         p.Add(New SqlParameter("@f", funcId))
         DgvMovs.DataSource = Db.GetTable(q, p)
+    End Sub
+    Private Sub DgvMovs_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvMovs.CellFormatting
+        ' Asegúrate de que el nombre de la columna sea exactamente "Estado"
+        If DgvMovs.Columns(e.ColumnIndex).Name = "Estado" Then
+            If e.Value IsNot Nothing Then
+                Dim texto = e.Value.ToString()
+
+                ' Limpiar estilo previo
+                e.CellStyle.ForeColor = Color.Black
+                e.CellStyle.BackColor = Color.White
+                e.CellStyle.ApplyStyle(New DataGridViewCellStyle())
+
+                ' Aplicar colores según el valor
+                If texto = "Liquidado" Then
+                    e.CellStyle.ForeColor = Color.Green
+                    e.CellStyle.Font = New Font(e.CellStyle.Font, FontStyle.Bold)
+                ElseIf texto = "Pendiente" Then
+                    e.CellStyle.ForeColor = Color.Red
+                    e.CellStyle.Font = New Font(e.CellStyle.Font, FontStyle.Bold)
+                End If
+
+                e.FormattingApplied = True
+            End If
+        End If
     End Sub
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Form1.Show()
