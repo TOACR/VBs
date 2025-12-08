@@ -3,6 +3,7 @@ Imports System.Text
 
 Module Security
     ' Formato de almacenamiento: PBKDF2$<iteraciones>$<saltBase64>$<hashBase64>
+    Public UsuarioActual, RolActual As String
     Private Const ALG As String = "PBKDF2"
 
     Public Function HashPassword(password As String, Optional iterations As Integer = 100000) As String

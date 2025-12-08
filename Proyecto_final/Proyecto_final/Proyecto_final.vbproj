@@ -74,6 +74,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auditoria.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +110,12 @@
       <DependentUpon>Form7_GestionConsumibles.vb</DependentUpon>
     </Compile>
     <Compile Include="Form7_GestionConsumibles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBitacora.Designer.vb">
+      <DependentUpon>FormBitacora.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormBitacora.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormCrearUsuarioAdmin.Designer.vb">
@@ -168,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form7_GestionConsumibles.resx">
       <DependentUpon>Form7_GestionConsumibles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBitacora.resx">
+      <DependentUpon>FormBitacora.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCrearUsuarioAdmin.resx">
       <DependentUpon>FormCrearUsuarioAdmin.vb</DependentUpon>

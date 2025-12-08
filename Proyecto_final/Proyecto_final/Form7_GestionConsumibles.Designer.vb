@@ -34,6 +34,8 @@ Partial Class Form7_GestionConsumibles
         Me.LblGestionConsumibles = New System.Windows.Forms.Label()
         Me.BtnCancelar = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.BtnVerInactivos = New System.Windows.Forms.Button()
+        Me.BtnReactivar = New System.Windows.Forms.Button()
         CType(Me.DgvConsumibles, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -41,9 +43,9 @@ Partial Class Form7_GestionConsumibles
         'DgvConsumibles
         '
         Me.DgvConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvConsumibles.Location = New System.Drawing.Point(69, 87)
+        Me.DgvConsumibles.Location = New System.Drawing.Point(36, 87)
         Me.DgvConsumibles.Name = "DgvConsumibles"
-        Me.DgvConsumibles.Size = New System.Drawing.Size(521, 120)
+        Me.DgvConsumibles.Size = New System.Drawing.Size(589, 120)
         Me.DgvConsumibles.TabIndex = 0
         '
         'TxtNombre
@@ -87,7 +89,7 @@ Partial Class Form7_GestionConsumibles
         '
         Me.BtnRegresar.BackColor = System.Drawing.Color.Lime
         Me.BtnRegresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnRegresar.Location = New System.Drawing.Point(568, 327)
+        Me.BtnRegresar.Location = New System.Drawing.Point(559, 434)
         Me.BtnRegresar.Name = "BtnRegresar"
         Me.BtnRegresar.Size = New System.Drawing.Size(90, 34)
         Me.BtnRegresar.TabIndex = 5
@@ -154,18 +156,41 @@ Partial Class Form7_GestionConsumibles
         Me.GroupBox1.Controls.Add(Me.BtnGuardar)
         Me.GroupBox1.Controls.Add(Me.TxtPrecio)
         Me.GroupBox1.Controls.Add(Me.TxtNombre)
-        Me.GroupBox1.Location = New System.Drawing.Point(96, 216)
+        Me.GroupBox1.Location = New System.Drawing.Point(97, 283)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(466, 145)
         Me.GroupBox1.TabIndex = 25
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Consumibles"
         '
+        'BtnVerInactivos
+        '
+        Me.BtnVerInactivos.BackColor = System.Drawing.Color.MistyRose
+        Me.BtnVerInactivos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnVerInactivos.Location = New System.Drawing.Point(185, 240)
+        Me.BtnVerInactivos.Name = "BtnVerInactivos"
+        Me.BtnVerInactivos.Size = New System.Drawing.Size(125, 23)
+        Me.BtnVerInactivos.TabIndex = 26
+        Me.BtnVerInactivos.Text = "VER INACTIVOS"
+        Me.BtnVerInactivos.UseVisualStyleBackColor = False
+        '
+        'BtnReactivar
+        '
+        Me.BtnReactivar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnReactivar.Location = New System.Drawing.Point(351, 240)
+        Me.BtnReactivar.Name = "BtnReactivar"
+        Me.BtnReactivar.Size = New System.Drawing.Size(125, 23)
+        Me.BtnReactivar.TabIndex = 27
+        Me.BtnReactivar.Text = "ACTIVAR"
+        Me.BtnReactivar.UseVisualStyleBackColor = True
+        '
         'Form7_GestionConsumibles
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(661, 373)
+        Me.ClientSize = New System.Drawing.Size(661, 480)
+        Me.Controls.Add(Me.BtnReactivar)
+        Me.Controls.Add(Me.BtnVerInactivos)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LblGestionConsumibles)
         Me.Controls.Add(Me.BtnRegresar)
@@ -192,4 +217,6 @@ Partial Class Form7_GestionConsumibles
     Friend WithEvents LblGestionConsumibles As Label
     Friend WithEvents BtnCancelar As Button
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents BtnVerInactivos As Button
+    Friend WithEvents BtnReactivar As Button
 End Class

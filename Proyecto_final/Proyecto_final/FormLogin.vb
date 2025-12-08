@@ -4,7 +4,6 @@ Imports System.Configuration
 Public Class FormLogin
     Private ReadOnly _rolForzado As String
     Private ReadOnly _soloValidar As Boolean
-
     Public Property LoginOK As Boolean = False
 
     Public Sub New(Optional rolForzado As String = Nothing,
@@ -36,6 +35,8 @@ Public Class FormLogin
         Dim usuario = TxtUsuario.Text.Trim()
         Dim clave = TxtPassword.Text
         Dim rol = CmbRol.SelectedItem?.ToString()
+        UsuarioActual = usuario
+        RolActual = rol
 
         If String.IsNullOrWhiteSpace(usuario) OrElse String.IsNullOrWhiteSpace(clave) OrElse String.IsNullOrWhiteSpace(rol) Then
             MessageBox.Show("Complete usuario y contraseña.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -68,7 +69,12 @@ Public Class FormLogin
                     Exit Sub
                 End If
             End Using
-
+            RegistrarBitacora(
+                accion:="LOGIN",
+                tabla:="SEGURIDAD",
+                llave:=UsuarioActual,
+                descripcion:="Inicio de sesión correcto."
+)
             ' ====== AQUÍ separamos comportamientos ======
             If _soloValidar Then
                 ' Solo validar credenciales (por ejemplo, para Gestionar Consumibles)
@@ -104,6 +110,5 @@ Public Class FormLogin
             Me.Close()
         End If
     End Sub
-
 End Class
 

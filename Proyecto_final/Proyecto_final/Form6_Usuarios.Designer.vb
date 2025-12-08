@@ -174,11 +174,11 @@ Partial Class Form6_Usuarios
         Me.LblAgregar.AutoSize = True
         Me.LblAgregar.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblAgregar.ForeColor = System.Drawing.Color.Black
-        Me.LblAgregar.Location = New System.Drawing.Point(187, 19)
+        Me.LblAgregar.Location = New System.Drawing.Point(134, 32)
         Me.LblAgregar.Name = "LblAgregar"
-        Me.LblAgregar.Size = New System.Drawing.Size(423, 37)
+        Me.LblAgregar.Size = New System.Drawing.Size(537, 37)
         Me.LblAgregar.TabIndex = 23
-        Me.LblAgregar.Text = "CREACIÓN DE USUARIOS"
+        Me.LblAgregar.Text = "ADMINISTRACIÓN DE USUARIOS"
         '
         'GroupBox1
         '

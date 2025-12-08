@@ -57,7 +57,7 @@ Partial Class Form5_Eliminar
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(412, 28)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "ELIMINACION DE FUNCIONARIOS"
+        Me.Label1.Text = "ELIMINACIÓN DE FUNCIONARIOS"
         '
         'BtnEliminar
         '

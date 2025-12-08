@@ -21,10 +21,15 @@ Public Class Form3_Consumibles
         CboFuncionario.DataSource = dt
     End Sub
     Public Sub CargarConsumibles()
-        Dim dt = Db.GetTable("SELECT ConsumibleId, Nombre, Precio FROM Consumible ORDER BY Nombre", Nothing)
+        Dim dt = Db.GetTable("
+        SELECT ConsumibleId, Nombre, Precio
+        FROM Consumible
+        WHERE Activo = 1
+        ORDER BY Nombre", Nothing)
         CboConsumible.DisplayMember = "Nombre"
         CboConsumible.ValueMember = "ConsumibleId"
         CboConsumible.DataSource = dt
+
     End Sub
     Private Sub CboFuncionario_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboFuncionario.SelectedIndexChanged
         If CboFuncionario.SelectedIndex < 0 Then Exit Sub
@@ -38,35 +43,61 @@ Public Class Form3_Consumibles
         End If
     End Sub
     Private Sub BtnAgregarConsumo_Click(sender As Object, e As EventArgs) Handles BtnAgregarConsumo.Click
+
         If CboFuncionario.SelectedIndex < 0 OrElse CboConsumible.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario y consumible.")
             Exit Sub
         End If
+
         Dim funcId = CInt(CboFuncionario.SelectedValue)
         Dim consId = CInt(CboConsumible.SelectedValue)
+
         Dim precio As Decimal
         If Not Decimal.TryParse(TxtPrecio.Text, precio) Then
             MessageBox.Show("Precio inválido.")
             Exit Sub
         End If
+
         Dim cant = CInt(NumCantidad.Value)
         If cant <= 0 Then
             MessageBox.Show("Cantidad debe ser mayor a 0.")
             Exit Sub
         End If
 
-        Db.ExecNonQuery("
-            INSERT INTO Consumo (FuncionarioId, ConsumibleId, Cantidad, PrecioUnitario)
-            VALUES (@f,@c,@q,@p)",
-            New List(Of SqlParameter) From {
-                New SqlParameter("@f", funcId),
-                New SqlParameter("@c", consId),
-                New SqlParameter("@q", cant),
-                New SqlParameter("@p", precio)
-            })
+        ' 💾 1) Query para insertar y devolver el ID recién creado
+        Dim q As String = "
+        INSERT INTO Consumo (FuncionarioId, ConsumibleId, Cantidad, PrecioUnitario)
+        VALUES (@f,@c,@cant,@precio);
 
+        SELECT SCOPE_IDENTITY();
+    "
+
+        ' 📌 2) Parámetros del insert
+        Dim p As New List(Of SqlParameter) From {
+        New SqlParameter("@f", funcId),
+        New SqlParameter("@c", consId),
+        New SqlParameter("@cant", cant),
+        New SqlParameter("@precio", precio)
+    }
+
+        ' 🔍 3) Ejecutamos y obtenemos el ID nuevo
+        Dim nuevoId As Integer = CInt(Db.ExecScalar(q, p))
+
+        ' 📝 4) Registrar en bitácora
+        RegistrarBitacora(
+        accion:="INSERT",
+        tabla:="Consumo",
+        llave:=nuevoId.ToString(),
+        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, ConsumibleId={consId}, Cantidad={cant}, PrecioUnitario={precio}"
+    )
+
+        ' 🔄 5) Refrescar tabla
         RefrescarMovs()
+
+        MessageBox.Show("Consumo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
     End Sub
+
     Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
@@ -193,6 +224,14 @@ Public Class Form3_Consumibles
         End If
     End Sub
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
+        RegistrarBitacora(
+        accion:="LOGOUT",
+        tabla:="SEGURIDAD",
+        llave:=UsuarioActual,
+        descripcion:="Cierre de sesión.")
+        ' Limpiar variables globales
+        UsuarioActual = ""
+        RolActual = ""
         Form1.Show()
         Me.Close()
     End Sub

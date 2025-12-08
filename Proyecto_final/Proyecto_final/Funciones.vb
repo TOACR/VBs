@@ -2,6 +2,7 @@
 Module Funciones
     ' Variables globales
     Public f, k, ntipoid As Integer
+
     'Crear método para validar solo mayusculas
     Public Sub Set_solo_letras(ByRef ee As System.Windows.Forms.KeyPressEventArgs)
         Dim cadena As String

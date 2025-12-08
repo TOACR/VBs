@@ -52,6 +52,7 @@ Partial Class Form2_Admin
         Me.BtnUsuarios = New System.Windows.Forms.Button()
         Me.BtnGestionar = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.BtnBitacora = New System.Windows.Forms.Button()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -325,11 +326,11 @@ Partial Class Form2_Admin
         Me.BtnUsuarios.BackColor = System.Drawing.Color.Plum
         Me.BtnUsuarios.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUsuarios.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.BtnUsuarios.Location = New System.Drawing.Point(359, 19)
+        Me.BtnUsuarios.Location = New System.Drawing.Point(300, 19)
         Me.BtnUsuarios.Name = "BtnUsuarios"
-        Me.BtnUsuarios.Size = New System.Drawing.Size(114, 37)
+        Me.BtnUsuarios.Size = New System.Drawing.Size(124, 37)
         Me.BtnUsuarios.TabIndex = 12
-        Me.BtnUsuarios.Text = "CREAR USUARIOS"
+        Me.BtnUsuarios.Text = "ADMINISTRACIÖN DE USUARIOS"
         Me.BtnUsuarios.UseVisualStyleBackColor = False
         '
         'BtnGestionar
@@ -337,7 +338,7 @@ Partial Class Form2_Admin
         Me.BtnGestionar.BackColor = System.Drawing.Color.SlateBlue
         Me.BtnGestionar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGestionar.ForeColor = System.Drawing.Color.White
-        Me.BtnGestionar.Location = New System.Drawing.Point(194, 19)
+        Me.BtnGestionar.Location = New System.Drawing.Point(164, 19)
         Me.BtnGestionar.Name = "BtnGestionar"
         Me.BtnGestionar.Size = New System.Drawing.Size(114, 37)
         Me.BtnGestionar.TabIndex = 67
@@ -347,14 +348,27 @@ Partial Class Form2_Admin
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Thistle
+        Me.GroupBox2.Controls.Add(Me.BtnBitacora)
         Me.GroupBox2.Controls.Add(Me.BtnGestionar)
         Me.GroupBox2.Controls.Add(Me.BtnUsuarios)
         Me.GroupBox2.Controls.Add(Me.BtnEliminar)
-        Me.GroupBox2.Location = New System.Drawing.Point(192, 566)
+        Me.GroupBox2.Location = New System.Drawing.Point(138, 566)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(500, 66)
+        Me.GroupBox2.Size = New System.Drawing.Size(595, 66)
         Me.GroupBox2.TabIndex = 70
         Me.GroupBox2.TabStop = False
+        '
+        'BtnBitacora
+        '
+        Me.BtnBitacora.BackColor = System.Drawing.Color.SeaGreen
+        Me.BtnBitacora.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnBitacora.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.BtnBitacora.Location = New System.Drawing.Point(447, 19)
+        Me.BtnBitacora.Name = "BtnBitacora"
+        Me.BtnBitacora.Size = New System.Drawing.Size(124, 37)
+        Me.BtnBitacora.TabIndex = 68
+        Me.BtnBitacora.Text = "BITACORA"
+        Me.BtnBitacora.UseVisualStyleBackColor = False
         '
         'Form2_Admin
         '
@@ -426,4 +440,5 @@ Partial Class Form2_Admin
     Friend WithEvents BtnUsuarios As Button
     Friend WithEvents BtnGestionar As Button
     Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents BtnBitacora As Button
 End Class

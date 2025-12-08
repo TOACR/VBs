@@ -323,6 +323,12 @@ Public Class Form2_Admin
                         MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
+        LimpiarControles(Me)
+        CargarFuncionarios()
+        LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
+        LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
+    End Sub
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -334,30 +340,6 @@ Public Class Form2_Admin
             End If
         End Using
         Dim f As New Form5_Eliminar()
-        f.ShowDialog()
-    End Sub
-    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
-        LimpiarControles(Me)
-        CargarFuncionarios()
-        LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
-        LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
-    End Sub
-    Private Sub Btnregresar_Click(sender As Object, e As EventArgs) Handles Btnregresar.Click
-        If Me.Owner IsNot Nothing Then Me.Owner.Show()
-        Form1.Show()
-        Me.Close()
-    End Sub
-    Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
-        ' Pedir credenciales de ADMIN
-        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
-            Dim r = frmLogin.ShowDialog(Me)
-
-            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
-                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-        End Using
-        Dim f As New Form6_Usuarios()
         f.ShowDialog()
     End Sub
     Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
@@ -374,5 +356,44 @@ Public Class Form2_Admin
         ' Si llegó aquí, el ADMIN se autenticó correctamente
         Dim f As New Form7_GestionConsumibles()
         f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
+    End Sub
+    Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+        Dim f As New Form6_Usuarios()
+        f.ShowDialog()
+    End Sub
+    Private Sub BtnBitacora_Click(sender As Object, e As EventArgs) Handles BtnBitacora.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+        Dim f As New FormBitacora()
+        f.Show()
+    End Sub
+    Private Sub Btnregresar_Click(sender As Object, e As EventArgs) Handles Btnregresar.Click
+        If Me.Owner IsNot Nothing Then Me.Owner.Show()
+        RegistrarBitacora(
+        accion:="LOGOUT",
+        tabla:="SEGURIDAD",
+        llave:=UsuarioActual,
+        descripcion:="Cierre de sesión.")
+        ' Limpiar variables globales
+        UsuarioActual = ""
+        RolActual = ""
+        Form1.Show()
+        Me.Close()
     End Sub
 End Class
