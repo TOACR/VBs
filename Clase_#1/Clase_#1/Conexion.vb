@@ -10,6 +10,14 @@ Public Class Conexion
     Public da As SqlDataAdapter
     Public ds As DataSet = New DataSet()
     Public builder As SqlCommandBuilder
+    Dim contprovincia As Integer = 1
+    Dim contcanton As Integer = 1
+    Dim contdistrito As Integer = 1
+    Dim idprovincia As String
+    Dim idcanton As String
+    Dim iddistrito As String
+
+
 
     Public Sub conectar()
         Try
@@ -101,6 +109,52 @@ Public Class Conexion
             conexion.Close()
         End Try
     End Function
+    Public Sub CargarArchivo(ByVal ruta As String)
+        Using myreader As New FileIO.TextFieldParser(ruta)
+            myreader.SetDelimiters(",")
+            Dim currentrow As String()
+            While Not myreader.EndOfData
+                Try
+                    currentrow = myreader.ReadFields()
+                    insertar_datos(currentrow(0), currentrow(1), currentrow(2), currentrow(3))
+                Catch ex As Exception
+                    MessageBox.Show("Error:" + ex.ToString)
+                End Try
+            End While
+        End Using
+    End Sub
+    Public Sub insertar_datos(ByVal id As String, ByVal provincia As String, ByVal canton As String, ByVal distrito As String)
+        Dim a, b, c As Integer
+        '101001
+        a = Mid(id, 1, 1) 'a es 1
+        b = Mid(id, 2, 2) 'b es 01
+        c = Mid(id, 4, 3) 'c es 001
+        contprovincia = a
+        consultar("SELECT * FROM PROVINCIA WHERE DESCRIPCION = '" + provincia + "'", "PROVINCIA")
+        If ds.Tables("PROVINCIA").Rows.Count = 0 Then
+            inserta_datos("INSERT INTO PROVINCIA VALUES (" + contprovincia.ToString() + ", '" + provincia + "')")
+            idprovincia = a
+        Else
+            idprovincia = ds.Tables("PROVINCIA").Rows(0).Item(0).ToString
+        End If
+        consultar("SELECT * FROM CANTON WHERE CODIGO_PROVINCIA = '" + idprovincia.ToString() + "' AND DESCRIPCION_CANTON = '" + canton + "'", "CANTON")
+        If ds.Tables("CANTON").Rows.Count = 0 Then
+            contcanton = b
+            inserta_datos("INSERT INTO CANTON VALUES (" + idprovincia + ", '" + contcanton.ToString() + "','" + canton + "')")
+            idcanton = b
+        Else
+            idcanton = ds.Tables("CANTON").Rows(0).Item("CODIGO_CANTON").ToString()
+        End If
+        consultar("SELECT * FROM DISTRITO WHERE CODIGO_PROVINCIA = '" + idprovincia.ToString() + "' AND CODIGO_CANTON = '" + idcanton.ToString() + "' AND CODIGO_DISTRITO = '" + c.ToString() + "'", "DISTRITO")
+        If ds.Tables("DISTRITO").Rows.Count = 0 Then
+            contdistrito = c
+            inserta_datos("INSERT INTO DISTRITO VALUES (" + idprovincia + ", '" + idcanton + "','" + contdistrito.ToString() + "', '" + distrito + "')")
+            iddistrito = c
+        Else
+            iddistrito = ds.Tables("DISTRITO").Rows(0).Item("CODIGO_DISTRITO").ToString()
+        End If
 
+
+    End Sub
 
 End Class
