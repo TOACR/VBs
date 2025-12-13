@@ -9,18 +9,14 @@ Public Class Form5_Eliminar
         CargarFuncionarios(True)
     End Sub
     Private Sub CargarFuncionarios(Optional activos As Boolean = True)
-
         Dim q As String
-
         If activos Then
             q = "SELECT * FROM Funcionario WHERE Activo = 1 ORDER BY Nombre"
         Else
             q = "SELECT * FROM Funcionario WHERE Activo = 0 ORDER BY Nombre"
         End If
-
         Dim dt = Db.GetTable(q, Nothing)
         DgvFuncionarios.DataSource = dt
-
     End Sub
     Private Sub DgvFuncionarios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvFuncionarios.CellClick
         If e.RowIndex < 0 Then Exit Sub
@@ -42,7 +38,7 @@ Public Class Form5_Eliminar
         ' Guardar ID internamente (para eliminar)
         _funcionarioIdSeleccionado = CInt(r.Cells("FuncionarioId").Value)
 
-        ' ✅ Mostrar NOMBRE COMPLETO en el label (no el ID)
+        ' Mostrar NOMBRE COMPLETO en el label (no el ID)
         Dim nombre As String = If(IsDBNull(r.Cells("Nombre").Value), "", CStr(r.Cells("Nombre").Value))
         Dim ape1 As String = If(IsDBNull(r.Cells("Primer_Apellido").Value), "", CStr(r.Cells("Primer_Apellido").Value))
         Dim ape2 As String = If(IsDBNull(r.Cells("Segundo_Apellido").Value), "", CStr(r.Cells("Segundo_Apellido").Value))
@@ -57,7 +53,7 @@ Public Class Form5_Eliminar
         End If
     End Sub
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
-        ' 1) Validar que haya un funcionario seleccionado
+        ' Validar que haya un funcionario seleccionado
         If Not _funcionarioIdSeleccionado.HasValue Then
             MessageBox.Show("Debe seleccionar un funcionario primero.", "Eliminar",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -67,32 +63,32 @@ Public Class Form5_Eliminar
         Dim id As Integer = _funcionarioIdSeleccionado.Value
         Dim nombreCompleto As String = lblFuncionarioId.Text
 
-        ' 2) Confirmar con el usuario
+        ' Confirmar con el usuario
         Dim r = MessageBox.Show(
         $"¿Seguro que desea ELIMINAR POR COMPLETO al funcionario:{Environment.NewLine}{Environment.NewLine}" &
         $"{nombreCompleto}{Environment.NewLine}{Environment.NewLine}" &
-        "Se eliminarán también todos los registros relacionados a vales, consumibles y liquidación.",
+        "Se eliminarán también todos los registros relacionados a adelantos, consumibles y liquidación.",
         "Confirmar eliminación",
         MessageBoxButtons.YesNo,
-        MessageBoxIcon.Warning
-    )
+        MessageBoxIcon.Warning)
 
         If r = DialogResult.No Then Exit Sub
-
         Try
-            ' 3) Llamar al procedimiento almacenado que elimina todo
+            ' Llamar al procedimiento almacenado que elimina todo
             Db.ExecNonQuery(
             "EXEC spEliminarFuncionarioCompleto @FuncionarioId",
             New List(Of SqlClient.SqlParameter) From {
-                New SqlClient.SqlParameter("@FuncionarioId", id)
-            }
-        )
+                New SqlClient.SqlParameter("@FuncionarioId", id)})
 
-            ' 4) Mensaje al usuario
-            MessageBox.Show("Funcionario eliminado correctamente.", "Información",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' Registrar en bitácora la edición
+            RegistrarBitacora(
+            accion:="DELETE",
+            tabla:="ELIMINAR FUNCIONARIO",
+            llave:=UsuarioActual,
+            descripcion:=$"Se eliminó el funcionario. Numero_Identificacion='" & Msk_id.Text & "', Nombre='" & nombreCompleto & "'")
+            MessageBox.Show("Funcionario eliminado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' 5) Limpiar selección y recargar el DataGrid
+            ' Limpiar selección y recargar el DataGrid
             _funcionarioIdSeleccionado = Nothing
             lblFuncionarioId.Text = ""
             Msk_id.Text = ""
@@ -107,5 +103,4 @@ Public Class Form5_Eliminar
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Me.Close()
     End Sub
-
 End Class

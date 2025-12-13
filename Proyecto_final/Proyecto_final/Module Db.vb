@@ -57,38 +57,37 @@ Public Module Db
         Return list.ToArray()
     End Function
     Public Function GetTable(query As String, params As List(Of SqlParameter)) As DataTable
-            Using cn = GetConnection(),
+        Using cn = GetConnection(),
                   cmd As New SqlCommand(query, cn),
                   da As New SqlDataAdapter(cmd)
 
-                Dim cloned = CloneParams(params)
-                If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
+            Dim cloned = CloneParams(params)
+            If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
 
-                Dim dt As New DataTable()
-                da.Fill(dt)
-                Return dt
-            End Using
-        End Function
+            Dim dt As New DataTable()
+            da.Fill(dt)
+            Return dt
+        End Using
+    End Function
 
-        Public Function ExecScalar(query As String, params As List(Of SqlParameter)) As Object
-            Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
-                Dim cloned = CloneParams(params)
-                If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
-                cn.Open()
-                Return cmd.ExecuteScalar()
-            End Using
-        End Function
+    Public Function ExecScalar(query As String, params As List(Of SqlParameter)) As Object
+        Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
+            Dim cloned = CloneParams(params)
+            If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
+            cn.Open()
+            Return cmd.ExecuteScalar()
+        End Using
+    End Function
 
-        Public Function ExecNonQuery(query As String, params As List(Of SqlParameter)) As Integer
-            Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
-                Dim cloned = CloneParams(params)
-                If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
-                cn.Open()
-                Return cmd.ExecuteNonQuery()
-            End Using
-        End Function
+    Public Function ExecNonQuery(query As String, params As List(Of SqlParameter)) As Integer
+        Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
+            Dim cloned = CloneParams(params)
+            If cloned.Length > 0 Then cmd.Parameters.AddRange(cloned)
+            cn.Open()
+            Return cmd.ExecuteNonQuery()
+        End Using
+    End Function
 End Module
-
 Public Module ModGlobales
     Public Sub LimpiarControles(form As Form)
         ' 🔹 Recorre todos los controles dentro del formulario recibido

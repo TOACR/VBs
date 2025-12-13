@@ -13,44 +13,28 @@ Public Class Form4_Consultas
         DtpHasta.Value = Date.Today
         LimpiarControles(Me)
     End Sub
-
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
         Dim fId = CInt(CboFuncionario.SelectedValue)
         Dim desde = DtpDesde.Value.Date
         Dim hasta = DtpHasta.Value.Date
 
         Dim q As String = "
-        SELECT 
-            'Consumo' AS Tipo,
-            c.Fecha,
-            co.Nombre AS Detalle,
-            c.Cantidad,
-            c.PrecioUnitario,
-            c.MontoTotal,
+        SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal,
             CASE 
                 WHEN c.Liquidado = 1 THEN 'Liquidado'
                 ELSE 'Pendiente'
             END AS Estado
-        FROM Consumo c
-        INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
-        WHERE c.FuncionarioId = @f 
+        FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId WHERE c.FuncionarioId = @f  
         AND CAST(c.Fecha AS DATE) BETWEEN @d AND @h
 
         UNION ALL
 
-        SELECT 
-            'Adelanto' AS Tipo,
-            a.Fecha,
-            'Adelanto' AS Detalle,
-            NULL        AS Cantidad,
-            NULL        AS PrecioUnitario,
-            a.Monto     AS MontoTotal,
+        SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle,NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
             CASE 
                 WHEN a.Liquidado = 1 THEN 'Liquidado'
                 ELSE 'Pendiente'
             END AS Estado
-        FROM Adelanto a
-        WHERE a.FuncionarioId = @f 
+        FROM Adelanto a WHERE a.FuncionarioId = @f 
         AND CAST(a.Fecha AS DATE) BETWEEN @d AND @h
 
         ORDER BY Fecha DESC"
@@ -58,8 +42,7 @@ Public Class Form4_Consultas
         Dim p = New List(Of SqlParameter) From {
         New SqlParameter("@f", fId),
         New SqlParameter("@d", desde),
-        New SqlParameter("@h", hasta)
-    }
+        New SqlParameter("@h", hasta)}
 
         Dim dt = Db.GetTable(q, p)
         DgvResultado.DataSource = dt
@@ -109,9 +92,6 @@ Public Class Form4_Consultas
             End If
         End If
     End Sub
-
-
-
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Form1.Show()
         Me.Close()

@@ -29,7 +29,6 @@ Public Class Form3_Consumibles
         CboConsumible.DisplayMember = "Nombre"
         CboConsumible.ValueMember = "ConsumibleId"
         CboConsumible.DataSource = dt
-
     End Sub
     Private Sub CboFuncionario_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboFuncionario.SelectedIndexChanged
         If CboFuncionario.SelectedIndex < 0 Then Exit Sub
@@ -49,6 +48,7 @@ Public Class Form3_Consumibles
             Exit Sub
         End If
 
+        Dim funcName As String = CboFuncionario.Text
         Dim funcId = CInt(CboFuncionario.SelectedValue)
         Dim consId = CInt(CboConsumible.SelectedValue)
 
@@ -64,45 +64,39 @@ Public Class Form3_Consumibles
             Exit Sub
         End If
 
-        ' 💾 1) Query para insertar y devolver el ID recién creado
+        ' Query para insertar y devolver el ID recién creado
         Dim q As String = "
         INSERT INTO Consumo (FuncionarioId, ConsumibleId, Cantidad, PrecioUnitario)
-        VALUES (@f,@c,@cant,@precio);
+        VALUES (@f,@c,@cant,@precio); SELECT SCOPE_IDENTITY();"
 
-        SELECT SCOPE_IDENTITY();
-    "
-
-        ' 📌 2) Parámetros del insert
+        ' Parámetros del insert
         Dim p As New List(Of SqlParameter) From {
         New SqlParameter("@f", funcId),
         New SqlParameter("@c", consId),
         New SqlParameter("@cant", cant),
-        New SqlParameter("@precio", precio)
-    }
+        New SqlParameter("@precio", precio)}
 
-        ' 🔍 3) Ejecutamos y obtenemos el ID nuevo
+        ' Ejecutamos y obtenemos el ID nuevo
         Dim nuevoId As Integer = CInt(Db.ExecScalar(q, p))
 
-        ' 📝 4) Registrar en bitácora
+        ' Registrar en bitácora
         RegistrarBitacora(
         accion:="INSERT",
-        tabla:="Consumo",
-        llave:=nuevoId.ToString(),
-        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, ConsumibleId={consId}, Cantidad={cant}, PrecioUnitario={precio}"
-    )
+        tabla:="CONSUMO",
+        llave:=UsuarioActual,
+        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, Funcionario='{funcName}', ConsumibleId={consId}, Cantidad={cant}, PrecioUnitario={precio}")
 
-        ' 🔄 5) Refrescar tabla
+        ' Refrescar tabla
         RefrescarMovs()
-
         MessageBox.Show("Consumo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
     End Sub
-
     Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
             Exit Sub
         End If
+        Dim funcName As String = CboFuncionario.Text
+        Dim funcId = CInt(CboFuncionario.SelectedValue)
         Dim monto As Decimal
         If Not Decimal.TryParse(TxtMontoAdelanto.Text, monto) OrElse monto <= 0D Then
             MessageBox.Show("Monto de adelanto inválido.")
@@ -115,7 +109,14 @@ Public Class Form3_Consumibles
                 New SqlParameter("@f", CInt(CboFuncionario.SelectedValue)),
                 New SqlParameter("@m", monto)
             })
+        ' Registrar en bitácora
+        RegistrarBitacora(
+        accion:="INSERT",
+        tabla:="ADELANTO",
+        llave:=UsuarioActual,
+        descripcion:=$"Se registró un adelanto. FuncionarioId={funcId}, Funcionario='{funcName}', Monto={monto}")
         RefrescarMovs()
+        MessageBox.Show("Adelanto registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
         TxtMontoAdelanto.Clear()
     End Sub
     Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
@@ -164,43 +165,24 @@ Public Class Form3_Consumibles
 
         Dim q As String = "
         SELECT 
-            'Consumo' AS Tipo,
-            c.Fecha,
-            co.Nombre AS Detalle,
-            c.Cantidad,
-            c.PrecioUnitario,
-            c.MontoTotal,
+            'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal, 
             CASE 
                 WHEN c.Liquidado = 1 THEN 'Liquidado'
                 ELSE 'Pendiente'
             END AS Estado
-        FROM Consumo c
-        INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
-        WHERE (@f = -1 OR c.FuncionarioId = @f)
-
-        UNION ALL
-
-        SELECT 
-            'Adelanto' AS Tipo,
-            a.Fecha,
-            'Adelanto' AS Detalle,
-            NULL AS Cantidad,
-            NULL AS PrecioUnitario,
-            a.Monto AS MontoTotal,
+        FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId WHERE (@f = -1 OR c.FuncionarioId = @f) UNION ALL
+        
+        SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
             CASE 
                 WHEN a.Liquidado = 1 THEN 'Liquidado'
                 ELSE 'Pendiente'
             END AS Estado
-        FROM Adelanto a
-        WHERE (@f = -1 OR a.FuncionarioId = @f)
-
-        ORDER BY Fecha DESC"
+        FROM Adelanto a WHERE (@f = -1 OR a.FuncionarioId = @f) ORDER BY Fecha DESC"
 
         p.Add(New SqlParameter("@f", funcId))
         DgvMovs.DataSource = Db.GetTable(q, p)
     End Sub
     Private Sub DgvMovs_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvMovs.CellFormatting
-        ' Asegúrate de que el nombre de la columna sea exactamente "Estado"
         If DgvMovs.Columns(e.ColumnIndex).Name = "Estado" Then
             If e.Value IsNot Nothing Then
                 Dim texto = e.Value.ToString()
@@ -246,9 +228,8 @@ Public Class Form3_Consumibles
             End If
         End Using
 
-        ' Si llegó aquí, el ADMIN se autenticó correctamente
+        ' El ADMIN se autenticó correctamente
         Dim f As New Form7_GestionConsumibles()
         f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
     End Sub
-
 End Class

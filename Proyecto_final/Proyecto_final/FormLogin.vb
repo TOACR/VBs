@@ -5,14 +5,12 @@ Public Class FormLogin
     Private ReadOnly _rolForzado As String
     Private ReadOnly _soloValidar As Boolean
     Public Property LoginOK As Boolean = False
-
     Public Sub New(Optional rolForzado As String = Nothing,
                    Optional soloValidar As Boolean = False)
         InitializeComponent()
         _rolForzado = rolForzado
         _soloValidar = soloValidar
     End Sub
-
     Private Sub FormLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Ingreso"
         Me.AcceptButton = BtnEntrar
@@ -42,7 +40,6 @@ Public Class FormLogin
             MessageBox.Show("Complete usuario y contraseña.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
-
         Try
             Dim cs = ConfigurationManager.ConnectionStrings("BD_Consumos").ConnectionString
             Using cn As New SqlConnection(cs)
@@ -73,9 +70,8 @@ Public Class FormLogin
                 accion:="LOGIN",
                 tabla:="SEGURIDAD",
                 llave:=UsuarioActual,
-                descripcion:="Inicio de sesión correcto."
-)
-            ' ====== AQUÍ separamos comportamientos ======
+                descripcion:="Inicio de sesión correcto.")
+            ' ====== Separamos comportamientos ======
             If _soloValidar Then
                 ' Solo validar credenciales (por ejemplo, para Gestionar Consumibles)
                 LoginOK = True
@@ -98,7 +94,6 @@ Public Class FormLogin
             MessageBox.Show("Error de login: " & ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
         If _soloValidar Then
             ' Si solo estamos validando, simplemente cerramos

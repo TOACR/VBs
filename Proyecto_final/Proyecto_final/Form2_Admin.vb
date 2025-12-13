@@ -49,13 +49,13 @@ Public Class Form2_Admin
         DgvFuncionarios.DataSource = dt
     End Sub
     Private Sub Msk_id_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles Msk_id.PreviewKeyDown
+        ' Solo cuando es CÉDULA NACIONAL tratamos TAB como tecla de entrada
         If e.KeyCode = Keys.Tab AndAlso ntipoid = 1 Then
-            ' Solo cuando es CÉDULA NACIONAL tratamos TAB como tecla de entrada
             e.IsInputKey = True
         End If
     End Sub
     Private Sub Msk_id_KeyDown(sender As Object, e As KeyEventArgs) Handles Msk_id.KeyDown
-        ' ENTER
+        ' Cuando utilicemos ENTER
         If e.KeyCode = Keys.Enter Then
             If ntipoid = 1 Then
                 e.SuppressKeyPress = True
@@ -64,7 +64,7 @@ Public Class Form2_Admin
             End If
             ' Si ntipoid <> 1, ENTER se comporta normal
         End If
-        ' TAB
+        ' Cuando utilicemos TAB
         If e.KeyCode = Keys.Tab Then
             If ntipoid = 1 Then
                 ' Solo para CÉDULA: que TAB valide y NO avance
@@ -72,7 +72,7 @@ Public Class Form2_Admin
                 e.Handled = True
                 ValidarIdentificacionCedula()
             End If
-            ' Si ntipoid <> 1, no tocamos nada -> TAB mueve el foco normalmente
+            ' Si ntipoid <> 1 -> TAB mueve el foco normalmente
         End If
     End Sub
     Private Sub ValidarIdentificacionCedula()
@@ -166,7 +166,17 @@ Public Class Form2_Admin
             }
                 Dim filas As Integer = Db.ExecNonQuery(qIns, pIns)
                 If filas > 0 Then
+                    ' Registrar en bitácora la creación
+                    RegistrarBitacora(
+                    accion:="INSERT",
+                    tabla:="CREACION FUNCIONARIO",
+                    llave:=UsuarioActual,
+                    descripcion:=$"Se creó el funcionario. Numero_Identificacion= {vNumId}, Nombre='{vNombre} {vPriAp} {vSegAp}'")
                     MessageBox.Show("Funcionario agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    LimpiarControles(Me)
+                    TxtNombre.Enabled = True
+                    Txtprimer_apellido.Enabled = True
+                    Txtsegundo_apellido.Enabled = True
                 End If
             Else
                 ' ===== UPDATE =====
@@ -179,8 +189,7 @@ Public Class Form2_Admin
                 Dim pExisteUpd As New List(Of SqlParameter) From {
                 New SqlParameter("@tid", vTipoId),
                 New SqlParameter("@numid", vNumId),
-                New SqlParameter("@id", vId)
-            }
+                New SqlParameter("@id", vId)}
 
                 Dim existeOtro As Integer = CInt(Db.ExecScalar(qExisteUpd, pExisteUpd))
                 If existeOtro > 0 Then
@@ -190,15 +199,9 @@ Public Class Form2_Admin
 
                 ' Actualizar
                 Dim qUpd As String = "
-                UPDATE Funcionario
-                SET Tipo_Identificacion=@tid,
-                    Numero_Identificacion=@numid,
-                    Nombre=@nom,
-                    Primer_Apellido=@priap,
-                    Segundo_Apellido=@segap,
-                    Fecha_Nacimiento=@fecnam,
-                    Activo=@act
-                WHERE FuncionarioId=@id;"
+                UPDATE Funcionario SET Tipo_Identificacion=@tid, Numero_Identificacion=@numid, Nombre=@nom, Primer_Apellido=@priap,
+                    Segundo_Apellido=@segap, Fecha_Nacimiento=@fecnam, Activo=@act WHERE FuncionarioId=@id;"
+
                 Dim pUpd As New List(Of SqlParameter) From {
                 New SqlParameter("@tid", vTipoId),
                 New SqlParameter("@numid", vNumId),
@@ -211,7 +214,18 @@ Public Class Form2_Admin
             }
                 Dim filas As Integer = Db.ExecNonQuery(qUpd, pUpd)
                 If filas > 0 Then
+                    ' Registrar en bitácora la edición
+                    RegistrarBitacora(
+                    accion:="UPDATE",
+                    tabla:="EDICION FUNCIONARIO",
+                    llave:=UsuarioActual,
+                    descripcion:=$"Se editó el funcionario. Numero_Identificacion= {vNumId}, Nombre='{vNombre}', 
+                    Primer_Apellido='{vPriAp}', Segundo_Apellido='{vSegAp}'")
                     MessageBox.Show("Funcionario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    LimpiarControles(Me)
+                    TxtNombre.Enabled = True
+                    Txtprimer_apellido.Enabled = True
+                    Txtsegundo_apellido.Enabled = True
                 End If
             End If
 
@@ -326,6 +340,9 @@ Public Class Form2_Admin
     Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
         LimpiarControles(Me)
         CargarFuncionarios()
+        TxtNombre.Enabled = True
+        Txtprimer_apellido.Enabled = True
+        Txtsegundo_apellido.Enabled = True
         LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub

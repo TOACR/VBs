@@ -17,23 +17,17 @@ Public Class Form6_Usuarios
         CargarUsuarios()
         Limpiar()
     End Sub
-
     Private Sub CargarUsuarios()
-        Dim q As String = "
-            SELECT Id, UserName, Rol
-            FROM Usuarios
-            ORDER BY UserName;
-        "
+        Dim q As String = " SELECT Id, UserName, Rol FROM Usuarios ORDER BY UserName;"
         Dim dt = Db.GetTable(q, Nothing)
         DgvUsuarios.DataSource = dt
 
-        ' Opcional: ajustar columnas
+        ' Ajustar columnas
         If DgvUsuarios.Columns.Contains("Id") Then
             DgvUsuarios.Columns("Id").Visible = False
         End If
         DgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
-
     Private Sub Limpiar()
         LblUsuarioId.Text = ""
         TxtUserName.Clear()
@@ -169,7 +163,6 @@ Public Class Form6_Usuarios
             MessageBox.Show("Error al guardar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub DgvUsuarios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvUsuarios.CellClick
         If e.RowIndex >= 0 Then
             Dim r = DgvUsuarios.Rows(e.RowIndex)
@@ -182,7 +175,6 @@ Public Class Form6_Usuarios
             TxtConfirmar.Clear()
         End If
     End Sub
-
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         If LblUsuarioId.Text = "" Then
             MessageBox.Show("Debe seleccionar un usuario primero.", "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -210,7 +202,6 @@ Public Class Form6_Usuarios
             MessageBox.Show("Error al eliminar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub BtnCerrar_Click(sender As Object, e As EventArgs) Handles BtnCerrar.Click
         Me.Close()
     End Sub

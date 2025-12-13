@@ -85,7 +85,7 @@ Partial Class Form6_Usuarios
         '
         Me.BtnNuevo.BackColor = System.Drawing.Color.Turquoise
         Me.BtnNuevo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnNuevo.Location = New System.Drawing.Point(162, 322)
+        Me.BtnNuevo.Location = New System.Drawing.Point(520, 324)
         Me.BtnNuevo.Name = "BtnNuevo"
         Me.BtnNuevo.Size = New System.Drawing.Size(100, 41)
         Me.BtnNuevo.TabIndex = 6
@@ -96,9 +96,9 @@ Partial Class Form6_Usuarios
         '
         Me.BtnGuardar.BackColor = System.Drawing.Color.DarkSeaGreen
         Me.BtnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGuardar.Location = New System.Drawing.Point(356, 326)
+        Me.BtnGuardar.Location = New System.Drawing.Point(207, 324)
         Me.BtnGuardar.Name = "BtnGuardar"
-        Me.BtnGuardar.Size = New System.Drawing.Size(93, 41)
+        Me.BtnGuardar.Size = New System.Drawing.Size(100, 41)
         Me.BtnGuardar.TabIndex = 7
         Me.BtnGuardar.Text = "GUARDAR"
         Me.BtnGuardar.UseVisualStyleBackColor = False
@@ -107,9 +107,9 @@ Partial Class Form6_Usuarios
         '
         Me.BtnEliminar.BackColor = System.Drawing.Color.LightCoral
         Me.BtnEliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnEliminar.Location = New System.Drawing.Point(541, 326)
+        Me.BtnEliminar.Location = New System.Drawing.Point(364, 324)
         Me.BtnEliminar.Name = "BtnEliminar"
-        Me.BtnEliminar.Size = New System.Drawing.Size(96, 37)
+        Me.BtnEliminar.Size = New System.Drawing.Size(100, 41)
         Me.BtnEliminar.TabIndex = 8
         Me.BtnEliminar.Text = "ELIMINAR"
         Me.BtnEliminar.UseVisualStyleBackColor = False

@@ -15,17 +15,9 @@ Public Class Form7_GestionConsumibles
         Dim q As String
 
         If mostrarInactivos Then
-            q = "
-            SELECT ConsumibleId, Nombre, Precio, Activo
-            FROM Consumible
-            WHERE Activo = 0
-            ORDER BY Nombre"
+            q = " SELECT ConsumibleId, Nombre, Precio, Activo FROM Consumible WHERE Activo = 0 ORDER BY Nombre"
         Else
-            q = "
-            SELECT ConsumibleId, Nombre, Precio, Activo
-            FROM Consumible
-            WHERE Activo = 1
-            ORDER BY Nombre"
+            q = " SELECT ConsumibleId, Nombre, Precio, Activo FROM Consumible WHERE Activo = 1 ORDER BY Nombre"
         End If
         Dim dt = Db.GetTable(q, Nothing)
         DgvConsumibles.DataSource = dt
@@ -50,27 +42,31 @@ Public Class Form7_GestionConsumibles
         ' --- MODO EDICIÓN ---
         If _editando AndAlso _idEditando > 0 Then
 
-            Db.ExecNonQuery("
-            UPDATE Consumible
-            SET Nombre = @n, Precio = @p
-            WHERE ConsumibleId = @id",
+            Db.ExecNonQuery(" UPDATE Consumible SET Nombre = @n, Precio = @p WHERE ConsumibleId = @id",
             New List(Of SqlParameter) From {
                 New SqlParameter("@n", nombre),
                 New SqlParameter("@p", precio),
-                New SqlParameter("@id", _idEditando)
-            })
+                New SqlParameter("@id", _idEditando)})
 
+            ' Registrar en bitácora la edición
+            RegistrarBitacora(
+            accion:="UPDATE",
+            tabla:="CONSUMIBLE",
+            llave:=UsuarioActual,
+            descripcion:=$"Se editó el consumible '{nombre}'")
             MessageBox.Show("Consumible editado correctamente.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
             ' --- MODO AGREGAR ---
-            Db.ExecNonQuery("
-            INSERT INTO Consumible (Nombre, Precio)
-            VALUES (@n, @p)",
+            Db.ExecNonQuery(" INSERT INTO Consumible (Nombre, Precio) VALUES (@n, @p)",
             New List(Of SqlParameter) From {
                 New SqlParameter("@n", nombre),
-                New SqlParameter("@p", precio)
-            })
-
+                New SqlParameter("@p", precio)})
+            ' Registrar en bitácora la edición
+            RegistrarBitacora(
+            accion:="INSERT",
+            tabla:="CONSUMIBLE",
+            llave:=UsuarioActual,
+            descripcion:=$"Se agregó el consumible '{nombre}'")
             MessageBox.Show("Consumible agregado correctamente.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
         CargarConsumiblesGrid()
@@ -93,21 +89,17 @@ Public Class Form7_GestionConsumibles
 
         If r <> DialogResult.Yes Then Exit Sub
 
-        ' 🔹 En lugar de DELETE, ahora solo marcamos Activo = 0
-        Dim q As String = "
-        UPDATE Consumible
-        SET Activo = 0
-        WHERE ConsumibleId = @id"
+        Dim q As String = " UPDATE Consumible SET Activo = 0 WHERE ConsumibleId = @id"
 
         Dim p As New List(Of SqlParameter) From {
         New SqlParameter("@id", id)}
         Dim filasAfectadas As Integer = Db.ExecNonQuery(q, p)
         If filasAfectadas > 0 Then
-            ' 📝 Registrar en bitácora la inactivación
+            ' Registrar en bitácora la inactivación
             RegistrarBitacora(
-            accion:="UPDATE",              ' o si quieres, "INACTIVAR"
-            tabla:="Consumible",
-            llave:=id.ToString(),
+            accion:="UPDATE",
+            tabla:="CONSUMIBLE",
+            llave:=UsuarioActual,
             descripcion:=$"Se inactivó el consumible '{nombre}'. Activo=0.")
             MessageBox.Show("Consumible inactivado correctamente.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
             CargarConsumiblesGrid()
@@ -157,31 +149,19 @@ Public Class Form7_GestionConsumibles
     End Sub
     Private Sub BtnReactivar_Click(sender As Object, e As EventArgs) Handles BtnReactivar.Click
         If Not _mostrandoInactivos Then
-            MessageBox.Show("Para reactivar un consumible, primero debe visualizar los inactivos.",
-                            "Validación",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation)
+            MessageBox.Show("Para reactivar un consumible, primero debe visualizar los inactivos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Exit Sub
         End If
         If DgvConsumibles.CurrentRow Is Nothing Then
-            MessageBox.Show("Seleccione un consumible inactivo en la lista.",
-                            "Validación",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation)
+            MessageBox.Show("Seleccione un consumible inactivo en la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Exit Sub
         End If
         Dim id As Integer = CInt(DgvConsumibles.CurrentRow.Cells("ConsumibleId").Value)
         Dim nombre As String = CStr(DgvConsumibles.CurrentRow.Cells("Nombre").Value)
-        Dim r = MessageBox.Show($"¿Seguro que desea reactivar el consumible '{nombre}'?",
-                                "Confirmar reactivación",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question)
+        Dim r = MessageBox.Show($"¿Seguro que desea reactivar el consumible '{nombre}'?", "Confirmar reactivación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If r <> DialogResult.Yes Then Exit Sub
-        Dim q As String = "
-        UPDATE Consumible
-        SET Activo = 1
-        WHERE ConsumibleId = @id"
+        Dim q As String = " UPDATE Consumible SET Activo = 1 WHERE ConsumibleId = @id"
 
         Dim p As New List(Of SqlParameter) From {
             New SqlParameter("@id", id)}
@@ -190,20 +170,13 @@ Public Class Form7_GestionConsumibles
             ' Bitácora: reactivación
             RegistrarBitacora(
                 accion:="UPDATE",
-                tabla:="Consumible",
-                llave:=id.ToString(),
+                tabla:="CONSUMIBLE",
+                llave:=UsuarioActual,
                 descripcion:=$"Se reactivó el consumible '{nombre}'. Activo=1.")
-            MessageBox.Show("Consumible reactivado correctamente.",
-                            "Info",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-            ' Volver a cargar la vista de inactivos (por si quedan más)
+            MessageBox.Show("Consumible reactivado correctamente.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
             CargarConsumiblesGrid(True)
         Else
-            MessageBox.Show("No se pudo reactivar el consumible.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MessageBox.Show("No se pudo reactivar el consumible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
