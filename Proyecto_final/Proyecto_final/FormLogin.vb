@@ -1,16 +1,22 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Configuration
-
 Public Class FormLogin
+    ' Variables para rol forzado y modo solo validación
     Private ReadOnly _rolForzado As String
     Private ReadOnly _soloValidar As Boolean
+
+    ' Variables públicas para usuario y rol actuales
     Public Property LoginOK As Boolean = False
+
+    ' Constructor con parámetros opcionales para rol forzado y modo solo validación
     Public Sub New(Optional rolForzado As String = Nothing,
                    Optional soloValidar As Boolean = False)
         InitializeComponent()
         _rolForzado = rolForzado
         _soloValidar = soloValidar
     End Sub
+
+    ' Cargar el formulario
     Private Sub FormLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Ingreso"
         Me.AcceptButton = BtnEntrar
@@ -29,6 +35,7 @@ Public Class FormLogin
         End If
     End Sub
 
+    ' Manejar el clic en el botón Entrar
     Private Sub BtnEntrar_Click(sender As Object, e As EventArgs) Handles BtnEntrar.Click
         Dim usuario = TxtUsuario.Text.Trim()
         Dim clave = TxtPassword.Text
@@ -94,6 +101,8 @@ Public Class FormLogin
             MessageBox.Show("Error de login: " & ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Manejar el clic en el botón Cancelar
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
         If _soloValidar Then
             ' Si solo estamos validando, simplemente cerramos

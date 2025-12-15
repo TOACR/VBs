@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-
 Public Class Form6_Usuarios
     Private Sub Form6_Usuarios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "Administración de Usuarios"
@@ -13,10 +12,11 @@ Public Class Form6_Usuarios
 
         ' Opcional: dejar sin selección inicial
         CmbRol.SelectedIndex = -1
-
         CargarUsuarios()
         Limpiar()
     End Sub
+
+    ' Cargar usuarios desde la base de datos
     Private Sub CargarUsuarios()
         Dim q As String = " SELECT Id, UserName, Rol FROM Usuarios ORDER BY UserName;"
         Dim dt = Db.GetTable(q, Nothing)
@@ -28,6 +28,8 @@ Public Class Form6_Usuarios
         End If
         DgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
+
+    ' Limpiar formulario
     Private Sub Limpiar()
         LblUsuarioId.Text = ""
         TxtUserName.Clear()
@@ -36,9 +38,13 @@ Public Class Form6_Usuarios
         CmbRol.SelectedIndex = -1
         TxtUserName.Focus()
     End Sub
-    Private Sub BtnNuevo_Click(sender As Object, e As EventArgs) Handles BtnNuevo.Click
+
+    ' Limpiar formulario al hacer clic en el botón
+    Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
         Limpiar()
     End Sub
+
+    ' Guardar (Nuevo o Editar) usuario
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         Dim usuario = TxtUserName.Text.Trim()
         Dim rol As String = If(CmbRol.SelectedItem IsNot Nothing, CmbRol.SelectedItem.ToString(), "").Trim()
@@ -77,14 +83,12 @@ Public Class Form6_Usuarios
                 Exit Sub
             End If
         End If
-
         Try
             If esNuevo Then
                 ' Validar que no exista usuario con ese nombre
                 Dim qExiste As String = "SELECT COUNT(*) FROM Usuarios WHERE UserName=@u;"
                 Dim pExiste As New List(Of SqlParameter) From {
-                    New SqlParameter("@u", usuario)
-                }
+                    New SqlParameter("@u", usuario)}
                 Dim existe As Integer = CInt(Db.ExecScalar(qExiste, pExiste))
                 If existe > 0 Then
                     MessageBox.Show("Ya existe un usuario con ese nombre.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -93,35 +97,24 @@ Public Class Form6_Usuarios
 
                 ' Hash de contraseña usando tu módulo Security
                 Dim hash As String = Security.HashPassword(pwd)
-
-                Dim qIns As String = "
-                    INSERT INTO Usuarios (UserName, Rol, PasswordHash)
-                    VALUES (@u, @r, @p);
-                "
+                Dim qIns As String = " INSERT INTO Usuarios (UserName, Rol, PasswordHash) VALUES (@u, @r, @p);"
 
                 Dim pIns As New List(Of SqlParameter) From {
                     New SqlParameter("@u", usuario),
                     New SqlParameter("@r", rol),
-                    New SqlParameter("@p", hash)
-                }
+                    New SqlParameter("@p", hash)}
 
                 Db.ExecNonQuery(qIns, pIns)
                 MessageBox.Show("Usuario creado correctamente.", "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
             Else
                 ' Edición
                 Dim id As Integer = CInt(LblUsuarioId.Text)
 
                 ' Validar nombre de usuario único (excluyendo el actual)
-                Dim qExiste As String = "
-                    SELECT COUNT(*) 
-                    FROM Usuarios 
-                    WHERE UserName=@u AND UsuarioId <> @id;
-                "
+                Dim qExiste As String = " SELECT COUNT(*) FROM Usuarios WHERE UserName=@u AND UsuarioId <> @id;"
                 Dim pExiste As New List(Of SqlParameter) From {
                     New SqlParameter("@u", usuario),
-                    New SqlParameter("@id", id)
-                }
+                    New SqlParameter("@id", id)}
                 Dim existe As Integer = CInt(Db.ExecScalar(qExiste, pExiste))
                 If existe > 0 Then
                     MessageBox.Show("Ya existe otro usuario con ese nombre.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -133,36 +126,27 @@ Public Class Form6_Usuarios
                 Dim pUpd As New List(Of SqlParameter) From {
                     New SqlParameter("@u", usuario),
                     New SqlParameter("@r", rol),
-                    New SqlParameter("@id", id)
-                }
+                    New SqlParameter("@id", id)}
 
                 If cambiarPassword Then
                     Dim hash As String = Security.HashPassword(pwd)
-                    qUpd = "
-                        UPDATE Usuarios
-                        SET UserName=@u, Rol=@r, PasswordHash=@p
-                        WHERE Id=@id;
-                    "
+                    qUpd = "UPDATE Usuarios SET UserName=@u, Rol=@r, PasswordHash=@p WHERE Id=@id;"
                     pUpd.Add(New SqlParameter("@p", hash))
                 Else
-                    qUpd = "
-                        UPDATE Usuarios
-                        SET UserName=@u, Rol=@r
-                        WHERE Id=@id;
-                    "
+                    qUpd = "UPDATE Usuarios SET UserName=@u, Rol=@r WHERE Id=@id;"
                 End If
 
                 Db.ExecNonQuery(qUpd, pUpd)
                 MessageBox.Show("Usuario actualizado correctamente.", "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
-
             CargarUsuarios()
             Limpiar()
-
         Catch ex As Exception
             MessageBox.Show("Error al guardar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Cargar datos del usuario seleccionado en el DataGridView
     Private Sub DgvUsuarios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvUsuarios.CellClick
         If e.RowIndex >= 0 Then
             Dim r = DgvUsuarios.Rows(e.RowIndex)
@@ -175,6 +159,8 @@ Public Class Form6_Usuarios
             TxtConfirmar.Clear()
         End If
     End Sub
+
+    ' Eliminar usuario
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         If LblUsuarioId.Text = "" Then
             MessageBox.Show("Debe seleccionar un usuario primero.", "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -189,21 +175,19 @@ Public Class Form6_Usuarios
             Dim id As Integer = CInt(LblUsuarioId.Text)
             Dim qDel As String = "DELETE FROM Usuarios WHERE Id=@id;"
             Dim pDel As New List(Of SqlParameter) From {
-                New SqlParameter("@id", id)
-            }
+                New SqlParameter("@id", id)}
 
             Db.ExecNonQuery(qDel, pDel)
             MessageBox.Show("Usuario eliminado.", "Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
             CargarUsuarios()
             Limpiar()
-
         Catch ex As Exception
             MessageBox.Show("Error al eliminar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Cerrar el formulario
     Private Sub BtnCerrar_Click(sender As Object, e As EventArgs) Handles BtnCerrar.Click
         Me.Close()
     End Sub
-
 End Class

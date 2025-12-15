@@ -5,13 +5,6 @@ Public Class FormBitacora
         Me.Text = "Consulta de bitácora"
         EstiloProfesionalDataGrid(DgvBitacora)
 
-        'With DgvBitacora
-        '    .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
-        '    .ScrollBars = ScrollBars.Both
-        '    .AllowUserToResizeColumns = True
-        '    .AllowUserToResizeRows = False
-        'End With
-
         ' Rango de fechas por defecto: hoy y hace 7 días
         DtpHasta.Value = Date.Today
         DtpDesde.Value = Date.Today.AddDays(-7)
@@ -30,6 +23,7 @@ Public Class FormBitacora
         CargarUsuarios()
     End Sub
 
+    ' Cargar usuarios únicos desde la tabla Bitacora
     Private Sub CargarUsuarios()
         Dim dt As DataTable = Db.GetTable(" SELECT DISTINCT Usuario FROM Bitacora
             WHERE Usuario IS NOT NULL AND LTRIM(RTRIM(Usuario)) <> '' ORDER BY Usuario", Nothing)
@@ -45,6 +39,7 @@ Public Class FormBitacora
         CboUsuario.SelectedIndex = 0
     End Sub
 
+    ' Buscar en la bitácora según filtros
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
         Dim desde As Date = DtpDesde.Value.Date
         Dim hasta As Date = DtpHasta.Value.Date.AddDays(1).AddTicks(-1) ' hasta fin del día
@@ -79,10 +74,10 @@ Public Class FormBitacora
         DgvBitacora.DataSource = dt
     End Sub
 
+    ' Cerrar el formulario
     Private Sub BtnCerrar_Click(sender As Object, e As EventArgs) Handles BtnCerrar.Click
         Me.Close()
     End Sub
-
 End Class
 
 

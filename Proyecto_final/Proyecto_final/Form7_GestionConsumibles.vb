@@ -11,6 +11,8 @@ Public Class Form7_GestionConsumibles
         CargarConsumiblesGrid(False)
         LimpiarFormulario()
     End Sub
+
+    ' Cargar consumibles en el DataGridView
     Private Sub CargarConsumiblesGrid(Optional mostrarInactivos As Boolean = False)
         Dim q As String
 
@@ -28,6 +30,8 @@ Public Class Form7_GestionConsumibles
             DgvConsumibles.Columns("Precio").HeaderText = "Precio"
         End If
     End Sub
+
+    ' Guardar (Agregar o Editar) consumible
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         Dim nombre As String = TxtNombre.Text.Trim()
         Dim precio As Decimal
@@ -72,6 +76,8 @@ Public Class Form7_GestionConsumibles
         CargarConsumiblesGrid()
         LimpiarFormulario()
     End Sub
+
+    ' Eliminar (inactivar) consumible
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         If DgvConsumibles.CurrentRow Is Nothing Then
             MessageBox.Show("Seleccione un consumible en la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -107,6 +113,8 @@ Public Class Form7_GestionConsumibles
             MessageBox.Show("No se pudo inactivar el consumible (no se encontró el registro).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
+
+    ' Cargar datos del consumible seleccionado para editar
     Private Sub DgvConsumibles_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvConsumibles.CellClick
         If e.RowIndex >= 0 Then
 
@@ -120,6 +128,8 @@ Public Class Form7_GestionConsumibles
             BtnCancelar.Visible = True
         End If
     End Sub
+
+    ' Limpiar formulario
     Private Sub LimpiarFormulario()
         TxtNombre.Clear()
         TxtPrecio.Clear()
@@ -132,6 +142,8 @@ Public Class Form7_GestionConsumibles
 
         TxtNombre.Focus()
     End Sub
+
+    ' Mostrar consumibles inactivos o activos
     Private Sub BtnVerInactivos_Click(sender As Object, e As EventArgs) Handles BtnVerInactivos.Click
         ' Alternar el estado
         _mostrandoInactivos = Not _mostrandoInactivos
@@ -145,8 +157,9 @@ Public Class Form7_GestionConsumibles
             BtnReactivar.Enabled = False
             CargarConsumiblesGrid(False)
         End If
-
     End Sub
+
+    ' Reactivar consumible inactivo
     Private Sub BtnReactivar_Click(sender As Object, e As EventArgs) Handles BtnReactivar.Click
         If Not _mostrandoInactivos Then
             MessageBox.Show("Para reactivar un consumible, primero debe visualizar los inactivos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -179,11 +192,14 @@ Public Class Form7_GestionConsumibles
             MessageBox.Show("No se pudo reactivar el consumible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
+
+    ' Cancelar edición
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs) Handles BtnCancelar.Click
         LimpiarFormulario()
     End Sub
+
+    ' Regresar al menú principal
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Me.Close()
     End Sub
-
 End Class

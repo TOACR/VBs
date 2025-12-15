@@ -21,29 +21,35 @@ Public Class Form3_Consumibles
         CboRangoRapido.SelectedIndex = 0
 
     End Sub
+
+    ' Solo permitir números en TxtMontoAdelanto
     Private Sub TxtMontoAdelanto_KeyPress(sender As Object, e As EventArgs) Handles TxtMontoAdelanto.KeyPress
         Set_solo_numeros(e)
     End Sub
+
+    ' Cargar funcionarios activos en el combo
     Private Sub CargarFuncionarios()
         Dim dt = Db.GetTable("SELECT FuncionarioId, Nombre FROM Funcionario WHERE Activo=1 ORDER BY Nombre", Nothing)
         CboFuncionario.DisplayMember = "Nombre"
         CboFuncionario.ValueMember = "FuncionarioId"
         CboFuncionario.DataSource = dt
     End Sub
+
+    ' Cargar consumibles activos en el combo
     Public Sub CargarConsumibles()
-        Dim dt = Db.GetTable("
-        SELECT ConsumibleId, Nombre, Precio
-        FROM Consumible
-        WHERE Activo = 1
-        ORDER BY Nombre", Nothing)
+        Dim dt = Db.GetTable("SELECT ConsumibleId, Nombre, Precio FROM Consumible WHERE Activo = 1 ORDER BY Nombre", Nothing)
         CboConsumible.DisplayMember = "Nombre"
         CboConsumible.ValueMember = "ConsumibleId"
         CboConsumible.DataSource = dt
     End Sub
+
+    ' Refrescar movimientos al cambiar funcionario
     Private Sub CboFuncionario_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboFuncionario.SelectedIndexChanged
         If CboFuncionario.SelectedIndex < 0 Then Exit Sub
         RefrescarMovs()
     End Sub
+
+    ' Actualizar precio al cambiar consumible
     Private Sub CboConsumible_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboConsumible.SelectedIndexChanged
         If CboConsumible.SelectedIndex >= 0 Then
             Dim dt = CType(CboConsumible.DataSource, DataTable)
@@ -51,6 +57,8 @@ Public Class Form3_Consumibles
             TxtPrecio.Text = CDec(row("Precio")).ToString("N2")
         End If
     End Sub
+
+    ' Agregar consumo
     Private Sub BtnAgregarConsumo_Click(sender As Object, e As EventArgs) Handles BtnAgregarConsumo.Click
 
         If CboFuncionario.SelectedIndex < 0 OrElse CboConsumible.SelectedIndex < 0 Then
@@ -100,6 +108,8 @@ Public Class Form3_Consumibles
         RefrescarMovs()
         MessageBox.Show("Consumo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
+
+    ' Registrar adelanto
     Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
         If CboFuncionario.SelectedIndex < 0 Then
             MessageBox.Show("Seleccione funcionario.")
@@ -129,6 +139,8 @@ Public Class Form3_Consumibles
         MessageBox.Show("Adelanto registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
         TxtMontoAdelanto.Clear()
     End Sub
+
+    ' Obtener detalle de la liquidación para el ticket
     Private Function ObtenerDetalleLiquidacion(funcId As Integer, desde As Date, hasta As Date) As DataTable
         Dim q As String = "
         SELECT 'Consumo' AS Tipo, CAST(c.Fecha AS date) AS Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal AS Monto
@@ -150,7 +162,10 @@ Public Class Form3_Consumibles
 
         Return Db.GetTable(q, p)
     End Function
-    Private Function ConstruirTicket(funcNombre As String, funcId As Integer, desde As Date, hasta As Date, detalle As DataTable, total As Decimal) As String
+
+    ' Construir el texto del ticket de liquidación
+    Private Function ConstruirTicket(funcNombre As String, funcId As Integer, desde As Date, hasta As Date,
+                                     detalle As DataTable, total As Decimal) As String
         Dim sb As New System.Text.StringBuilder()
 
         ' Ancho recomendado (ajusta si tu impresora es 58mm)
@@ -194,41 +209,49 @@ Public Class Form3_Consumibles
 
         Return sb.ToString()
     End Function
+
+    ' Ajustar texto a la izquierda
     Private Function Ajustar(t As String, n As Integer) As String
         If t Is Nothing Then t = ""
         If t.Length > n Then Return t.Substring(0, n)
         Return t.PadRight(n)
     End Function
+
+    ' Ajustar texto a la derecha
     Private Function AjustarDerecha(t As String, n As Integer) As String
         If t Is Nothing Then t = ""
         If t.Length > n Then Return t.Substring(0, n)
         Return t.PadLeft(n)
     End Function
+
+    ' Centrar texto
     Private Function Centrar(t As String, w As Integer) As String
         If t Is Nothing Then t = ""
         If t.Length >= w Then Return t.Substring(0, w)
         Dim left = (w - t.Length) \ 2
         Return New String(" "c, left) & t
     End Function
+
+    ' Limitar texto y agregar "…" si es necesario
     Private Function Limitar(t As String, maxLen As Integer) As String
         If t Is Nothing Then Return ""
         If t.Length <= maxLen Then Return t
         Return t.Substring(0, Math.Max(0, maxLen - 1)) & "…"
     End Function
     Private _ticketTexto As String = ""
+
+    ' Imprimir ticket en impresora
     Private Sub ImprimirTicket(ticket As String)
         _ticketTexto = ticket
-
         Dim pd As New Printing.PrintDocument()
-
         ' Opcional: escoger impresora (si no, usa la predeterminada)
         ' pd.PrinterSettings.PrinterName = "Nombre de tu impresora térmica"
-
         AddHandler pd.PrintPage, AddressOf Pd_PrintPage
-
         ' Imprimir directo:
         pd.Print()
     End Sub
+
+    ' Evento para imprimir la página
     Private Sub Pd_PrintPage(sender As Object, e As Printing.PrintPageEventArgs)
         Using f As New Font("Consolas", 9) ' monoespaciada (clave para alinear)
             Dim marginLeft As Single = 5
@@ -238,8 +261,9 @@ Public Class Form3_Consumibles
 
         e.HasMorePages = False
     End Sub
-    Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
 
+    ' Liquidar quincena
+    Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)
             Dim r = frmLogin.ShowDialog(Me)
@@ -282,7 +306,6 @@ Public Class Form3_Consumibles
                 MessageBox.Show("No hay movimientos para liquidar.")
                 Exit Sub
             End If
-
             total = CDec(dt.Rows(0)("TotalADescontar"))
         End Using
 
@@ -304,6 +327,8 @@ Public Class Form3_Consumibles
                     "Liquidación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         RefrescarMovs()
     End Sub
+
+    ' Mostrar movimientos según el rango de fechas seleccionado
     Private Sub BtnMostrarMovs_Click(sender As Object, e As EventArgs) Handles BtnMostrarMovs.Click
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
 
@@ -365,6 +390,8 @@ Public Class Form3_Consumibles
         DtpDesde.Value = Date.Today.AddMonths(-meses)
         BtnMostrarMovs.PerformClick() ' Llamar al botón para mostrar movimientos
     End Sub
+
+    ' Formatear celdas del DataGridView según el estado
     Private Sub DgvMovs_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvMovs.CellFormatting
         If DgvMovs.Columns(e.ColumnIndex).Name = "Estado" Then
             If e.Value IsNot Nothing Then
@@ -388,6 +415,8 @@ Public Class Form3_Consumibles
             End If
         End If
     End Sub
+
+    ' Refrescar movimientos del funcionario seleccionado
     Public Sub RefrescarMovs()
         Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
         Dim p As New List(Of SqlParameter)
@@ -411,18 +440,8 @@ Public Class Form3_Consumibles
         p.Add(New SqlParameter("@f", funcId))
         DgvMovs.DataSource = Db.GetTable(q, p)
     End Sub
-    Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
-        RegistrarBitacora(
-        accion:="LOGOUT",
-        tabla:="SEGURIDAD",
-        llave:=UsuarioActual,
-        descripcion:="Cierre de sesión.")
-        ' Limpiar variables globales
-        UsuarioActual = ""
-        RolActual = ""
-        Form1.Show()
-        Me.Close()
-    End Sub
+
+    ' Abrir formulario de gestión de consumibles
     Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -437,5 +456,19 @@ Public Class Form3_Consumibles
         ' El ADMIN se autenticó correctamente
         Dim f As New Form7_GestionConsumibles()
         f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
+    End Sub
+
+    ' Regresar al formulario de login y registra en bitácora
+    Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
+        RegistrarBitacora(
+        accion:="LOGOUT",
+        tabla:="SEGURIDAD",
+        llave:=UsuarioActual,
+        descripcion:="Cierre de sesión.")
+        ' Limpiar variables globales
+        UsuarioActual = ""
+        RolActual = ""
+        Form1.Show()
+        Me.Close()
     End Sub
 End Class

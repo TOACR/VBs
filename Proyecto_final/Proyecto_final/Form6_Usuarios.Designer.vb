@@ -27,7 +27,7 @@ Partial Class Form6_Usuarios
         Me.TxtConfirmar = New System.Windows.Forms.TextBox()
         Me.CmbRol = New System.Windows.Forms.ComboBox()
         Me.DgvUsuarios = New System.Windows.Forms.DataGridView()
-        Me.BtnNuevo = New System.Windows.Forms.Button()
+        Me.BtnLimpiar = New System.Windows.Forms.Button()
         Me.BtnGuardar = New System.Windows.Forms.Button()
         Me.BtnEliminar = New System.Windows.Forms.Button()
         Me.BtnCerrar = New System.Windows.Forms.Button()
@@ -81,16 +81,16 @@ Partial Class Form6_Usuarios
         Me.DgvUsuarios.Size = New System.Drawing.Size(688, 116)
         Me.DgvUsuarios.TabIndex = 5
         '
-        'BtnNuevo
+        'BtnLimpiar
         '
-        Me.BtnNuevo.BackColor = System.Drawing.Color.Turquoise
-        Me.BtnNuevo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnNuevo.Location = New System.Drawing.Point(520, 324)
-        Me.BtnNuevo.Name = "BtnNuevo"
-        Me.BtnNuevo.Size = New System.Drawing.Size(100, 41)
-        Me.BtnNuevo.TabIndex = 6
-        Me.BtnNuevo.Text = "LIMPIAR FORMULARIO"
-        Me.BtnNuevo.UseVisualStyleBackColor = False
+        Me.BtnLimpiar.BackColor = System.Drawing.Color.Turquoise
+        Me.BtnLimpiar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnLimpiar.Location = New System.Drawing.Point(520, 324)
+        Me.BtnLimpiar.Name = "BtnLimpiar"
+        Me.BtnLimpiar.Size = New System.Drawing.Size(100, 41)
+        Me.BtnLimpiar.TabIndex = 6
+        Me.BtnLimpiar.Text = "LIMPIAR FORMULARIO"
+        Me.BtnLimpiar.UseVisualStyleBackColor = False
         '
         'BtnGuardar
         '
@@ -209,7 +209,7 @@ Partial Class Form6_Usuarios
         Me.Controls.Add(Me.BtnCerrar)
         Me.Controls.Add(Me.BtnEliminar)
         Me.Controls.Add(Me.BtnGuardar)
-        Me.Controls.Add(Me.BtnNuevo)
+        Me.Controls.Add(Me.BtnLimpiar)
         Me.Controls.Add(Me.DgvUsuarios)
         Me.Name = "Form6_Usuarios"
         Me.Text = "Form6_Usuarios"
@@ -226,7 +226,7 @@ Partial Class Form6_Usuarios
     Friend WithEvents TxtConfirmar As TextBox
     Friend WithEvents CmbRol As ComboBox
     Friend WithEvents DgvUsuarios As DataGridView
-    Friend WithEvents BtnNuevo As Button
+    Friend WithEvents BtnLimpiar As Button
     Friend WithEvents BtnGuardar As Button
     Friend WithEvents BtnEliminar As Button
     Friend WithEvents BtnCerrar As Button

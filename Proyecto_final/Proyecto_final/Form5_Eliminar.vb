@@ -8,6 +8,8 @@ Public Class Form5_Eliminar
         EstiloProfesionalDataGrid(DgvFuncionarios)
         CargarFuncionarios(True)
     End Sub
+
+    ' Cargar funcionarios en el DataGridView
     Private Sub CargarFuncionarios(Optional activos As Boolean = True)
         Dim q As String
         If activos Then
@@ -18,6 +20,8 @@ Public Class Form5_Eliminar
         Dim dt = Db.GetTable(q, Nothing)
         DgvFuncionarios.DataSource = dt
     End Sub
+
+    ' Seleccionar funcionario al hacer clic en el DataGridView
     Private Sub DgvFuncionarios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvFuncionarios.CellClick
         If e.RowIndex < 0 Then Exit Sub
 
@@ -52,6 +56,8 @@ Public Class Form5_Eliminar
             Msk_id.Text = ""
         End If
     End Sub
+
+    ' Eliminar funcionario seleccionado
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         ' Validar que haya un funcionario seleccionado
         If Not _funcionarioIdSeleccionado.HasValue Then
@@ -100,6 +106,8 @@ Public Class Form5_Eliminar
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Regresar al formulario anterior
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Me.Close()
     End Sub

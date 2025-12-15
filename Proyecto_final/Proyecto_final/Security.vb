@@ -6,6 +6,7 @@ Module Security
     Public UsuarioActual, RolActual As String
     Private Const ALG As String = "PBKDF2"
 
+    ' Función para hashear la contraseña
     Public Function HashPassword(password As String, Optional iterations As Integer = 100000) As String
         If String.IsNullOrEmpty(password) Then Throw New ArgumentException("password vacío")
 
@@ -24,6 +25,7 @@ Module Security
         Return $"{ALG}${iterations}${sSalt}${sHash}"
     End Function
 
+    ' Función para validar la contraseña contra el hash almacenado
     Public Function VerifyPassword(password As String, stored As String) As Boolean
         ' Evita “Demasiados argumentos…” manteniendo esta firma exacta.
         If String.IsNullOrWhiteSpace(stored) Then Return False
@@ -53,6 +55,7 @@ Module Security
         Return FixedTimeEquals(computed, targetHash)
     End Function
 
+    ' Función de comparación en tiempo fijo
     Private Function FixedTimeEquals(a() As Byte, b() As Byte) As Boolean
         If a Is Nothing OrElse b Is Nothing OrElse a.Length <> b.Length Then Return False
         Dim diff As Integer = 0

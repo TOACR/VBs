@@ -3,7 +3,7 @@ Module Funciones
     ' Variables globales
     Public f, k, ntipoid As Integer
 
-    'Crear método para validar solo mayusculas
+    'Método para validar solo mayusculas
     Public Sub Set_solo_letras(ByRef ee As System.Windows.Forms.KeyPressEventArgs)
         Dim cadena As String
         cadena = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ "
@@ -16,6 +16,8 @@ Module Funciones
             ee.Handled = True
         End If
     End Sub
+
+    'Método para validar solo mayusculas
     Public Sub Set_solo_numeros(ByRef ee As System.Windows.Forms.KeyPressEventArgs)
         Dim numerosPermitidos As String
         numerosPermitidos = "0123456789"
@@ -25,6 +27,8 @@ Module Funciones
             ee.Handled = True
         End If
     End Sub
+
+    'Método para crear un estilo profesional a los DataGrid
     Public Sub EstiloProfesionalDataGrid(dgv As DataGridView)
 
         ' 🔹 Borde y líneas
@@ -72,7 +76,5 @@ Module Funciones
         ' 🔹 Borde exterior elegante
         dgv.AdvancedCellBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.Single
         dgv.AdvancedCellBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.Single
-
     End Sub
-
 End Module

@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
-
 Module Auditoria
+    ' Registra una acción en la bitácora
     Public Sub RegistrarBitacora(accion As String,
                                  tabla As String,
                                  llave As String,
@@ -16,11 +16,9 @@ Module Auditoria
             New SqlParameter("@a", accion),
             New SqlParameter("@t", tabla),
             New SqlParameter("@l", llave),
-            New SqlParameter("@d", descripcion)
-        }
+            New SqlParameter("@d", descripcion)}
 
         Db.ExecNonQuery(q, p)
     End Sub
-
 End Module
 

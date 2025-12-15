@@ -2,19 +2,22 @@
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Reflection
-
-
 Public Module Db
+    ' Crea y devuelve una nueva conexión SQL general para el proyecto
     Public Function GetConnection() As SqlConnection
         Dim cs = ConfigurationManager.ConnectionStrings("BD_Consumos").ConnectionString
         Return New SqlConnection(cs)
     End Function
+
+    ' Crea una clase de conexión específica (no usada en el resto del proyecto) Solo para el padrón
     Public Class Conexion
         Public conexion As SqlConnection = New SqlConnection("Data Source=DESKTOP-HPG8TC6\SQLEXPRESS;Initial Catalog=BD_Consumos;Trusted_connection=Yes")
         Public comando As SqlCommand
         Public da As SqlDataAdapter
         Public ds As DataSet = New DataSet()
         Public builder As SqlCommandBuilder
+
+        ' Función para buscar en el padrón
         Public Function Busca_padron(ByVal vnumeroid As String) As DataTable
             Dim dt = New DataTable()
             consultar("SELECT * FROM PADRON WHERE IDENTIFICACION = '" & vnumeroid & "'", "PADRON")
@@ -26,6 +29,8 @@ Public Module Db
             da.Fill(dt)
             Return dt
         End Function
+
+        ' Método para ejecutar consultas y llenar el DataSet
         Public Sub consultar(ByVal sql As String, ByVal tabla As String)
             ds.Tables.Clear()
             da = New SqlDataAdapter(sql, conexion)
@@ -33,6 +38,7 @@ Public Module Db
             da.Fill(ds, tabla)
         End Sub
     End Class
+
     ' Clona los parámetros para que cada SqlCommand reciba instancias propias
     Public Function CloneParams(params As IEnumerable(Of SqlParameter)) As SqlParameter()
         If params Is Nothing Then Return Array.Empty(Of SqlParameter)()
@@ -50,12 +56,13 @@ Public Module Db
                     .Scale = p.Scale,
                     .Direction = p.Direction,
                     .IsNullable = p.IsNullable,
-                    .Value = If(p.Value, DBNull.Value)
-                }
+                    .Value = If(p.Value, DBNull.Value)}
             list.Add(c)
         Next
         Return list.ToArray()
     End Function
+
+    ' Función para obtener un DataTable desde una consulta SQL con parámetros
     Public Function GetTable(query As String, params As List(Of SqlParameter)) As DataTable
         Using cn = GetConnection(),
                   cmd As New SqlCommand(query, cn),
@@ -70,6 +77,7 @@ Public Module Db
         End Using
     End Function
 
+    'Función para ejecutar una consulta que devuelve un único valor
     Public Function ExecScalar(query As String, params As List(Of SqlParameter)) As Object
         Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
             Dim cloned = CloneParams(params)
@@ -79,6 +87,7 @@ Public Module Db
         End Using
     End Function
 
+    'Función para ejecutar una consulta que no devuelve resultados (INSERT, UPDATE, DELETE)
     Public Function ExecNonQuery(query As String, params As List(Of SqlParameter)) As Integer
         Using cn = GetConnection(), cmd As New SqlCommand(query, cn)
             Dim cloned = CloneParams(params)

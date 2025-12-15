@@ -8,6 +8,8 @@ Public Class Form1
         Timer1.Interval = 1000
         Timer1.Start()
     End Sub
+
+    ' Actualizar fecha y hora cada segundo
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Txt_fecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM yyyy hh:mm:ss tt")
     End Sub

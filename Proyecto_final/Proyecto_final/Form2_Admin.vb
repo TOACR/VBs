@@ -12,6 +12,8 @@ Public Class Form2_Admin
         CargarFuncionarios(True)
 
     End Sub
+
+    ' Variable para el tipo de identificación seleccionado
     Private Sub Cmb_tipoid_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmb_tipoid.SelectedIndexChanged
         Msk_id.Text = ""
         If Cmb_tipoid.Text = "CEDULA NACIONAL" Then
@@ -28,6 +30,8 @@ Public Class Form2_Admin
             SendKeys.Send("{tab}")
         End If
     End Sub
+
+    ' Validar que solo se ingresen letras en los campos de nombre y apellidos
     Private Sub TxtNombre_KeyPress(sender As Object, e As EventArgs) Handles TxtNombre.KeyPress
         Set_solo_letras(e)
     End Sub
@@ -37,6 +41,8 @@ Public Class Form2_Admin
     Private Sub Txtsegundo_apellido_KeyPress(sender As Object, e As EventArgs) Handles Txtsegundo_apellido.KeyPress
         Set_solo_letras(e)
     End Sub
+
+    ' Cargar funcionarios en el DataGridView
     Private Sub CargarFuncionarios(Optional activos As Boolean = True)
         Dim q As String
         If activos Then
@@ -48,12 +54,16 @@ Public Class Form2_Admin
         Dim dt = Db.GetTable(q, Nothing)
         DgvFuncionarios.DataSource = dt
     End Sub
+
+    ' Manejo de teclas en el campo de identificación
     Private Sub Msk_id_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles Msk_id.PreviewKeyDown
         ' Solo cuando es CÉDULA NACIONAL tratamos TAB como tecla de entrada
         If e.KeyCode = Keys.Tab AndAlso ntipoid = 1 Then
             e.IsInputKey = True
         End If
     End Sub
+
+    ' Manejo de teclas en el campo de identificación
     Private Sub Msk_id_KeyDown(sender As Object, e As KeyEventArgs) Handles Msk_id.KeyDown
         ' Cuando utilicemos ENTER
         If e.KeyCode = Keys.Enter Then
@@ -75,6 +85,8 @@ Public Class Form2_Admin
             ' Si ntipoid <> 1 -> TAB mueve el foco normalmente
         End If
     End Sub
+
+    ' Validar cédula nacional en el padrón
     Private Sub ValidarIdentificacionCedula()
         ' Solo aplica para CÉDULA NACIONAL
         If ntipoid <> 1 Then
@@ -119,6 +131,8 @@ Public Class Form2_Admin
                         MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Guardar (Insertar o Actualizar) funcionario
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         Try
             ' Validaciones básicas
@@ -238,6 +252,8 @@ Public Class Form2_Admin
         LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub
+
+    ' Marcar funcionario como inactivo
     Private Sub BtnDesactivar_Click(sender As Object, e As EventArgs) Handles BtnDesactivar.Click
         If lblFuncionarioId.Text = "" Then
             MessageBox.Show("Debe seleccionar un funcionario primero.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -265,6 +281,8 @@ Public Class Form2_Admin
                         MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Cargar datos del funcionario seleccionado en el DataGridView
     Private Sub DgvFuncionarios_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvFuncionarios.CellClick
         ' Ignorar clicks en encabezados o filas inválidas
         If e.RowIndex < 0 Then Exit Sub
@@ -290,6 +308,8 @@ Public Class Form2_Admin
         Txtsegundo_apellido.Text = If(IsDBNull(r.Cells("Segundo_Apellido").Value), "", CStr(r.Cells("Segundo_Apellido").Value))
         ChkActivo.Checked = If(IsDBNull(r.Cells("Activo").Value), False, CBool(r.Cells("Activo").Value))
     End Sub
+
+    ' Toggle entre ver activos e inactivos
     Private Sub BtnVerInactivos_Click(sender As Object, e As EventArgs) Handles BtnVerInactivos.Click
         _viendoInactivos = Not _viendoInactivos   ' 🔄 Alternar estado
         If _viendoInactivos Then
@@ -308,6 +328,8 @@ Public Class Form2_Admin
             LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
         End If
     End Sub
+
+    ' Reactivar funcionario inactivo
     Private Sub BtnActivar_Click(sender As Object, e As EventArgs) Handles BtnActivar.Click
         If DgvFuncionarios.CurrentRow Is Nothing Then
             MessageBox.Show("Debe seleccionar un funcionario.", "Activar",
@@ -321,9 +343,7 @@ Public Class Form2_Admin
             SET Activo = 1
             WHERE FuncionarioId = @id",
             New List(Of SqlParameter) From {
-                New SqlParameter("@id", id)
-            })
-
+                New SqlParameter("@id", id)})
             MessageBox.Show("Funcionario activado correctamente.", "Información",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
             ' Después de activar, volvemos a ver activos
@@ -337,6 +357,8 @@ Public Class Form2_Admin
                         MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ' Limpiar formulario
     Private Sub BtnLimpiar_Click(sender As Object, e As EventArgs) Handles BtnLimpiar.Click
         LimpiarControles(Me)
         CargarFuncionarios()
@@ -346,6 +368,8 @@ Public Class Form2_Admin
         LblEstadoLista.Text = "MOSTRANDO FUNCIONARIOS ACTIVOS"
         LblEstadoLista.ForeColor = Color.Green ' 🟢 Color para activos
     End Sub
+
+    ' Navegar al formulario de eliminación de funcionarios
     Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -359,6 +383,8 @@ Public Class Form2_Admin
         Dim f As New Form5_Eliminar()
         f.ShowDialog()
     End Sub
+
+    ' Navegar al formulario de gestión de consumibles
     Private Sub BtnGestionar_Click(sender As Object, e As EventArgs) Handles BtnGestionar.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -374,6 +400,8 @@ Public Class Form2_Admin
         Dim f As New Form7_GestionConsumibles()
         f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
     End Sub
+
+    ' Navegar al formulario de eliminación de usuarios
     Private Sub BtnUsuarios_Click(sender As Object, e As EventArgs) Handles BtnUsuarios.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -387,6 +415,8 @@ Public Class Form2_Admin
         Dim f As New Form6_Usuarios()
         f.ShowDialog()
     End Sub
+
+    ' Navegar al formulario de bitácora
     Private Sub BtnBitacora_Click(sender As Object, e As EventArgs) Handles BtnBitacora.Click
         ' Pedir credenciales de ADMIN
         Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
@@ -400,6 +430,8 @@ Public Class Form2_Admin
         Dim f As New FormBitacora()
         f.Show()
     End Sub
+
+    ' Regresar al formulario de login y registrar cierre de sesión en bitácora
     Private Sub Btnregresar_Click(sender As Object, e As EventArgs) Handles Btnregresar.Click
         If Me.Owner IsNot Nothing Then Me.Owner.Show()
         RegistrarBitacora(

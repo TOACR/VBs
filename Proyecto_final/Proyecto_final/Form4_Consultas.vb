@@ -20,6 +20,7 @@ Public Class Form4_Consultas
         CboRangoRapido.SelectedIndex = 0
         LimpiarControles(Me)
     End Sub
+
     ' Mostrar movimientos según el rango de fechas seleccionado
     Private Sub BtnMostrarMovs_Click(sender As Object, e As EventArgs) Handles BtnMostrarMovs.Click
             Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
@@ -83,6 +84,8 @@ Public Class Form4_Consultas
         DtpDesde.Value = Date.Today.AddMonths(-meses)
         BtnMostrarMovs.PerformClick() ' Llamar al botón para mostrar movimientos
     End Sub
+
+    ' Buscar movimientos del funcionario en el rango de fechas
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
         Dim fId = CInt(CboFuncionario.SelectedValue)
         Dim desde = DtpDesde.Value.Date
@@ -136,6 +139,8 @@ Public Class Form4_Consultas
         Dim totalGeneral As Decimal = CDec(totalConsumos) + CDec(totalAdelantos)
         LblTotalConsumos.Text = "Total General: " & totalGeneral.ToString("C2")
     End Sub
+
+    ' Formatear celdas según el estado (Liquidado/Pendiente)
     Private Sub DgvResultado_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvResultado.CellFormatting
 
         ' Detectar columna Estado
@@ -162,6 +167,8 @@ Public Class Form4_Consultas
             End If
         End If
     End Sub
+
+    ' Regresar al formulario principal
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
         Form1.Show()
         Me.Close()
