@@ -33,22 +33,21 @@ Public Class Form4_Consultas
                 Exit Sub
             End If
 
-        ' Query para obtener consumos y adelantos
-        Dim q As String = "SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal,
-                CASE WHEN c.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
-            FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
-            WHERE (@f = -1 OR c.FuncionarioId = @f)
-              AND CAST(c.Fecha AS date) BETWEEN @d AND @h
+        ' Query para obtener funcionario, consumos y adelantos
+        Dim q As String = "SELECT *FROM (SELECT f.Nombre AS Funcionario,'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad,
+        c.PrecioUnitario, c.MontoTotal, CASE WHEN c.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId INNER JOIN Funcionario f ON f.FuncionarioId = c.FuncionarioId
+        WHERE (@f = -1 OR c.FuncionarioId = @f)
+        AND CAST(c.Fecha AS date) BETWEEN @d AND @h
 
-            UNION ALL
+        UNION ALL
 
-            SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
-                CASE WHEN a.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
-            FROM Adelanto a
-            WHERE (@f = -1 OR a.FuncionarioId = @f)
-              AND CAST(a.Fecha AS date) BETWEEN @d AND @h
-
-            ORDER BY Fecha DESC;"
+        SELECT f.Nombre AS Funcionario, 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
+        CASE WHEN a.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        FROM Adelanto a INNER JOIN Funcionario f ON f.FuncionarioId = a.FuncionarioId
+        WHERE (@f = -1 OR a.FuncionarioId = @f)
+        AND CAST(a.Fecha AS date) BETWEEN @d AND @h) X
+        ORDER BY Fecha DESC;"
 
         Dim p As New List(Of SqlClient.SqlParameter) From {
             New SqlClient.SqlParameter("@f", funcId),
@@ -87,35 +86,29 @@ Public Class Form4_Consultas
 
     ' Buscar movimientos del funcionario en el rango de fechas
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
-        Dim fId = CInt(CboFuncionario.SelectedValue)
+        Dim funcId = CInt(CboFuncionario.SelectedValue)
         Dim desde = DtpDesde.Value.Date
         Dim hasta = DtpHasta.Value.Date
 
-        Dim q As String = "
-        SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal,
-            CASE 
-                WHEN c.Liquidado = 1 THEN 'Liquidado'
-                ELSE 'Pendiente'
-            END AS Estado
-        FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId WHERE c.FuncionarioId = @f  
-        AND CAST(c.Fecha AS DATE) BETWEEN @d AND @h
+        Dim q As String = "SELECT * FROM (SELECT f.Nombre AS Funcionario, 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, 
+        c.PrecioUnitario, c.MontoTotal,
+        CASE WHEN ISNULL(c.Liquidado,0) = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId INNER JOIN Funcionario f ON f.FuncionarioId = c.FuncionarioId
+        WHERE (@f = -1 OR c.FuncionarioId = @f)
+        AND c.Fecha >= @d AND c.Fecha < DATEADD(DAY, 1, @h)
 
         UNION ALL
 
-        SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle,NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
-            CASE 
-                WHEN a.Liquidado = 1 THEN 'Liquidado'
-                ELSE 'Pendiente'
-            END AS Estado
-        FROM Adelanto a WHERE a.FuncionarioId = @f 
-        AND CAST(a.Fecha AS DATE) BETWEEN @d AND @h
+        SELECT f.Nombre AS Funcionario, 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
+        CASE WHEN ISNULL(a.Liquidado,0) = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        FROM Adelanto a INNER JOIN Funcionario f ON f.FuncionarioId = a.FuncionarioId
+        WHERE (@f = -1 OR a.FuncionarioId = @f) AND a.Fecha >= @d AND a.Fecha < DATEADD(DAY, 1, @h)) X
+        ORDER BY Fecha DESC;"
 
-        ORDER BY Fecha DESC"
-
-        Dim p = New List(Of SqlParameter) From {
-        New SqlParameter("@f", fId),
-        New SqlParameter("@d", desde),
-        New SqlParameter("@h", hasta)}
+        Dim p As New List(Of SqlParameter) From {
+        New SqlParameter("@f", funcId),
+        New SqlParameter("@d", desde.Date),
+        New SqlParameter("@h", hasta.Date)}
 
         Dim dt = Db.GetTable(q, p)
         DgvResultado.DataSource = dt
@@ -142,6 +135,10 @@ Public Class Form4_Consultas
 
     ' Formatear celdas según el estado (Liquidado/Pendiente)
     Private Sub DgvResultado_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvResultado.CellFormatting
+        If DgvResultado.Columns.Contains("Funcionario") Then
+            DgvResultado.Columns("Funcionario").DisplayIndex = 0
+            DgvResultado.Columns("Funcionario").HeaderText = "Funcionario"
+        End If
 
         ' Detectar columna Estado
         If DgvResultado.Columns(e.ColumnIndex).Name = "Estado" Then

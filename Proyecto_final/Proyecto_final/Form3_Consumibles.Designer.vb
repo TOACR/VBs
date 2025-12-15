@@ -39,13 +39,11 @@ Partial Class Form3_Consumibles
         Me.Lbldesde = New System.Windows.Forms.Label()
         Me.LblHasta = New System.Windows.Forms.Label()
         Me.DgvMovs = New System.Windows.Forms.DataGridView()
-        Me.BtnLiquidar = New System.Windows.Forms.Button()
         Me.BtnRegresar = New System.Windows.Forms.Button()
         Me.LblColones = New System.Windows.Forms.Label()
         Me.LblAgregar = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BtnMostrarMovs = New System.Windows.Forms.Button()
-        Me.BtnGestionar = New System.Windows.Forms.Button()
         Me.BtnUltimoMes = New System.Windows.Forms.Button()
         Me.BtnAplicarRango = New System.Windows.Forms.Button()
         Me.CboRangoRapido = New System.Windows.Forms.ComboBox()
@@ -205,18 +203,6 @@ Partial Class Form3_Consumibles
         Me.DgvMovs.Size = New System.Drawing.Size(779, 182)
         Me.DgvMovs.TabIndex = 17
         '
-        'BtnLiquidar
-        '
-        Me.BtnLiquidar.BackColor = System.Drawing.Color.DarkOrange
-        Me.BtnLiquidar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnLiquidar.ForeColor = System.Drawing.Color.White
-        Me.BtnLiquidar.Location = New System.Drawing.Point(573, 533)
-        Me.BtnLiquidar.Name = "BtnLiquidar"
-        Me.BtnLiquidar.Size = New System.Drawing.Size(111, 40)
-        Me.BtnLiquidar.TabIndex = 18
-        Me.BtnLiquidar.Text = "LIQUIDAR CONSUMIBLES"
-        Me.BtnLiquidar.UseVisualStyleBackColor = False
-        '
         'BtnRegresar
         '
         Me.BtnRegresar.BackColor = System.Drawing.Color.Lime
@@ -288,18 +274,6 @@ Partial Class Form3_Consumibles
         Me.BtnMostrarMovs.Text = "TODOS LOS MOVIMIENTOS"
         Me.BtnMostrarMovs.UseVisualStyleBackColor = False
         '
-        'BtnGestionar
-        '
-        Me.BtnGestionar.BackColor = System.Drawing.Color.SlateBlue
-        Me.BtnGestionar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGestionar.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.BtnGestionar.Location = New System.Drawing.Point(570, 489)
-        Me.BtnGestionar.Name = "BtnGestionar"
-        Me.BtnGestionar.Size = New System.Drawing.Size(114, 36)
-        Me.BtnGestionar.TabIndex = 68
-        Me.BtnGestionar.Text = "GESTIONAR CONSUMIBLES"
-        Me.BtnGestionar.UseVisualStyleBackColor = False
-        '
         'BtnUltimoMes
         '
         Me.BtnUltimoMes.BackColor = System.Drawing.Color.Green
@@ -337,7 +311,7 @@ Partial Class Form3_Consumibles
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(242, 464)
+        Me.Label1.Location = New System.Drawing.Point(322, 464)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(163, 24)
         Me.Label1.TabIndex = 69
@@ -350,7 +324,7 @@ Partial Class Form3_Consumibles
         Me.GroupBox2.Controls.Add(Me.CboRangoRapido)
         Me.GroupBox2.Controls.Add(Me.BtnAplicarRango)
         Me.GroupBox2.Controls.Add(Me.BtnUltimoMes)
-        Me.GroupBox2.Location = New System.Drawing.Point(120, 491)
+        Me.GroupBox2.Location = New System.Drawing.Point(200, 491)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(423, 81)
         Me.GroupBox2.TabIndex = 70
@@ -362,11 +336,9 @@ Partial Class Form3_Consumibles
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 585)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.BtnGestionar)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LblAgregar)
         Me.Controls.Add(Me.BtnRegresar)
-        Me.Controls.Add(Me.BtnLiquidar)
         Me.Controls.Add(Me.DgvMovs)
         Me.Controls.Add(Me.GroupBox2)
         Me.Name = "Form3_Consumibles"
@@ -398,12 +370,10 @@ Partial Class Form3_Consumibles
     Friend WithEvents Lbldesde As Label
     Friend WithEvents LblHasta As Label
     Friend WithEvents DgvMovs As DataGridView
-    Friend WithEvents BtnLiquidar As Button
     Friend WithEvents BtnRegresar As Button
     Friend WithEvents LblColones As Label
     Friend WithEvents LblAgregar As Label
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BtnGestionar As Button
     Friend WithEvents BtnMostrarMovs As Button
     Friend WithEvents BtnAplicarRango As Button
     Friend WithEvents BtnUltimoMes As Button

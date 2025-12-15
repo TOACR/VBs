@@ -53,6 +53,7 @@ Partial Class Form2_Admin
         Me.BtnGestionar = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.BtnBitacora = New System.Windows.Forms.Button()
+        Me.BtnLiquidar = New System.Windows.Forms.Button()
         CType(Me.DgvFuncionarios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -159,7 +160,7 @@ Partial Class Form2_Admin
         '
         Me.Btnregresar.BackColor = System.Drawing.Color.Lime
         Me.Btnregresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btnregresar.Location = New System.Drawing.Point(781, 603)
+        Me.Btnregresar.Location = New System.Drawing.Point(781, 648)
         Me.Btnregresar.Name = "Btnregresar"
         Me.Btnregresar.Size = New System.Drawing.Size(87, 36)
         Me.Btnregresar.TabIndex = 10
@@ -348,13 +349,14 @@ Partial Class Form2_Admin
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Thistle
+        Me.GroupBox2.Controls.Add(Me.BtnLiquidar)
         Me.GroupBox2.Controls.Add(Me.BtnBitacora)
         Me.GroupBox2.Controls.Add(Me.BtnGestionar)
         Me.GroupBox2.Controls.Add(Me.BtnUsuarios)
         Me.GroupBox2.Controls.Add(Me.BtnEliminar)
-        Me.GroupBox2.Location = New System.Drawing.Point(138, 566)
+        Me.GroupBox2.Location = New System.Drawing.Point(92, 566)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(595, 66)
+        Me.GroupBox2.Size = New System.Drawing.Size(698, 66)
         Me.GroupBox2.TabIndex = 70
         Me.GroupBox2.TabStop = False
         '
@@ -365,16 +367,28 @@ Partial Class Form2_Admin
         Me.BtnBitacora.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.BtnBitacora.Location = New System.Drawing.Point(447, 19)
         Me.BtnBitacora.Name = "BtnBitacora"
-        Me.BtnBitacora.Size = New System.Drawing.Size(124, 37)
+        Me.BtnBitacora.Size = New System.Drawing.Size(103, 37)
         Me.BtnBitacora.TabIndex = 68
         Me.BtnBitacora.Text = "BITÁCORA"
         Me.BtnBitacora.UseVisualStyleBackColor = False
+        '
+        'BtnLiquidar
+        '
+        Me.BtnLiquidar.BackColor = System.Drawing.Color.DarkOrange
+        Me.BtnLiquidar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnLiquidar.ForeColor = System.Drawing.Color.White
+        Me.BtnLiquidar.Location = New System.Drawing.Point(570, 20)
+        Me.BtnLiquidar.Name = "BtnLiquidar"
+        Me.BtnLiquidar.Size = New System.Drawing.Size(104, 36)
+        Me.BtnLiquidar.TabIndex = 71
+        Me.BtnLiquidar.Text = "LIQUIDAR CONSUMIBLES"
+        Me.BtnLiquidar.UseVisualStyleBackColor = False
         '
         'Form2_Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(872, 651)
+        Me.ClientSize = New System.Drawing.Size(872, 689)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.DgvFuncionarios)
@@ -441,4 +455,5 @@ Partial Class Form2_Admin
     Friend WithEvents BtnGestionar As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents BtnBitacora As Button
+    Friend WithEvents BtnLiquidar As Button
 End Class

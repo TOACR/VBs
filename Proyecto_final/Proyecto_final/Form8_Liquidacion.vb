@@ -1,15 +1,13 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Threading
-Public Class Form3_Consumibles
-    Public Sub Form3_Consumibles_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = "Consumibles"
+Public Class Form8_Liquidacion
+    Public Sub Form8_Liquidacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = "Liquidación"
         EstiloProfesionalDataGrid(DgvMovs)
         CargarFuncionarios()
-        CargarConsumibles()
         DtpDesde.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 1, 16))
         DtpHasta.Value = New Date(Now.Year, Now.Month, If(Now.Day <= 15, 15, Date.DaysInMonth(Now.Year, Now.Month)))
         LimpiarControles(Me)
-        NumCantidad.Value = 0
         ' Cargar rangos rápidos (una sola vez)
         CboRangoRapido.DropDownStyle = ComboBoxStyle.DropDownList
         CboRangoRapido.Items.Clear()
@@ -20,11 +18,6 @@ Public Class Form3_Consumibles
         CboRangoRapido.SelectedIndex = 0
     End Sub
 
-    ' Solo permitir números en TxtMontoAdelanto
-    Private Sub TxtMontoAdelanto_KeyPress(sender As Object, e As EventArgs) Handles TxtMontoAdelanto.KeyPress
-        Set_solo_numeros(e)
-    End Sub
-
     ' Cargar funcionarios activos en el combo
     Private Sub CargarFuncionarios()
         Dim dt = Db.GetTable("SELECT FuncionarioId, Nombre FROM Funcionario WHERE Activo=1 ORDER BY Nombre", Nothing)
@@ -33,132 +26,107 @@ Public Class Form3_Consumibles
         CboFuncionario.DataSource = dt
     End Sub
 
-    ' Cargar consumibles activos en el combo
-    Public Sub CargarConsumibles()
-        Dim dt = Db.GetTable("SELECT ConsumibleId, Nombre, Precio FROM Consumible WHERE Activo = 1 ORDER BY Nombre", Nothing)
-        CboConsumible.DisplayMember = "Nombre"
-        CboConsumible.ValueMember = "ConsumibleId"
-        CboConsumible.DataSource = dt
-    End Sub
-
     ' Refrescar movimientos al cambiar funcionario
     Private Sub CboFuncionario_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboFuncionario.SelectedIndexChanged
         If CboFuncionario.SelectedIndex < 0 Then Exit Sub
         RefrescarMovs()
     End Sub
 
-    ' Actualizar precio al cambiar consumible
-    Private Sub CboConsumible_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CboConsumible.SelectedIndexChanged
-        If CboConsumible.SelectedIndex >= 0 Then
-            Dim dt = CType(CboConsumible.DataSource, DataTable)
-            Dim row = dt.Rows(CboConsumible.SelectedIndex)
-            TxtPrecio.Text = CDec(row("Precio")).ToString("N2")
-        End If
-    End Sub
-
-    ' Agregar consumo
-    Private Sub BtnAgregarConsumo_Click(sender As Object, e As EventArgs) Handles BtnAgregarConsumo.Click
-
-        If CboFuncionario.SelectedIndex < 0 OrElse CboConsumible.SelectedIndex < 0 Then
-            MessageBox.Show("Seleccione funcionario y consumible.")
-            Exit Sub
-        End If
-
-        Dim funcName As String = CboFuncionario.Text
-        Dim funcId = CInt(CboFuncionario.SelectedValue)
-        Dim consId = CInt(CboConsumible.SelectedValue)
-
-        Dim precio As Decimal
-        If Not Decimal.TryParse(TxtPrecio.Text, precio) Then
-            MessageBox.Show("Precio inválido.")
-            Exit Sub
-        End If
-
-        Dim cant = CInt(NumCantidad.Value)
-        If cant <= 0 Then
-            MessageBox.Show("Cantidad debe ser mayor a 0.")
-            Exit Sub
-        End If
-
-        ' Query para insertar y devolver el ID recién creado
-        Dim q As String = "
-        INSERT INTO Consumo (FuncionarioId, ConsumibleId, Cantidad, PrecioUnitario)
-        VALUES (@f,@c,@cant,@precio); SELECT SCOPE_IDENTITY();"
-
-        ' Parámetros del insert
-        Dim p As New List(Of SqlParameter) From {
-        New SqlParameter("@f", funcId),
-        New SqlParameter("@c", consId),
-        New SqlParameter("@cant", cant),
-        New SqlParameter("@precio", precio)}
-
-        ' Ejecutamos y obtenemos el ID nuevo
-        Dim nuevoId As Integer = CInt(Db.ExecScalar(q, p))
-
-        ' Registrar en bitácora
-        RegistrarBitacora(
-        accion:="INSERT",
-        tabla:="CONSUMO",
-        llave:=UsuarioActual,
-        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, Funcionario='{funcName}', ConsumibleId={consId}, Cantidad={cant}, PrecioUnitario={precio}")
-
-        ' Refrescar tabla
-        RefrescarMovs()
-        MessageBox.Show("Consumo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    ' Registrar adelanto
-    Private Sub BtnRegistrarAdelanto_Click(sender As Object, e As EventArgs) Handles BtnRegistrarAdelanto.Click
-        If CboFuncionario.SelectedIndex < 0 Then
-            MessageBox.Show("Seleccione funcionario.")
-            Exit Sub
-        End If
-        Dim funcName As String = CboFuncionario.Text
-        Dim funcId = CInt(CboFuncionario.SelectedValue)
-        Dim monto As Decimal
-        If Not Decimal.TryParse(TxtMontoAdelanto.Text, monto) OrElse monto <= 0D Then
-            MessageBox.Show("Monto de adelanto inválido.")
-            Exit Sub
-        End If
-        Db.ExecNonQuery("
-            INSERT INTO Adelanto (FuncionarioId, Monto)
-            VALUES (@f,@m)",
-            New List(Of SqlParameter) From {
-                New SqlParameter("@f", CInt(CboFuncionario.SelectedValue)),
-                New SqlParameter("@m", monto)})
-        ' Registrar en bitácora
-        RegistrarBitacora(
-        accion:="INSERT",
-        tabla:="ADELANTO",
-        llave:=UsuarioActual,
-        descripcion:=$"Se registró un adelanto. FuncionarioId={funcId}, Funcionario='{funcName}', Monto={monto}")
-        RefrescarMovs()
-        MessageBox.Show("Adelanto registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        TxtMontoAdelanto.Clear()
-    End Sub
-
     ' Obtener detalle de la liquidación para el ticket
     Private Function ObtenerDetalleLiquidacion(funcId As Integer, desde As Date, hasta As Date) As DataTable
-        Dim q As String = "
-        SELECT 'Consumo' AS Tipo, CAST(c.Fecha AS date) AS Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal AS Monto
+
+        Dim q As String = "SELECT * FROM (SELECT 'Consumo' AS Tipo, c.Fecha AS Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal AS Monto
         FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
-        WHERE c.FuncionarioId = @f AND CAST(c.Fecha AS date) BETWEEN @d AND @h
+        WHERE c.FuncionarioId = @f AND ISNULL(c.Liquidado,0) = 0 AND c.Fecha >= @d AND c.Fecha < DATEADD(DAY, 1, @h)
 
         UNION ALL
 
-        SELECT 'Adelanto' AS Tipo, CAST(a.Fecha AS date) AS Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS Monto
-        FROM Adelanto a
-        WHERE a.FuncionarioId = @f
-          AND CAST(a.Fecha AS date) BETWEEN @d AND @h
+        SELECT 'Adelanto' AS Tipo, a.Fecha AS Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS Monto
+        FROM Adelanto a WHERE a.FuncionarioId = @f AND ISNULL(a.Liquidado,0) = 0 AND a.Fecha >= @d AND a.Fecha < DATEADD(DAY, 1, @h)) X
         ORDER BY Fecha ASC, Tipo ASC, Detalle ASC;"
 
         Dim p As New List(Of SqlClient.SqlParameter) From {
         New SqlClient.SqlParameter("@f", funcId),
-        New SqlClient.SqlParameter("@d", desde),
-        New SqlClient.SqlParameter("@h", hasta)}
+        New SqlClient.SqlParameter("@d", desde.Date),
+        New SqlClient.SqlParameter("@h", hasta.Date)}
 
         Return Db.GetTable(q, p)
     End Function
+
+    ' Liquidar quincena
+    Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
+
+        If CboFuncionario.SelectedIndex < 0 Then
+            MessageBox.Show("Seleccione funcionario.")
+            Exit Sub
+        End If
+
+        Dim funcId As Integer = CInt(CboFuncionario.SelectedValue)
+        Dim funcNombre As String = CboFuncionario.Text
+
+        Dim desde As Date = DtpDesde.Value.Date
+        Dim hasta As Date = DtpHasta.Value.Date
+
+        If desde > hasta Then
+            MessageBox.Show("Rango de fechas inválido.")
+            Exit Sub
+        End If
+
+        Dim total As Decimal = 0D
+
+        ' Obtener detalle para el ticket (pendientes)
+        Dim detalle As DataTable = ObtenerDetalleLiquidacion(funcId, desde, hasta)
+        If detalle.Rows.Count = 0 Then
+            MessageBox.Show("No hay movimientos pendientes para liquidar en ese rango.", "Liquidación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        ' Ejecutar SP para calcular/registrar liquidación (y devolver total)
+        Using cn = Db.GetConnection(), cmd As New SqlCommand("sp_LiquidarQuincena", cn)
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@FuncionarioId", funcId)
+            cmd.Parameters.AddWithValue("@Desde", desde)
+            cmd.Parameters.AddWithValue("@Hasta", hasta)
+
+            cn.Open()
+
+            Dim dt As New DataTable()
+            Using da As New SqlDataAdapter(cmd)
+                da.Fill(dt)
+            End Using
+
+            If dt.Rows.Count = 0 Then
+                MessageBox.Show("No hay movimientos para liquidar.")
+                Exit Sub
+            End If
+
+            total = If(IsDBNull(dt.Rows(0)("TotalADescontar")), 0D, CDec(dt.Rows(0)("TotalADescontar")))
+        End Using
+
+        ' Validar total real
+        If total <= 0D Then
+            MessageBox.Show("No hay movimientos pendientes para liquidar (total=0).", "Liquidación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        ' Construir e imprimir ticket
+        Dim ticket As String = ConstruirTicket(funcNombre, funcId, desde, hasta, detalle, total)
+        ImprimirTicket(ticket)
+
+        RegistrarBitacora(
+        accion:="UPDATE",
+        tabla:="LIQUIDACIÓN",
+        llave:=UsuarioActual,
+        descripcion:=$"Se registró una liquidación. FuncionarioId={funcId}, Funcionario='{funcNombre}', Monto={total}")
+
+        MessageBox.Show("Liquidación creada e impresa. Total a descontar: " & total.ToString("C2"),
+                    "Liquidación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        RefrescarMovs()
+    End Sub
+
 
     ' Construir el texto del ticket de liquidación
     Private Function ConstruirTicket(funcNombre As String, funcId As Integer, desde As Date, hasta As Date,
@@ -272,25 +240,24 @@ Public Class Form3_Consumibles
         End If
 
         ' Query para obtener consumos y adelantos
-        Dim q As String = "SELECT * FROM (SELECT f.Nombre AS Funcionario, 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, 
-        c.PrecioUnitario, c.MontoTotal,
-        CASE WHEN ISNULL(c.Liquidado,0) = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        Dim q As String = "SELECT *FROM (SELECT f.Nombre AS Funcionario,'Consumo' AS Tipo,c.Fecha,co.Nombre AS Detalle,c.Cantidad,
+        c.PrecioUnitario,c.MontoTotal, CASE WHEN c.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
         FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId INNER JOIN Funcionario f ON f.FuncionarioId = c.FuncionarioId
         WHERE (@f = -1 OR c.FuncionarioId = @f)
-        AND c.Fecha >= @d AND c.Fecha < DATEADD(DAY, 1, @h)
+        AND CAST(c.Fecha AS date) BETWEEN @d AND @h
 
         UNION ALL
 
-        SELECT f.Nombre AS Funcionario, 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
-        CASE WHEN ISNULL(a.Liquidado,0) = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
-        FROM Adelanto a INNER JOIN Funcionario f ON f.FuncionarioId = a.FuncionarioId
-        WHERE (@f = -1 OR a.FuncionarioId = @f) AND a.Fecha >= @d AND a.Fecha < DATEADD(DAY, 1, @h)) X
+        SELECT f.Nombre AS Funcionario,'Adelanto' AS Tipo,a.Fecha,'Adelanto' AS Detalle,NULL AS Cantidad,NULL AS PrecioUnitario,
+        a.Monto AS MontoTotal, CASE WHEN a.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+        FROM Adelanto a INNER JOIN Funcionario f ON f.FuncionarioId = a.FuncionarioId WHERE (@f = -1 OR a.FuncionarioId = @f)
+        AND CAST(a.Fecha AS date) BETWEEN @d AND @h) X
         ORDER BY Fecha DESC;"
 
-        Dim p As New List(Of SqlParameter) From {
-        New SqlParameter("@f", funcId),
-        New SqlParameter("@d", desde.Date),
-        New SqlParameter("@h", hasta.Date)}
+        Dim p As New List(Of SqlClient.SqlParameter) From {
+            New SqlClient.SqlParameter("@f", funcId),
+            New SqlClient.SqlParameter("@d", desde),
+            New SqlClient.SqlParameter("@h", hasta)}
 
         ' Mostrar resultados en DgvMovs
         DgvMovs.DataSource = Db.GetTable(q, p)
@@ -324,9 +291,6 @@ Public Class Form3_Consumibles
 
     ' Formatear celdas del DataGridView según el estado
     Private Sub DgvMovs_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DgvMovs.CellFormatting
-        If DgvMovs.Columns.Contains("Funcionario") Then
-            DgvMovs.Columns("Funcionario").DisplayIndex = 0
-        End If
         If DgvMovs.Columns(e.ColumnIndex).Name = "Estado" Then
             If e.Value IsNot Nothing Then
                 Dim texto = e.Value.ToString()
@@ -382,17 +346,8 @@ Public Class Form3_Consumibles
         DgvMovs.DataSource = Db.GetTable(q, p)
     End Sub
 
-    ' Regresar al formulario de login
+    ' Regresar al formulario de login y registra en bitácora
     Private Sub BtnRegresar_Click(sender As Object, e As EventArgs) Handles BtnRegresar.Click
-        RegistrarBitacora(
-        accion:="LOGOUT",
-        tabla:="SEGURIDAD",
-        llave:=UsuarioActual,
-        descripcion:="Cierre de sesión.")
-        ' Limpiar variables globales
-        UsuarioActual = ""
-        RolActual = ""
-        Form1.Show()
         Me.Close()
     End Sub
 End Class

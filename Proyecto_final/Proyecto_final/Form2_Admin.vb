@@ -416,6 +416,23 @@ Public Class Form2_Admin
         f.ShowDialog()
     End Sub
 
+    ' Liquidar quincena
+    Private Sub BtnLiquidar_Click(sender As Object, e As EventArgs) Handles BtnLiquidar.Click
+        ' Pedir credenciales de ADMIN
+        Using frmLogin As New FormLogin("ADMIN", True)  ' rolForzado = "ADMIN", soloValidar = True
+            Dim r = frmLogin.ShowDialog(Me)
+
+            If r <> DialogResult.OK OrElse Not frmLogin.LoginOK Then
+                MessageBox.Show("Acceso denegado. Debe autenticarse como ADMIN.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        End Using
+
+        ' El ADMIN se autenticó correctamente
+        Dim f As New Form8_Liquidacion()
+        f.ShowDialog(Me)   ' o f.Show() si quieres que sea no modal
+    End Sub
+
     ' Navegar al formulario de bitácora
     Private Sub BtnBitacora_Click(sender As Object, e As EventArgs) Handles BtnBitacora.Click
         ' Pedir credenciales de ADMIN

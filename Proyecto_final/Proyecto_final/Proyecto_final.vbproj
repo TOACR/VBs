@@ -112,6 +112,12 @@
     <Compile Include="Form7_GestionConsumibles.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form8_Liquidacion.Designer.vb">
+      <DependentUpon>Form8_Liquidacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form8_Liquidacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormBitacora.Designer.vb">
       <DependentUpon>FormBitacora.vb</DependentUpon>
     </Compile>
@@ -175,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form7_GestionConsumibles.resx">
       <DependentUpon>Form7_GestionConsumibles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form8_Liquidacion.resx">
+      <DependentUpon>Form8_Liquidacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBitacora.resx">
       <DependentUpon>FormBitacora.vb</DependentUpon>
