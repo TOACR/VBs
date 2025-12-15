@@ -367,7 +367,7 @@ Partial Class Form2_Admin
         Me.BtnBitacora.Name = "BtnBitacora"
         Me.BtnBitacora.Size = New System.Drawing.Size(124, 37)
         Me.BtnBitacora.TabIndex = 68
-        Me.BtnBitacora.Text = "BITACORA"
+        Me.BtnBitacora.Text = "BITÁCORA"
         Me.BtnBitacora.UseVisualStyleBackColor = False
         '
         'Form2_Admin

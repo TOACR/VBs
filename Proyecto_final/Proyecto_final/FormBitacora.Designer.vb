@@ -26,36 +26,37 @@ Partial Class FormBitacora
         Me.DtpHasta = New System.Windows.Forms.DateTimePicker()
         Me.Lbldesde = New System.Windows.Forms.Label()
         Me.LblHasta = New System.Windows.Forms.Label()
-        Me.TxtUsuario = New System.Windows.Forms.TextBox()
         Me.LblUsuario = New System.Windows.Forms.Label()
-        Me.TxtTabla = New System.Windows.Forms.TextBox()
-        Me.LblTabla = New System.Windows.Forms.Label()
         Me.CboAccion = New System.Windows.Forms.ComboBox()
         Me.LblAcciones = New System.Windows.Forms.Label()
         Me.BtnBuscar = New System.Windows.Forms.Button()
         Me.BtnCerrar = New System.Windows.Forms.Button()
         Me.DgvBitacora = New System.Windows.Forms.DataGridView()
+        Me.CboUsuario = New System.Windows.Forms.ComboBox()
+        Me.LblGestionConsumibles = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         CType(Me.DgvBitacora, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DtpDesde
         '
-        Me.DtpDesde.Location = New System.Drawing.Point(135, 112)
+        Me.DtpDesde.Location = New System.Drawing.Point(264, 160)
         Me.DtpDesde.Name = "DtpDesde"
         Me.DtpDesde.Size = New System.Drawing.Size(200, 20)
-        Me.DtpDesde.TabIndex = 0
+        Me.DtpDesde.TabIndex = 2
         '
         'DtpHasta
         '
-        Me.DtpHasta.Location = New System.Drawing.Point(405, 112)
+        Me.DtpHasta.Location = New System.Drawing.Point(582, 160)
         Me.DtpHasta.Name = "DtpHasta"
         Me.DtpHasta.Size = New System.Drawing.Size(200, 20)
-        Me.DtpHasta.TabIndex = 1
+        Me.DtpHasta.TabIndex = 3
         '
         'Lbldesde
         '
         Me.Lbldesde.AutoSize = True
-        Me.Lbldesde.Location = New System.Drawing.Point(132, 96)
+        Me.Lbldesde.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Lbldesde.Location = New System.Drawing.Point(261, 144)
         Me.Lbldesde.Name = "Lbldesde"
         Me.Lbldesde.Size = New System.Drawing.Size(44, 13)
         Me.Lbldesde.TabIndex = 16
@@ -64,56 +65,36 @@ Partial Class FormBitacora
         'LblHasta
         '
         Me.LblHasta.AutoSize = True
-        Me.LblHasta.Location = New System.Drawing.Point(402, 96)
+        Me.LblHasta.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LblHasta.Location = New System.Drawing.Point(579, 144)
         Me.LblHasta.Name = "LblHasta"
         Me.LblHasta.Size = New System.Drawing.Size(43, 13)
         Me.LblHasta.TabIndex = 17
         Me.LblHasta.Text = "HASTA"
         '
-        'TxtUsuario
-        '
-        Me.TxtUsuario.Location = New System.Drawing.Point(135, 47)
-        Me.TxtUsuario.Name = "TxtUsuario"
-        Me.TxtUsuario.Size = New System.Drawing.Size(100, 20)
-        Me.TxtUsuario.TabIndex = 18
-        '
         'LblUsuario
         '
         Me.LblUsuario.AutoSize = True
-        Me.LblUsuario.Location = New System.Drawing.Point(132, 31)
+        Me.LblUsuario.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LblUsuario.Location = New System.Drawing.Point(340, 92)
         Me.LblUsuario.Name = "LblUsuario"
         Me.LblUsuario.Size = New System.Drawing.Size(56, 13)
         Me.LblUsuario.TabIndex = 19
         Me.LblUsuario.Text = "USUARIO"
         '
-        'TxtTabla
-        '
-        Me.TxtTabla.Location = New System.Drawing.Point(314, 47)
-        Me.TxtTabla.Name = "TxtTabla"
-        Me.TxtTabla.Size = New System.Drawing.Size(100, 20)
-        Me.TxtTabla.TabIndex = 20
-        '
-        'LblTabla
-        '
-        Me.LblTabla.AutoSize = True
-        Me.LblTabla.Location = New System.Drawing.Point(311, 31)
-        Me.LblTabla.Name = "LblTabla"
-        Me.LblTabla.Size = New System.Drawing.Size(41, 13)
-        Me.LblTabla.TabIndex = 21
-        Me.LblTabla.Text = "TABLA"
-        '
         'CboAccion
         '
         Me.CboAccion.FormattingEnabled = True
-        Me.CboAccion.Location = New System.Drawing.Point(486, 47)
+        Me.CboAccion.Location = New System.Drawing.Point(582, 108)
         Me.CboAccion.Name = "CboAccion"
         Me.CboAccion.Size = New System.Drawing.Size(121, 21)
-        Me.CboAccion.TabIndex = 22
+        Me.CboAccion.TabIndex = 1
         '
         'LblAcciones
         '
         Me.LblAcciones.AutoSize = True
-        Me.LblAcciones.Location = New System.Drawing.Point(483, 31)
+        Me.LblAcciones.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LblAcciones.Location = New System.Drawing.Point(579, 92)
         Me.LblAcciones.Name = "LblAcciones"
         Me.LblAcciones.Size = New System.Drawing.Size(61, 13)
         Me.LblAcciones.TabIndex = 23
@@ -121,48 +102,80 @@ Partial Class FormBitacora
         '
         'BtnBuscar
         '
-        Me.BtnBuscar.Location = New System.Drawing.Point(327, 158)
+        Me.BtnBuscar.BackColor = System.Drawing.Color.DarkSeaGreen
+        Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnBuscar.Location = New System.Drawing.Point(462, 197)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(118, 34)
-        Me.BtnBuscar.TabIndex = 24
+        Me.BtnBuscar.TabIndex = 4
         Me.BtnBuscar.Text = "BUSCAR"
-        Me.BtnBuscar.UseVisualStyleBackColor = True
+        Me.BtnBuscar.UseVisualStyleBackColor = False
         '
         'BtnCerrar
         '
-        Me.BtnCerrar.Location = New System.Drawing.Point(670, 404)
+        Me.BtnCerrar.BackColor = System.Drawing.Color.LightCoral
+        Me.BtnCerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCerrar.Location = New System.Drawing.Point(910, 404)
         Me.BtnCerrar.Name = "BtnCerrar"
         Me.BtnCerrar.Size = New System.Drawing.Size(118, 34)
-        Me.BtnCerrar.TabIndex = 25
+        Me.BtnCerrar.TabIndex = 5
         Me.BtnCerrar.Text = "CERRAR"
-        Me.BtnCerrar.UseVisualStyleBackColor = True
+        Me.BtnCerrar.UseVisualStyleBackColor = False
         '
         'DgvBitacora
         '
         Me.DgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBitacora.Location = New System.Drawing.Point(74, 211)
+        Me.DgvBitacora.Location = New System.Drawing.Point(25, 237)
         Me.DgvBitacora.Name = "DgvBitacora"
-        Me.DgvBitacora.Size = New System.Drawing.Size(648, 149)
+        Me.DgvBitacora.Size = New System.Drawing.Size(1003, 161)
         Me.DgvBitacora.TabIndex = 26
+        '
+        'CboUsuario
+        '
+        Me.CboUsuario.FormattingEnabled = True
+        Me.CboUsuario.Location = New System.Drawing.Point(343, 108)
+        Me.CboUsuario.Name = "CboUsuario"
+        Me.CboUsuario.Size = New System.Drawing.Size(121, 21)
+        Me.CboUsuario.TabIndex = 0
+        '
+        'LblGestionConsumibles
+        '
+        Me.LblGestionConsumibles.AutoSize = True
+        Me.LblGestionConsumibles.Font = New System.Drawing.Font("Arial Rounded MT Bold", 24.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblGestionConsumibles.ForeColor = System.Drawing.Color.Black
+        Me.LblGestionConsumibles.Location = New System.Drawing.Point(307, 23)
+        Me.LblGestionConsumibles.Name = "LblGestionConsumibles"
+        Me.LblGestionConsumibles.Size = New System.Drawing.Size(429, 37)
+        Me.LblGestionConsumibles.TabIndex = 28
+        Me.LblGestionConsumibles.Text = "CONSULTA DE BITÁCORA"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.GroupBox1.Location = New System.Drawing.Point(243, 73)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(584, 118)
+        Me.GroupBox1.TabIndex = 29
+        Me.GroupBox1.TabStop = False
         '
         'FormBitacora
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1049, 450)
+        Me.Controls.Add(Me.LblGestionConsumibles)
+        Me.Controls.Add(Me.CboUsuario)
         Me.Controls.Add(Me.DgvBitacora)
         Me.Controls.Add(Me.BtnCerrar)
         Me.Controls.Add(Me.BtnBuscar)
         Me.Controls.Add(Me.LblAcciones)
         Me.Controls.Add(Me.CboAccion)
-        Me.Controls.Add(Me.LblTabla)
-        Me.Controls.Add(Me.TxtTabla)
         Me.Controls.Add(Me.LblUsuario)
-        Me.Controls.Add(Me.TxtUsuario)
         Me.Controls.Add(Me.LblHasta)
         Me.Controls.Add(Me.Lbldesde)
         Me.Controls.Add(Me.DtpHasta)
         Me.Controls.Add(Me.DtpDesde)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormBitacora"
         Me.Text = "FormBitacora"
         CType(Me.DgvBitacora, System.ComponentModel.ISupportInitialize).EndInit()
@@ -175,13 +188,13 @@ Partial Class FormBitacora
     Friend WithEvents DtpHasta As DateTimePicker
     Friend WithEvents Lbldesde As Label
     Friend WithEvents LblHasta As Label
-    Friend WithEvents TxtUsuario As TextBox
     Friend WithEvents LblUsuario As Label
-    Friend WithEvents TxtTabla As TextBox
-    Friend WithEvents LblTabla As Label
     Friend WithEvents CboAccion As ComboBox
     Friend WithEvents LblAcciones As Label
     Friend WithEvents BtnBuscar As Button
     Friend WithEvents BtnCerrar As Button
     Friend WithEvents DgvBitacora As DataGridView
+    Friend WithEvents CboUsuario As ComboBox
+    Friend WithEvents LblGestionConsumibles As Label
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

@@ -39,6 +39,10 @@ Partial Class Form4_Consultas
         Me.Lbltotal_consumos = New System.Windows.Forms.Label()
         Me.LblAgregar = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.BtnAplicarRango = New System.Windows.Forms.Button()
+        Me.CboRangoRapido = New System.Windows.Forms.ComboBox()
+        Me.BtnUltimoMes = New System.Windows.Forms.Button()
+        Me.BtnMostrarMovs = New System.Windows.Forms.Button()
         CType(Me.DgvResultado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -96,31 +100,31 @@ Partial Class Form4_Consultas
         '
         Me.BtnBuscar.BackColor = System.Drawing.Color.Turquoise
         Me.BtnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnBuscar.Location = New System.Drawing.Point(332, 65)
+        Me.BtnBuscar.Location = New System.Drawing.Point(591, 94)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(88, 39)
         Me.BtnBuscar.TabIndex = 6
-        Me.BtnBuscar.Text = "BUSCAR"
+        Me.BtnBuscar.Text = "CALCULAR"
         Me.BtnBuscar.UseVisualStyleBackColor = False
         '
         'DgvResultado
         '
         Me.DgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvResultado.Location = New System.Drawing.Point(69, 198)
+        Me.DgvResultado.Location = New System.Drawing.Point(28, 249)
         Me.DgvResultado.Name = "DgvResultado"
-        Me.DgvResultado.Size = New System.Drawing.Size(661, 132)
+        Me.DgvResultado.Size = New System.Drawing.Size(739, 132)
         Me.DgvResultado.TabIndex = 7
         '
         'LblTotalConsumibles
         '
-        Me.LblTotalConsumibles.Location = New System.Drawing.Point(77, 361)
+        Me.LblTotalConsumibles.Location = New System.Drawing.Point(77, 413)
         Me.LblTotalConsumibles.Name = "LblTotalConsumibles"
         Me.LblTotalConsumibles.Size = New System.Drawing.Size(164, 20)
         Me.LblTotalConsumibles.TabIndex = 8
         '
         'LblTotalAdelantos
         '
-        Me.LblTotalAdelantos.Location = New System.Drawing.Point(77, 418)
+        Me.LblTotalAdelantos.Location = New System.Drawing.Point(77, 461)
         Me.LblTotalAdelantos.Name = "LblTotalAdelantos"
         Me.LblTotalAdelantos.Size = New System.Drawing.Size(164, 20)
         Me.LblTotalAdelantos.TabIndex = 9
@@ -128,7 +132,7 @@ Partial Class Form4_Consultas
         'Lblcosumibles
         '
         Me.Lblcosumibles.AutoSize = True
-        Me.Lblcosumibles.Location = New System.Drawing.Point(74, 345)
+        Me.Lblcosumibles.Location = New System.Drawing.Point(74, 397)
         Me.Lblcosumibles.Name = "Lblcosumibles"
         Me.Lblcosumibles.Size = New System.Drawing.Size(84, 13)
         Me.Lblcosumibles.TabIndex = 10
@@ -137,7 +141,7 @@ Partial Class Form4_Consultas
         'Lblvales
         '
         Me.Lblvales.AutoSize = True
-        Me.Lblvales.Location = New System.Drawing.Point(74, 399)
+        Me.Lblvales.Location = New System.Drawing.Point(74, 445)
         Me.Lblvales.Name = "Lblvales"
         Me.Lblvales.Size = New System.Drawing.Size(41, 13)
         Me.Lblvales.TabIndex = 11
@@ -147,7 +151,7 @@ Partial Class Form4_Consultas
         '
         Me.BtnRegresar.BackColor = System.Drawing.Color.Lime
         Me.BtnRegresar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnRegresar.Location = New System.Drawing.Point(677, 390)
+        Me.BtnRegresar.Location = New System.Drawing.Point(687, 448)
         Me.BtnRegresar.Name = "BtnRegresar"
         Me.BtnRegresar.Size = New System.Drawing.Size(91, 33)
         Me.BtnRegresar.TabIndex = 12
@@ -157,7 +161,7 @@ Partial Class Form4_Consultas
         'LblTotalConsumos
         '
         Me.LblTotalConsumos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblTotalConsumos.Location = New System.Drawing.Point(337, 390)
+        Me.LblTotalConsumos.Location = New System.Drawing.Point(337, 459)
         Me.LblTotalConsumos.Name = "LblTotalConsumos"
         Me.LblTotalConsumos.Size = New System.Drawing.Size(231, 22)
         Me.LblTotalConsumos.TabIndex = 13
@@ -166,7 +170,7 @@ Partial Class Form4_Consultas
         '
         Me.Lbltotal_consumos.AutoSize = True
         Me.Lbltotal_consumos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbltotal_consumos.Location = New System.Drawing.Point(333, 356)
+        Me.Lbltotal_consumos.Location = New System.Drawing.Point(333, 413)
         Me.Lbltotal_consumos.Name = "Lbltotal_consumos"
         Me.Lbltotal_consumos.Size = New System.Drawing.Size(235, 24)
         Me.Lbltotal_consumos.TabIndex = 14
@@ -186,6 +190,10 @@ Partial Class Form4_Consultas
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.GroupBox1.Controls.Add(Me.BtnAplicarRango)
+        Me.GroupBox1.Controls.Add(Me.CboRangoRapido)
+        Me.GroupBox1.Controls.Add(Me.BtnUltimoMes)
+        Me.GroupBox1.Controls.Add(Me.BtnMostrarMovs)
         Me.GroupBox1.Controls.Add(Me.BtnBuscar)
         Me.GroupBox1.Controls.Add(Me.Lblhasta)
         Me.GroupBox1.Controls.Add(Me.Lbldesde)
@@ -195,15 +203,59 @@ Partial Class Form4_Consultas
         Me.GroupBox1.Controls.Add(Me.Lblfuncionario)
         Me.GroupBox1.Location = New System.Drawing.Point(28, 68)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(739, 117)
+        Me.GroupBox1.Size = New System.Drawing.Size(739, 159)
         Me.GroupBox1.TabIndex = 23
         Me.GroupBox1.TabStop = False
+        '
+        'BtnAplicarRango
+        '
+        Me.BtnAplicarRango.BackColor = System.Drawing.Color.CornflowerBlue
+        Me.BtnAplicarRango.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnAplicarRango.ForeColor = System.Drawing.Color.White
+        Me.BtnAplicarRango.Location = New System.Drawing.Point(415, 122)
+        Me.BtnAplicarRango.Name = "BtnAplicarRango"
+        Me.BtnAplicarRango.Size = New System.Drawing.Size(111, 31)
+        Me.BtnAplicarRango.TabIndex = 26
+        Me.BtnAplicarRango.Text = "POR RANGO"
+        Me.BtnAplicarRango.UseVisualStyleBackColor = False
+        '
+        'CboRangoRapido
+        '
+        Me.CboRangoRapido.FormattingEnabled = True
+        Me.CboRangoRapido.Location = New System.Drawing.Point(415, 95)
+        Me.CboRangoRapido.Name = "CboRangoRapido"
+        Me.CboRangoRapido.Size = New System.Drawing.Size(111, 21)
+        Me.CboRangoRapido.TabIndex = 25
+        '
+        'BtnUltimoMes
+        '
+        Me.BtnUltimoMes.BackColor = System.Drawing.Color.Green
+        Me.BtnUltimoMes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUltimoMes.ForeColor = System.Drawing.Color.White
+        Me.BtnUltimoMes.Location = New System.Drawing.Point(235, 95)
+        Me.BtnUltimoMes.Name = "BtnUltimoMes"
+        Me.BtnUltimoMes.Size = New System.Drawing.Size(100, 36)
+        Me.BtnUltimoMes.TabIndex = 23
+        Me.BtnUltimoMes.Text = "ÚLTIMO MES"
+        Me.BtnUltimoMes.UseVisualStyleBackColor = False
+        '
+        'BtnMostrarMovs
+        '
+        Me.BtnMostrarMovs.BackColor = System.Drawing.Color.RosyBrown
+        Me.BtnMostrarMovs.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnMostrarMovs.ForeColor = System.Drawing.Color.White
+        Me.BtnMostrarMovs.Location = New System.Drawing.Point(79, 95)
+        Me.BtnMostrarMovs.Name = "BtnMostrarMovs"
+        Me.BtnMostrarMovs.Size = New System.Drawing.Size(102, 36)
+        Me.BtnMostrarMovs.TabIndex = 22
+        Me.BtnMostrarMovs.Text = "TODOS LOS MOVIMIENTOS"
+        Me.BtnMostrarMovs.UseVisualStyleBackColor = False
         '
         'Form4_Consultas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 493)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.LblAgregar)
         Me.Controls.Add(Me.Lbltotal_consumos)
@@ -241,4 +293,8 @@ Partial Class Form4_Consultas
     Friend WithEvents Lbltotal_consumos As Label
     Friend WithEvents LblAgregar As Label
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents BtnMostrarMovs As Button
+    Friend WithEvents BtnUltimoMes As Button
+    Friend WithEvents CboRangoRapido As ComboBox
+    Friend WithEvents BtnAplicarRango As Button
 End Class

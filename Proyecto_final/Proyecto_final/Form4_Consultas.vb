@@ -11,7 +11,77 @@ Public Class Form4_Consultas
         Me.AcceptButton = BtnBuscar
         DtpDesde.Value = New Date(Now.Year, Now.Month, 1)
         DtpHasta.Value = Date.Today
+        CboRangoRapido.DropDownStyle = ComboBoxStyle.DropDownList
+        CboRangoRapido.Items.Clear()
+        CboRangoRapido.Items.Add("1 mes")
+        CboRangoRapido.Items.Add("3 meses")
+        CboRangoRapido.Items.Add("6 meses")
+        CboRangoRapido.Items.Add("12 meses")
+        CboRangoRapido.SelectedIndex = 0
         LimpiarControles(Me)
+    End Sub
+    ' Mostrar movimientos según el rango de fechas seleccionado
+    Private Sub BtnMostrarMovs_Click(sender As Object, e As EventArgs) Handles BtnMostrarMovs.Click
+            Dim funcId As Integer = If(CboFuncionario.SelectedIndex >= 0, CInt(CboFuncionario.SelectedValue), -1)
+
+            Dim desde As Date = DtpDesde.Value.Date
+            Dim hasta As Date = DtpHasta.Value.Date
+
+            If desde > hasta Then
+                MessageBox.Show("Rango de fechas inválido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit Sub
+            End If
+
+        ' Query para obtener consumos y adelantos
+        Dim q As String = "SELECT 'Consumo' AS Tipo, c.Fecha, co.Nombre AS Detalle, c.Cantidad, c.PrecioUnitario, c.MontoTotal,
+                CASE WHEN c.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+            FROM Consumo c INNER JOIN Consumible co ON co.ConsumibleId = c.ConsumibleId
+            WHERE (@f = -1 OR c.FuncionarioId = @f)
+              AND CAST(c.Fecha AS date) BETWEEN @d AND @h
+
+            UNION ALL
+
+            SELECT 'Adelanto' AS Tipo, a.Fecha, 'Adelanto' AS Detalle, NULL AS Cantidad, NULL AS PrecioUnitario, a.Monto AS MontoTotal,
+                CASE WHEN a.Liquidado = 1 THEN 'Liquidado' ELSE 'Pendiente' END AS Estado
+            FROM Adelanto a
+            WHERE (@f = -1 OR a.FuncionarioId = @f)
+              AND CAST(a.Fecha AS date) BETWEEN @d AND @h
+
+            ORDER BY Fecha DESC;"
+
+        Dim p As New List(Of SqlClient.SqlParameter) From {
+            New SqlClient.SqlParameter("@f", funcId),
+            New SqlClient.SqlParameter("@d", desde),
+            New SqlClient.SqlParameter("@h", hasta)}
+
+        ' Mostrar resultados en DgvResultado
+        DgvResultado.DataSource = Db.GetTable(q, p)
+        End Sub
+
+        ' Mostrar los movimientos de los últimos 30 días (opcional)
+        Private Sub BtnUltimoMes_Click(sender As Object, e As EventArgs) Handles BtnUltimoMes.Click
+            DtpHasta.Value = Date.Today
+            DtpDesde.Value = Date.Today.AddMonths(-1)
+            BtnMostrarMovs.PerformClick() ' Llamar al botón para mostrar movimientos
+        End Sub
+
+    ' Aplicar rangos rápidos (1 mes, 3 meses, 6 meses, 1 año)
+    Private Sub BtnAplicarRango_Click(sender As Object, e As EventArgs) Handles BtnAplicarRango.Click
+        Dim meses As Integer = 0
+
+        Select Case CboRangoRapido.Text
+            Case "1 mes" : meses = 1
+            Case "3 meses" : meses = 3
+            Case "6 meses" : meses = 6
+            Case "12 meses" : meses = 12
+            Case Else
+                MessageBox.Show("Seleccione un rango.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit Sub
+        End Select
+
+        DtpHasta.Value = Date.Today
+        DtpDesde.Value = Date.Today.AddMonths(-meses)
+        BtnMostrarMovs.PerformClick() ' Llamar al botón para mostrar movimientos
     End Sub
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
         Dim fId = CInt(CboFuncionario.SelectedValue)
