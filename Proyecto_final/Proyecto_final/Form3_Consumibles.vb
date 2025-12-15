@@ -68,6 +68,11 @@ Public Class Form3_Consumibles
         Dim funcId = CInt(CboFuncionario.SelectedValue)
         Dim consId = CInt(CboConsumible.SelectedValue)
 
+        Dim consName As String = CStr(Db.ExecScalar(
+        "SELECT Nombre FROM Consumible WHERE ConsumibleId=@id",
+        New List(Of SqlParameter) From {New SqlParameter("@id", consId)}))
+
+
         Dim precio As Decimal
         If Not Decimal.TryParse(TxtPrecio.Text, precio) Then
             MessageBox.Show("Precio inválido.")
@@ -100,7 +105,7 @@ Public Class Form3_Consumibles
         accion:="INSERT",
         tabla:="CONSUMO",
         llave:=UsuarioActual,
-        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, Funcionario='{funcName}', ConsumibleId={consId}, Cantidad={cant}, PrecioUnitario={precio}")
+        descripcion:=$"Se registró consumo. FuncionarioId={funcId}, Funcionario='{funcName}', ConsumibleId={consId}, Consumible='{consName}',Cantidad={cant}, PrecioUnitario={precio}")
 
         ' Refrescar tabla
         RefrescarMovs()
